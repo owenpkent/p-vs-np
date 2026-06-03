@@ -17,8 +17,8 @@ What is actually true (corrected 2026-06-03 from the survey/fact-check pass):
     2018) gives the ACC-of-THR SAT/evaluation algorithm, and Murray-Williams 2018
     ("An Easy Witness Lemma for NP and NQP", STOC 2018) feeds it through a new
     easy-witness lemma to get NQP not in n^(log^k n)-size ACC of THR, upgraded to
-    average-case (Chen, FOCS 2019) and almost-everywhere (Chen-Lyu-Williams,
-    ~FOCS 2020; exact venue/year to be confirmed).
+    average-case (Chen, FOCS 2019, ECCC TR19-031) and almost-everywhere
+    (Chen-Lyu-Williams, FOCS 2020, ECCC TR20-150).
 
   - The polynomial method does NOT die at threshold gates. It uses PROBABILISTIC
     degree, not worst-case approximate degree. MAJORITY's probabilistic degree to

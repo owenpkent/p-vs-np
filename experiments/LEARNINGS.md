@@ -194,7 +194,7 @@ The Williams-method and approximate-degree reading establishes three things. Fir
 the algorithmic-method spine is barrier-clean and the first rung past $\mathsf{ACC}^0$
 is already taken: Murray-Williams 2018 gives NQP lower bounds against ACC of THR
 (one bottom threshold layer), upgraded to almost-everywhere and average-case by
-Chen-Lyu-Williams 2020 (venue/year flagged needs-citation). Second, the threshold
+Chen-Lyu-Williams 2020 (FOCS 2020, ECCC TR20-150). Second, the threshold
 obstruction has two DISTINCT sides that finding 20 separates (correcting this
 finding's "wall confirmed two ways" framing into "two sides of a hinge"): (a) on the
 lower-bound/CORRELATION side, MAJORITY needs approximate degree $\Theta(n)$ (no

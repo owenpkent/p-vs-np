@@ -1,7 +1,8 @@
 # The TC0-SAT Hinge, Grounded
 
 Status: research note. Integrates a BUILDER synthesis, an ADVERSARY audit, and a
-final fact-check pass against primary sources (multi-agent run, 2026-06-03).
+final fact-check pass against primary sources (multi-agent run, 2026-06-03). Residual
+citations were web-confirmed by a follow-up pass the same day (see section 8).
 Supersedes the "polynomial method dies at threshold gates" framing in
 [`2050_backward_induction.md`](2050_backward_induction.md) (the threshold-hinge
 paragraph and appendix A2) and the conflation in
@@ -69,17 +70,22 @@ the depth-2 result. The depth-3 statement in that paper is a MAJORITY upper boun
 (Andreev's function in $O(n)$ majority gates), not a depth-3 $n^{5/2}$ wire lower
 bound.
 
-Citations marked needs-citation (training knowledge only, not web-confirmed this
-pass): the average-case ACC-of-THR upgrade (Chen, plausibly FOCS 2019) and the
-almost-everywhere upgrade (Chen-Lyu-Williams, "Almost-Everywhere Circuit Lower Bounds
-from Non-Trivial Derandomization", plausibly FOCS 2020); Chen-Santhanam-Srinivasan
-(CCC 2016) on low-wire depth-$d$ threshold SAT and average-case correlation;
-Bajpai-Krishan-Kush-Limaye-Srinivasan (ITCS 2019) on near-linear $k$-PTF #SAT;
-Chen-Tell (STOC 2019) on the $n^{1+c^{-d}}$ wire bootstrapping with $c \approx 2.41$
-giving $\mathsf{TC}^0 \neq \mathsf{NC}^1$; and the exact Theorem 1.1 parameters of
-Chen 2018 (arXiv:1805.10698; paper existence and title "Toward Super-Polynomial Size
-Lower Bounds for Depth-Two Threshold Circuits" are confirmed, the precise problem
-list and "shave all polylog factors" bar are not re-fetched).
+Citation status (updated by the 2026-06-03 residual-citation pass, all web-confirmed
+unless noted; full identifiers in section 8). The average-case ACC-of-THR upgrade is
+Chen, "Non-deterministic Quasi-Polynomial Time is Average-case Hard for ACC Circuits",
+FOCS 2019 (ECCC TR19-031), giving $\mathsf{NQP}$ not $(1/2 + 1/\log^c n)$-approximable
+by poly-size ACC0, extended to $2^{\log^a n}$-size ACC0-of-THR. The almost-everywhere
+upgrade is Chen-Lyu-Williams, "Almost-Everywhere Circuit Lower Bounds from Non-Trivial
+Derandomization", FOCS 2020 (ECCC TR20-150), giving $\mathsf{E}^{\mathsf{NP}}$ not
+$(1/2 + 2^{-n^\varepsilon})$-approximable by $2^{n^\varepsilon}$-size ACC0 a.e.,
+extended to AC0[m]-of-THR (Corollary 1.3, via the Williams 2014 #SAT algorithm). These
+are two DISTINCT regimes and must not be conflated: Chen 2019 is infinitely-often,
+quasi-polynomial size, inverse-polylog correlation; CLW 2020 is almost-everywhere,
+exponential size, $2^{-n^\varepsilon}$ correlation. Chen-Santhanam-Srinivasan,
+Bajpai et al, Chen-Tell, and the Chen 2018 Theorem 1.1 parameters are now confirmed
+too (section 8). The one item still open: whether Chen 2018 (arXiv:1805.10698) ever
+appeared in a peer-reviewed venue (it appears to be an unpublished preprint; DBLP was
+unreachable during the check).
 
 ## 3. Solved versus open: the boundary is the SECOND threshold layer once the circuit is dense
 
@@ -120,10 +126,15 @@ Two equivalent bars:
    $2^n \cdot \mathrm{poly}$ suffices to fire $\mathsf{NEXP} \not\subseteq
    \mathsf{P/poly}$ through the connection; the ACC and ACW algorithms hit the
    stronger $2^{n - n^\varepsilon}$.
-2. **Geometry form.** An $n^2 \cdot \mathrm{poly}(d) / \log^{\omega(1)} n$ algorithm
-   (shave ALL polylog factors) for a polylog-dimension closest/furthest-pair problem
-   ($\ell_2$-Furthest-Pair, Bichromatic-Closest-Pair, Hopcroft, or Max-IP), per
-   Chen 2018 (Thm 1.1, medium confidence pending citation check).
+2. **Geometry form.** An $n^2 \cdot \mathrm{poly}(d) / \log^{\omega(1)} n$ time
+   deterministic algorithm in polylogarithmic dimension $d$ for ANY of: Hopcroft's
+   problem / integer Orthogonal-Vectors $Z\text{-}\mathrm{OV}_{n,d}$,
+   $\ell_2$-Furthest-Pair, exact Bichromatic-$\ell_2$-Closest-Pair, or Max-IP, per
+   Chen 2018 (Thm 1.1, web-confirmed verbatim 2026-06-03). Caveat: the APPROXIMATE
+   Bichromatic-Closest-Pair and Boolean Max-IP give only the weaker SYM-of-THR
+   conclusion (Thm 1.2); the exact problems above give THR-of-THR. The reduction runs
+   through two threshold-circuit structure lemmas (Chen 2018 Lemmas 1.6-1.7: every
+   THR-of-THR is a Gap-OR of THR-of-MAJ).
 
 Either yields $\mathsf{NEXP} \not\subseteq$ poly-size THR of THR.
 
@@ -184,9 +195,13 @@ proof object cleared the barriers.
   constraint.** The probabilistic-polynomial method is non-natural the Williams 2013
   way, dropping largeness not constructivity (LEARNINGS finding 13). BUT ACW 2016
   warn that their richest threshold class "seems likely" to support pseudorandom
-  function candidates (specific sentence attribution needs-citation; the underlying
-  concern that poly-size $\mathsf{TC}^0$ plausibly computes PRFs, Naor-Reingold
-  style, is well established). If dense poly-size $\mathsf{TC}^0$ supports strong
+  function candidates (located 2026-06-03: arXiv:1608.04355, Section 1, page 5, the
+  paragraph after Theorem 1.9, "It would not be surprising ... it seems likely that
+  ..."; the underlying concern that poly-size $\mathsf{TC}^0$ computes PRFs is well
+  established, e.g. Naor-Reingold PRFs in $\mathsf{TC}^0$, JACM 2004). Chen-Tell 2019
+  independently flag the same collision: proving $n^{1+O(1/d)}$-wire TC0 bounds may
+  require non-natural proofs, since Miles-Viola 2015 give a candidate PRF in depth-$d$
+  $\mathsf{TC}^0$ with $n^{1+O(1/d)}$ wires. If dense poly-size $\mathsf{TC}^0$ supports strong
   PRFs, no natural property separates against it, and any constructive lower-bound
   method there collides with Razborov-Rudich. This is not yet evaded. It sits exactly
   where the target wants to reach, so natural-proofs evasion is a co-equal open
@@ -220,9 +235,11 @@ There IS a real cluster of objects in the neighborhood: sign-rank / dimension
 complexity, margin complexity, threshold weight, the unbounded-error communication
 measure UPP. These carry genuine exponential lower bounds for RESTRICTED depth-2
 threshold (Forster 2001 for THR-of-MAJ; Razborov-Sherstov 2010 for sign-rank of
-AC0). But sign-rank PROVABLY cannot crack general THR of THR: there is a function
-with linear-size THR-of-THR circuits yet exponential sign-rank, so any hoped-for
-object must go strictly beyond sign-rank. The real, citable frontier objects are
+AC0). But sign-rank PROVABLY cannot crack general THR of THR: Chattopadhyay-Mande
+("Weights at the Bottom Matter When the Top is Heavy", ECCC TR17-083 /
+arXiv:1705.02397) exhibit a function with LINEAR-size THR-of-THR circuits yet
+sign-rank $2^{\Omega(n^{1/4})}$, so any hoped-for object must go strictly beyond
+sign-rank. The real, citable frontier objects are
 therefore (a) a dense depth-2 LTF-of-LTF SAT/CAPP speedup (open; sparse case solved
 by IPS 2013) and (b) the equivalent log-shaving geometry algorithm of Chen 2018. The
 fix: drop the placeholder as if it named a known candidate; re-point the object at
@@ -271,28 +288,60 @@ barrier has been independently cleared.
   to a polylog-dimension geometry log-shave. Title VERIFIED; exact Thm 1.1 parameters
   needs-citation.
 
-needs-citation (training knowledge only): Chen (avg-case ACC-of-THR, plausibly
-FOCS 2019); Chen-Lyu-Williams ("Almost-Everywhere Circuit Lower Bounds from
-Non-Trivial Derandomization", plausibly FOCS 2020); Chen-Santhanam-Srinivasan
-(CCC 2016); Bajpai-Krishan-Kush-Limaye-Srinivasan (ITCS 2019); Chen-Tell (STOC 2019,
-$c \approx 2.41$); Razborov-Sherstov (sign-rank of AC0, 2010); the ACW "seems likely
-supports PRFs" sentence.
+Confirmed by the 2026-06-03 residual-citation pass (web-grounded, with identifiers):
+
+- L. Chen. "Non-deterministic Quasi-Polynomial Time is Average-case Hard for ACC
+  Circuits." FOCS 2019, ECCC TR19-031; SICOMP 54(4) 2025, DOI 10.1137/20M1321231.
+  $\mathsf{NQP}$ not $(1/2 + 1/\log^c n)$-approximable by poly-size ACC0; extends to
+  $2^{\log^a n}$-size ACC0-of-THR (infinitely-often, quasi-poly size).
+- L. Chen, X. Lyu, R. Williams. "Almost-Everywhere Circuit Lower Bounds from
+  Non-Trivial Derandomization." FOCS 2020, ECCC TR20-150.
+  $\mathsf{E}^{\mathsf{NP}}$ a.e. not $(1/2 + 2^{-n^\varepsilon})$-approximable by
+  $2^{n^\varepsilon}$-size ACC0; Cor 1.3 extends to AC0[m]-of-THR.
+- R. Chen, R. Santhanam, S. Srinivasan. "Average-Case Lower Bounds and Satisfiability
+  Algorithms for Small Threshold Circuits." CCC 2016, DOI 10.4230/LIPIcs.CCC.2016.1;
+  Theory of Computing 14:9 (2018); arXiv:1806.06290. Depth-$d$ threshold,
+  $\le n^{1+\varepsilon_d}$ wires; SAT beating brute force for depth $> 2$; Parity
+  correlation $n^{-\varepsilon_d}$, Generalized Andreev $\exp(-n^{\varepsilon_d})$.
+- S. Bajpai, V. Krishan, D. Kush, N. Limaye, S. Srinivasan. "A #SAT Algorithm for
+  Small Constant-Depth Circuits with PTF Gates." ITCS 2019,
+  DOI 10.4230/LIPIcs.ITCS.2019.8; ECCC TR18-162; arXiv:1809.05932. Depth-$d$
+  $k$-PTF, size $\le n^{1+\varepsilon}$, zero-error randomized #SAT in
+  $2^{n - n^{\Omega(\varepsilon)}}$.
+- L. Chen, R. Tell. "Bootstrapping Results for Threshold Circuits 'Just Beyond' Known
+  Lower Bounds." STOC 2019, DOI 10.1145/3313276.3316333; ECCC TR18-199.
+  $n^{1+c^{-d}}$-wire bootstrapping with $c = 1 + \sqrt{2} \approx 2.41$ (the
+  Impagliazzo-Paturi-Saks 1997 parity bound, too large to give new bounds); shaving
+  $c$ for all large $d$ gives $\mathsf{TC}^0 \neq \mathsf{NC}^1$, and a $c = 1.61$
+  derandomization gives $\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$. The paper itself
+  flags the natural-proofs collision via Miles-Viola 2015.
+- A. Razborov, A. Sherstov. "The Sign-Rank of $\mathsf{AC}^0$." SICOMP 39(5):1833-1855
+  (2010), DOI 10.1137/080744037; FOCS 2008, pp. 57-66. First exponential sign-rank
+  lower bound for a function in AC0.
+- A. Chattopadhyay, N. Mande. "Weights at the Bottom Matter When the Top is Heavy."
+  ECCC TR17-083; arXiv:1705.02397. A linear-size THR-of-THR function with sign-rank
+  $2^{\Omega(n^{1/4})}$: sign-rank alone cannot prove THR-of-THR lower bounds.
+- M. Naor, O. Reingold. "Number-theoretic constructions of efficient pseudo-random
+  functions." FOCS 1997 / JACM 51(2) (2004), DOI 10.1145/972639.972643. PRFs
+  computable in $\mathsf{TC}^0$.
+
+Still open: whether Chen 2018 (arXiv:1805.10698) appeared in a peer-reviewed venue
+(it appears to be an unpublished preprint; DBLP was unreachable during the check).
 
 ## 9. Residual uncertainties for human review
 
-These survived the fact-check as needs-citation or uncertain and should be confirmed
-by a human expert before any of them is treated as settled:
+The 2026-06-03 citation pass resolved every previously-flagged lookup (venues, years,
+identifiers, and theorem parameters for Chen 2019, Chen-Lyu-Williams 2020,
+Chen-Santhanam-Srinivasan, Bajpai et al, Chen-Tell, Razborov-Sherstov, the ACW PRF
+remark, and Chen 2018 Theorem 1.1; see section 8). What remains is genuinely open
+(not a lookup) and should be resolved by a human expert:
 
-- Venue/year of the average-case (Chen) and almost-everywhere (Chen-Lyu-Williams)
-  ACC-of-THR upgrades.
-- The exact Theorem 1.1 statement of Chen 2018 (which geometry problems, the precise
-  log-shaving bar).
-- Exact parameters and venues of Chen-Santhanam-Srinivasan, Bajpai et al, and
-  Chen-Tell ($c \approx 2.41$).
-- The exact ACW "seems likely supports PRFs" sentence (the underlying
-  TC0-computes-PRFs concern is independently well established).
 - Whether the dual-polynomial / pattern-matrix LP method "algebrizes" in any
-  Aaronson-Wigderson sense (currently project inference, marked speculation).
-- Whether the "budget composition" heuristic can be made a theorem or refuted.
-- The Razborov-Sherstov 2010 sign-rank-of-AC0 citation and the exact statement of the
-  THR-of-THR-with-exponential-sign-rank separation used in section 7.
+  Aaronson-Wigderson sense. This is project inference, marked speculation; no
+  published statement to this effect was found. The defensible disqualifier for that
+  route is naturalness, not algebrization.
+- Whether the "budget composition" heuristic (stacking $\sqrt{n}$-degree probabilistic
+  polynomials over $\omega(1)$ dense layers pushes $2^{\text{total degree}}$ past
+  $2^n$) can be made a theorem or refuted. Currently a directional reading only.
+- Minor: whether Chen 2018 (arXiv:1805.10698) was ever published beyond arXiv (DBLP
+  was unreachable during the citation pass; it appears to be an unpublished preprint).
