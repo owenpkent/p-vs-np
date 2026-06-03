@@ -41,7 +41,7 @@ art and open cruxes" subsection in the matching research direction, and promote 
 to 3 grounded findings into `experiments/LEARNINGS.md`. Verify: links resolve,
 no dashes, claims trace to a cited note.
 
-- [ ] **P1a.** Meta-complexity notes -> `research_directions/02_natural_proofs_evasion.md` deepening + LEARNINGS (the leading path: proved non-constructivity of high $Kt$).
+- [x] **P1a.** Meta-complexity notes -> `research_directions/02_natural_proofs_evasion.md` deepening + LEARNINGS (the leading path: proved non-constructivity of high $Kt$).
 - [ ] **P1b.** Approximate-degree / Williams notes -> `research_directions/01_circuit_lower_bounds.md` deepening + LEARNINGS (the $\mathsf{TC}^0$ hinge, the algorithmic method toward TC0).
 - [ ] **P1c.** Algebraic-topology notes -> a new subsection (the strand-3 missing object, Bockstein / Steenrod) in `02` or a short note in the dossier's vicinity + LEARNINGS.
 - [ ] **P1d.** GCT, proof-complexity, and stat-physics notes -> `research_directions/04`, `03`, and the SAT-phase-transition writeup respectively + LEARNINGS.
@@ -85,3 +85,4 @@ progresses, or document precisely what blocks it.
 (The loop appends one dated line per completed task here.)
 
 - 2026-06-02: backlog seeded. Awaiting the reading-notes workflow before P1.
+- 2026-06-02: P1a done. Synthesized the 7 meta-complexity notes into a "state of the art" + "open cruxes" section in research direction 02 (M3 marked done), and promoted LEARNINGS finding 12 (meta-complexity is the leading path's engine, but non-black-box is not non-relativizing, so the non-relativizing content must come from the Williams spine).

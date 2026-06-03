@@ -157,3 +157,23 @@ Razborov-Smolensky low-degree polynomial method cannot reach threshold gates. Th
 docs were corrected on 2026-06-02. Methodological lesson: grounded reading against
 primary sources is the honesty mechanism that catches errors a confident summary
 would carry forward.
+
+### 12. Meta-complexity is the leading path's engine, but non-black-box is not non-relativizing.
+
+The meta-complexity reading pass establishes MCSP and time-bounded Kolmogorov
+complexity as a hub: a natural property IS a zero-error average-case algorithm for
+MCSP, and MCSP average-case hardness is equivalent to succinct pseudorandomness
+(Santhanam 2020); one-way functions exist iff $Kt$ is mildly average-case hard
+(Liu-Pass 2020) and, under $\mathsf{NP} \not\subseteq \text{i.o.}\mathsf{P/poly}$,
+iff approximating $K^{poly}$ is NP-hard (Hirahara 2023); restricted and partial
+MCSP variants are NP-hard non-relativizingly (Hirahara 2022). Finding: this is why
+meta-complexity is the dossier's leading path, it supplies a *proved* (not assumed)
+non-constructivity. But the load-bearing catch is that Hirahara's non-black-box
+worst-case-to-average-case reduction (2018) still *relativizes* (its Section 1.7),
+so non-black-box does not equal non-relativizing. Meta-complexity supplies the
+non-naturalness; the non-relativizing and non-algebrizing content must come from
+the Williams algorithm-to-lower-bound spine. This independently confirms the
+dossier's repair (graft meta-complexity onto the spine, do not let the arithmetizing
+W2A core be the barrier-clearing ingredient). Source: the meta-complexity
+[reading notes](../docs/03_research/reading_notes/meta_complexity/) and the
+deepened [research direction 02](../docs/03_research/research_directions/02_natural_proofs_evasion.md).
