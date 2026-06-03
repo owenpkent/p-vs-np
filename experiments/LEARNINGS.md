@@ -133,7 +133,14 @@ now operationalized in [`_shared/algebrization_probe.py`](_shared/algebrization_
 which classifies a proposed invariant as "algebrizes" (characteristic-0
 trace/rank/volume functional) versus "candidate-non-algebrizing" (mod-2 torsion or
 non-abelian, e.g. Steenrod, Bockstein, $\pi_1$). The probe turns the
-strand-1-vs-strand-3 tension into a filter any future invariant must pass.
+strand-1-vs-strand-3 tension into a filter any future invariant must pass. SHARPENED
+by finding 21 (2026-06-03): the "Bockstein bridge" as a cheap-count-forces-located-
+torsion object is a NO-GO. A cheap count forces only the EXISTENCE of torsion (a rank
+fact that algebrizes); the located $\beta(x) \ne 0$ is the only non-algebrizing
+candidate and is not count-forced. The probe's discriminating axis is therefore
+rank-vs-operation, not char-0-vs-char-$p$ (the probe now classifies positive-
+characteristic rank functionals as algebrizing too). The reframed live route is the
+Smith-theory / symmetry route, not a count.
 
 ### 10. An implied fourth barrier: bounded-interface reconstruction.
 
@@ -232,7 +239,14 @@ $\mathbb{Z}_p$-index). Finding: the vocabulary and one precedent exist, but thre
 gaps remain, an explicit $(C, \text{instance})$ complex, the symmetry that would
 make a fixed-point argument bite, and the Bockstein exact sequence forcing a char-2
 torsion class nonzero from a char-0 count. The honest status is that topology gives
-the words, not a route. Source: the
+the words, not a route. CORRECTED and SHARPENED by finding 21 (2026-06-03): the third
+gap (the count-forces-torsion sequence) is now a NO-GO, not an open slot, and the KSS
+precedent here is described too strongly. The precedent's consumed certificate is the
+RATIONAL Euler / Lefschetz number $\chi = 1$ (which algebrizes); $\mathbb{F}_p$ enters
+as ACYCLICITY (a rank fact) via Smith theory, not as a located torsion class. So it is
+an "$\mathbb{F}_p$ machinery supports a rational-count forcing" precedent, not "a
+torsion class is the certificate". The reframed live route is symmetry (the
+Smith-theory fixed-point route), not a count. Source: the
 [strand-3 synthesis](../docs/03_research/strand3_missing_object.md) and the
 [algebraic-topology reading notes](../docs/03_research/reading_notes/algebraic_topology/).
 
@@ -350,3 +364,51 @@ and is downgraded to speculation; the defensible reason that route fails is that
 is natural. Source: the new note
 [`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md) and
 [`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py).
+
+### 21. The Bockstein bridge, computed: a cheap count forces only the EXISTENCE of torsion (a rank fact that algebrizes), so the count-forces-torsion bridge is a no-go; the live route is symmetry, not a count.
+
+The strand-3 "Bockstein bridge" was named (finding 9, finding 14) as the missing
+object: a cheap rational count (strand 1) that FORCES a char-2 torsion class
+non-vanishing (strand 3, non-algebrizing). The
+[`e_bockstein_forcing.py`](strand3/e_bockstein_forcing.py) computation, VERIFIER-checked
+(real integral homology by hand-rolled Smith normal form cross-validated against sympy,
+mod-2 Betti by GF(2) rank, 0 mismatches on RP^2, the Klein bottle, S^2, the Moebius
+band, the $\mathbb{Z} \xrightarrow{2} \mathbb{Z}$ toy, $N(K_4)$, and small SAT
+Vietoris-Rips complexes) and ADVERSARY-audited, turns the declarative ledger into
+computation and lands a sharp NO-GO on that shape. The mechanism is a category
+distinction the earlier framing conflated. A cheap count can force only the EXISTENCE
+of torsion, never a LOCATED class: the universal coefficient theorem gives
+$\dim_{\mathbb{F}_2} H_n = b_n(\mathbb{Q}) + t_n(2) + t_{n-1}(2)$, so a mod-2 Betti
+number exceeding the rational Betti number forces $t_n + t_{n-1} \ge 1$, but BOTH
+inputs are ranks of the same integer boundary matrices and the output is the integer
+$t_n + t_{n-1}$, itself a rank functional. A low-degree extension carries the rational
+chain data, hence every field rank, so by Aaronson-Wigderson the existence-of-torsion
+fact ALGEBRIZES. The LOCATED operation $\beta(x) \ne 0$ is the only non-algebrizing
+candidate and is NOT count-forced: the lens-space pair $L(p^2; q)$ vs $L(p; q)$ has
+equal Betti and equal torsion-count yet $\beta = 0$ on the order-$p^2$ side and
+$\beta \ne 0$ on the order-$p$ side (Hatcher 3E.3/3E.4), so no count can distinguish
+them; locating $x$ needs the cup-square / mod-2 ring, not a number. The one worked
+precedent does not rescue the original shape: in Kahn-Saks-Sturtevant evasiveness the
+consumed certificate is the rational Euler / Lefschetz number $\chi = 1$ (which
+algebrizes), and $\mathbb{F}_p$ enters only as the coefficient field making Smith
+theory's operator splitting valid, as ACYCLICITY (a vanishing rank fact), not as a
+located torsion class. This SHARPENS finding 14 (the precedent is "$\mathbb{F}_p$
+machinery supports a rational-count forcing", not "a torsion class is the certificate")
+and adds the third invariant category the algebrization probe's char-0/char-$p$ binary
+misses: a positive-characteristic RANK / acyclicity functional, torsion-flavored in its
+coefficient choice yet still algebrizing (recorded as two new ledger coordinates: the
+existence-of-torsion Betti gap, and $\mathbb{F}_p$-acyclicity). Two honesty caveats the
+audit requires: "this existence fact algebrizes" is the project's application of the
+declarative probe logic, sound as informal A-W reasoning but not a cited theorem about
+this construction; and "$\beta$ is non-algebrizing" is candidate-only, not a discharged
+A-W theorem. Finding: the bridge as a cheap-count-forces-located-torsion object is a
+no-go coordinate, not an open slot. The reframed live route is the Smith-theory /
+symmetry route (a structured prime-power transitive group action plus an acyclicity
+fact forcing a fixed-point contradiction; gap 2), with a secondary target of a located
+non-algebrizing operation that certifies a bound DIRECTLY (Babson-Kozlov 2007 chromatic
+2-torsion, a closer precedent than KSS). A negative coordinate also landed for gap 1: no
+small SAT-derived complex tried carries 2-torsion, and the canonical literal-flip
+symmetry of a generic instance is trivial, a structural obstruction to porting KSS.
+Source: [`strand3/e_bockstein_forcing.py`](strand3/e_bockstein_forcing.py), the updated
+[`strand3_ledger.md`](../docs/03_research/strand3_ledger.md) and
+[`strand3_missing_object.md`](../docs/03_research/strand3_missing_object.md).

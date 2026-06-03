@@ -154,8 +154,12 @@ non-algebrizing. That is the compass. See
 backward-induction exercise (the [2050 dossier](../03_research/2050_backward_induction.md))
 ranks resolution paths and finds the strongest converge on the Williams spine
 (Architecture 1), with the missing object specified as a non-algebrizing
-invariant a fast algorithm can compute (the strand-1-vs-strand-3 Bockstein-bridge
-target).
+invariant a fast algorithm can compute (the strand-1-vs-strand-3 target). The
+"Bockstein bridge" sub-target (a cheap rational count forcing a located char-2
+torsion class) is now a NO-GO COORDINATE (LEARNINGS finding 21, 2026-06-03): a
+cheap count forces only the EXISTENCE of torsion, a rank fact that algebrizes,
+never a located $\beta(x) \ne 0$. The reframed live route is the Smith-theory /
+symmetry fixed-point route, not a count.
 
 ## Pointers
 

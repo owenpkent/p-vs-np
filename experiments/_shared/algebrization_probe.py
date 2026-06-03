@@ -17,8 +17,21 @@ trace/rank/volume functional (a Lefschetz number, Euler characteristic, Betti
 number, semialgebraic / Sum-of-Squares degree, Schur multiplicity, free-energy
 width), and any low-degree algebraic oracle extension carries the rational data
 needed to recompute it. The only candidate that could survive is a
-characteristic-2 torsion class (a Steenrod square, a Bockstein image) or a
-non-abelian fundamental-group class, which the rational machinery is blind to.
+characteristic-2 torsion OPERATION (a Steenrod square, a Bockstein image beta(x) on
+a specific class x) or a non-abelian fundamental-group class, which the rational
+machinery is blind to.
+
+REFINED by strand-3 round 3 (LEARNINGS finding 21): the discriminating axis is NOT
+characteristic-0 vs characteristic-p; it is RANK functional vs OPERATION. A
+positive-characteristic RANK functional algebrizes too. A mod-p Betti number, the
+existence-of-torsion Betti gap dim_{F_p}H_n - b_n(Q), and F_p-acyclicity (the
+Kahn-Saks-Sturtevant / Smith-theory engine) are all positive-characteristic and
+torsion-FLAVORED, yet each is a rank of the same integer boundary matrices, which a
+low-degree extension carries. They algebrize. A cheap count therefore forces only the
+EXISTENCE of torsion (a rank fact that algebrizes), never a LOCATED class beta(x) != 0;
+the count-forces-located-torsion "Bockstein bridge" is a no-go on that ground. Only the
+OPERATION side (Sq, beta, pi_1), which needs the ring / cochain structure and is not a
+count, is a strand-3 candidate, and it fails strand 1 (not cheaply computable).
 
 This module operationalizes that strand-1-vs-strand-3 tension. Given a
 declarative profile of an invariant, it classifies the invariant as
@@ -140,6 +153,31 @@ def probe(p: InvariantProfile) -> ProbeVerdict:
             )
         return ProbeVerdict(p.name, "algebrizes", reasons)
 
+    if p.characteristic != 0 and p.is_trace_or_rank_functional:
+        # The third category strand-3 round 3 (LEARNINGS finding 21) surfaced: a
+        # POSITIVE-characteristic RANK functional. The char-0/char-p binary is the
+        # wrong axis. A mod-p Betti number, the existence-of-torsion Betti gap
+        # dim_{F_p}H_n - b_n(Q), and F_p-acyclicity (the Smith-theory / KSS engine)
+        # are all positive-characteristic and torsion-FLAVORED, yet they are ranks of
+        # the same integer boundary matrices. A low-degree extension carries those
+        # ranks, so they algebrize despite living over F_p. Only the OPERATION (Sq,
+        # beta, pi_1), not the rank, can escape.
+        reasons.append(
+            f"characteristic-{p.characteristic} but a trace/rank/volume functional: a "
+            "rank/dimension of the SAME integer boundary matrices reduced over F_p (a "
+            "mod-p Betti number, the existence-of-torsion Betti gap, or F_p-acyclicity). "
+            "A low-degree extension carries the rational chain data, hence every field "
+            "rank, so it algebrizes despite the positive characteristic (LEARNINGS 21)."
+        )
+        if p.torsion_sensitive:
+            reasons.append(
+                "torsion_sensitive yet a rank: it forces only the EXISTENCE of torsion "
+                "(a positive integer count of torsion summands), not a LOCATED class "
+                "beta(x) != 0. Existence is a rank fact and algebrizes; locating the "
+                "class needs the cup-square / cochain ring, not a count."
+            )
+        return ProbeVerdict(p.name, "algebrizes", reasons)
+
     if p.characteristic != 0 and p.torsion_sensitive and not p.is_trace_or_rank_functional:
         reasons.append(
             f"characteristic-{p.characteristic} torsion-sensitive, non-rational invariant "
@@ -150,7 +188,9 @@ def probe(p: InvariantProfile) -> ProbeVerdict:
         if p.reconstructible_from_low_degree_extension is None:
             reasons.append(
                 "reconstructibility not directly declared: discharge it with a real "
-                "Bockstein / universal-coefficients argument before relying on it."
+                "Bockstein / universal-coefficients argument before relying on it. NOTE "
+                "(LEARNINGS 21): 'beta is non-algebrizing' is candidate-only, a project "
+                "judgment (no low-degree field analog), not a discharged A-W theorem."
             )
         return ProbeVerdict(p.name, "candidate-non-algebrizing", reasons)
 
@@ -240,6 +280,34 @@ INVARIANTS = {
             "is a possible escape, contingent on an actual non-reconstructibility argument."
         ),
     ),
+    "torsion_existence_count": InvariantProfile(
+        name="Existence-of-torsion count dim_{F2} H_n - b_n(Q) (the UCT Betti gap; the strand-3 round-3 no-go)",
+        characteristic=2,
+        is_trace_or_rank_functional=True,
+        torsion_sensitive=True,
+        notes=(
+            "The OUTPUT of the universal-coefficient forcing dim_{F2} H_n = b_n(Q) + t_n + "
+            "t_{n-1}: a positive value forces 2-torsion to EXIST. But it is a difference of "
+            "two field ranks of the same integer boundary matrices, so it algebrizes despite "
+            "being positive-characteristic and torsion-sensitive. The third category: char-p "
+            "yet a rank functional. It forces existence, never a located beta(x) != 0 (the "
+            "lens-space L(p^2) vs L(p) witness). LEARNINGS finding 21."
+        ),
+    ),
+    "fp_acyclicity": InvariantProfile(
+        name="F_p-acyclicity of a complex (the Kahn-Saks-Sturtevant / Smith-theory engine)",
+        characteristic=2,
+        is_trace_or_rank_functional=True,
+        torsion_sensitive=True,
+        notes=(
+            "All reduced F_p homology vanishes: the load-bearing fact of the one worked "
+            "precedent (KSS evasiveness via Oliver's fixed-point theorem). It is a vanishing "
+            "of field ranks, fed to a Lefschetz argument whose consumed certificate is the "
+            "RATIONAL Euler number chi = 1. F_p is essential to Smith's operator splitting "
+            "but enters as a rank fact, so the obstruction algebrizes. The non-algebrizing "
+            "load in KSS is carried by the SYMMETRY, not the count. LEARNINGS finding 21."
+        ),
+    ),
 }
 
 
@@ -268,13 +336,19 @@ def main() -> int:
     rational_kills = ["lefschetz_number", "betti_euler", "sos_degree", "schur_multiplicity", "free_energy_width"]
     for key in rational_kills:
         assert probe(INVARIANTS[key]).algebrizes is True, f"{key} must be classified as algebrizing"
+    # The third category (LEARNINGS finding 21): positive-characteristic RANK functionals
+    # algebrize too. The char-0/char-p binary is the wrong axis; rank-vs-operation is.
+    for key in ["torsion_existence_count", "fp_acyclicity"]:
+        assert probe(INVARIANTS[key]).algebrizes is True, f"{key} is a char-p RANK functional and must algebrize"
     for key in ["steenrod_bockstein", "pi1_class"]:
         assert probe(INVARIANTS[key]).algebrizes is False, f"{key} must be a candidate non-algebrizing object"
 
-    print("Self-check OK: every characteristic-0 trace/rank/volume invariant algebrizes;")
-    print("the mod-2 torsion / non-abelian candidates survive the probe (necessary, not")
-    print("sufficient). The braid needs a Bockstein bridge linking a rational count to a")
-    print("torsion class. That object does not exist yet; it is the named missing tool.")
+    print("Self-check OK: every trace/rank/volume invariant algebrizes, including the")
+    print("positive-characteristic ones (the torsion-existence Betti gap and F_p-acyclicity:")
+    print("char-p yet rank-flavored, LEARNINGS 21); only the mod-2 OPERATIONS (Steenrod,")
+    print("Bockstein, pi_1) survive the probe (necessary, not sufficient). The count-forces-")
+    print("located-torsion bridge is a no-go: a count forces only the EXISTENCE of torsion (a")
+    print("rank fact that algebrizes), never a located beta(x). The reframed route is symmetry.")
     return 0
 
 

@@ -83,9 +83,17 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
    and LEARNINGS finding 20. Next concrete sub-steps: confirm the residual
    needs-citation parameters (that note's section 9), and decide whether to attack
    the dense-THR-of-THR SAT speedup directly or via the Chen 2018 geometry reduction.
-2. **Specify the strand-3 forcing bridge.** The coordinate ledger shows no invariant
-   clears both strands; the object worth building is a Bockstein / universal-
-   coefficients sequence forcing a mod-2 torsion class nonzero from a cheap count.
+2. **Strand-3 bridge: REFRAMED to a no-go, pursue the symmetry route instead.** A
+   2026-06-03 multi-agent pass (two surveys, builder computation
+   `experiments/strand3/e_bockstein_forcing.py`, adversary audit, verifier) computed
+   real homology and established that the "cheap count forces a located char-2 torsion
+   class" bridge is a NO-GO: a cheap count forces only the EXISTENCE of torsion (a rank
+   fact that algebrizes), and the located $\beta(x) \ne 0$ is not count-forced (the
+   lens-space $L(p^2)$ vs $L(p)$ witness). The reframed live targets are gap 2 (a
+   prime-power-structured symmetry for the Smith-theory / fixed-point route, the route
+   the KSS precedent actually uses) and a located non-algebrizing operation certifying
+   a bound directly (Babson-Kozlov 2007 chromatic 2-torsion). See LEARNINGS finding 21
+   and the two new ledger coordinates. Do NOT re-attempt the count-forces-torsion shape.
 3. **Discharge a Lean `sorry`** or seek external review of the atlas obstruction
    claims and reading-note syntheses. These are verification, not new scaffolding.
 
@@ -102,14 +110,21 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 - All experiment modules run to completion (re-verified 2026-06-03): the Phase-0
   four plus `e_tc0_sat_savings`, `e_acc0_polynomial_method`, `e_monotone_clique`,
   `e_resolution_width_php`, `e_plethysm_kronecker`, `e_nisan_wigderson_prg`,
-  `algebrization_probe`, and `strand3.e_ledger`. Standard library only; plots optional.
+  `algebrization_probe`, `strand3.e_ledger`, and `strand3.e_bockstein_forcing`
+  (the last needs numpy + sympy). Standard library only elsewhere; plots optional.
+- Strand-3 round 3 (2026-06-03): `strand3.e_bockstein_forcing` runs clean
+  (VERIFIER-confirmed, real homology cross-validated by Smith normal form vs sympy);
+  the algebrization probe gained two char-p RANK fixtures (`torsion_existence_count`,
+  `fp_acyclicity`) now pinned as algebrizing; LEARNINGS finding 21 added; findings 9
+  and 14 and the two strand-3 docs corrected for the count-forces-torsion no-go.
 - Lean: all five `PvsNP/` modules compile against core Lean (documented `sorry`
   targets remain).
 - TC0 hinge grounding (2026-06-03): `e_tc0_sat_savings.py` rewritten and still runs
   to exit 0; the corrected note `docs/03_research/2050_tc0_hinge_grounded.md` is in
   place; LEARNINGS finding 20 added and findings 8/11/13 plus the dossier corrected.
-- Git: working tree has the TC0-hinge-grounding change set, pending commit
-  (authorization not yet given).
+- Git: the TC0-hinge-grounding change set is committed (commits `0baf79c`,
+  `899357f`, `149dcfa`). The strand-3 round-3 change set is in the working tree,
+  pending commit.
 
 ## Session log (recent)
 
@@ -120,6 +135,7 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 | 2026-06-02 | Overnight orchestrated loop (13 tasks) | Reading-notes synthesis into the research directions (LEARNINGS 11-19); five architecture experiments; the strand-3 coordinate ledger; two real Lean bugs fixed (skeleton now compiles against core Lean); MAJORITY approximate-degree correction. |
 | 2026-06-03 | Documentation refresh | README, STATE_OF_THE_PROGRAM, and PHASE_STATE updated to current reality; repo-wide no-dash check; pushed. |
 | 2026-06-03 | TC0 hinge grounding (multi-agent: 4 surveyors, fact-checkers, builder, adversary, final fact-check) | Corrected the "polynomial method dies at threshold gates" conflation (probabilistic vs approximate degree); located the open frontier as dense depth-2 THR-of-THR; caught 3 synthesis defects (paper-title, gates-vs-wires, over-strong algebrization claim). New note `2050_tc0_hinge_grounded.md`; LEARNINGS finding 20; findings 8/11/13 and the dossier corrected; experiment rewritten, smoke test 5/5. |
+| 2026-06-03 | Strand-3 Bockstein bridge (multi-agent: 3 surveys, builder, adversary, verifier) | Verdict NO-GO COORDINATE: a cheap count forces only the EXISTENCE of torsion (a rank fact that algebrizes), never a located $\beta(x)$; lens-space $L(p^2)$ vs $L(p)$ witness. New experiment `strand3/e_bockstein_forcing.py` (real homology, VERIFIER-confirmed); probe gained the third invariant category (char-p rank functionals algebrize too) + two fixtures; LEARNINGS finding 21; findings 9/14 and both strand-3 docs corrected; ledger gained two coordinates (LIVE still 0). Reframed live route: symmetry (Smith-theory fixed point), not count. |
 
 ## How to update this file
 
