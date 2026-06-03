@@ -474,3 +474,69 @@ free $\mathbb{Z}/2$ + located torsion + chromatic model), and neither clears bot
 decisive questions. Source: [`strand3/e_symmetry_route.py`](strand3/e_symmetry_route.py),
 the updated [`strand3_ledger.md`](../docs/03_research/strand3_ledger.md) and
 [`strand3_missing_object.md`](../docs/03_research/strand3_missing_object.md).
+
+### 23. The Chen-2018 geometry hinge, mapped: the THR-of-THR bottleneck is a polylog-dimension log-shave for the EXACT integer problems, and the bar is SETH-CONSISTENT (genuinely open), not a SETH refutation.
+
+Finding 20 located the open object (a SAT/CAPP speedup for dense depth-2 THR-of-THR,
+equivalently the Chen 2018 geometry log-shave) but never mapped how close known
+algorithms are to the bar, nor whether the bar is consistent with SETH. A two-survey
+plus builder plus adversary plus verifier pass (all Chen-2018 / Chen-2020-ToC /
+AWY-2015 parameters web-confirmed verbatim against arXiv:1805.10698 and
+arXiv:1802.02325; VERIFIER-checked, ADVERSARY verdict sound-with-fixes, all
+required_fixes applied) supplies both, and the result is a precise, favorable
+coordinate.
+
+THE GAP. The THR-of-THR bottleneck (Chen 2018 Thm 1.1) is the EXACT integer geometry
+at polylog dimension: $Z$-OV/Hopcroft, $\ell_2$-Furthest-Pair, exact
+Bichrom.-$\ell_2$-Closest-Pair, $Z$-Max-IP. Best known is $n^{2-1/O(d)}$ (Matousek
+1992; Agarwal-Edelsbrunner-Schwarzkopf-Welzl 1991; Yao 1982), which at polylog $d$ is
+$n^{2-o(1)}$ with saved factor sub-$\log^1 n$: ZERO realized log-shave, so the entire
+required $\log^{\omega(1)} n$ shave is the open gap. The single most attackable target
+is Boolean Max-IP at $d = n^\varepsilon$ (Thm 1.5 item 1), where the baseline is
+already $n^2\,\mathrm{polylog}$ (Coppersmith 1982 rectangular matmul) and only the logs
+separate it from the bar.
+
+THE TRAP, RESOLVED. The Boolean-OV polynomial-method shave ($n^{2-1/O(\log c)}$ at
+$d = c\log n$; Abboud-Williams-Yu SODA 2015, derandomized Chan-Williams SODA 2016) does
+NOT settle THR-of-THR, for three independent reasons pinned numerically and by assert
+in [`e_threshold_geometry_gap.py`](circuit_complexity/e_threshold_geometry_gap.py): (i)
+WRONG PROBLEM (Boolean OV, not the integer/exact problems Thm 1.1 needs); (ii) WRONG
+DIMENSION (the exponent $1/O(\log c)$ decays to $o(1)$ by polylog $d$); (iii) WRONG
+CONCLUSION, decisive (Boolean routes through Thm 1.2 to the strictly weaker SYM-of-THR,
+already attackable by classical sign-rank / UPP methods). This refines the framing in
+finding 20 and the note's section 4: the DIMENSION regime, not Booleanity alone,
+decides the conclusion. Boolean Max-IP at polylog $d \to$ SYM-of-THR (Thm 1.2; routing
+in the body, not the abstract, so NEEDS-BODY-VERIFICATION), at $d = n^\varepsilon \to$
+THR-of-THR (Thm 1.5).
+
+THE SETH ANSWER (highest-value, favorable). The genuine target (Thm 1.1 and Thm 1.5
+item 1) is SETH-CONSISTENT and genuinely OPEN, NOT a SETH-refuting barrier. SETH (via
+the OV conjecture, Williams 2005) forbids only a CONSTANT-exponent polynomial speedup
+$n^{2-\Omega(1)}$; the Chen bar $n^2\,\mathrm{poly}(d)/\log^{\omega(1)} n$ is a pure
+LOG-SHAVE, itself $n^{2-o(1)}$, sitting strictly inside the band SETH guarantees, so
+meeting it refutes nothing. Chen disclaims this himself ("the SETH lower bound says
+nothing about whether shaving logs is possible"). PRECISION (pre-empts a misreading):
+polylog dimension is INSIDE the SETH-hard regime, NOT below it. SETH-hardness reaches
+DOWN to $d = 2^{O(\log^\ast n)}$ for $Z$-Max-IP (Chen, Theory of Computing 16(4):1-50
+2020, $\ell_2$-Furthest-Pair and Bichrom.-$\ell_2$-Closest-Pair inheriting via the
+Williams SODA 2018 reduction) and to $d = \omega((\log\log n)^2)$ for the geometry
+problems (Williams SODA 2018). The target is open because of the
+log-shave-vs-polynomial-shave SCALE gap, not because the dimension dodges SETH. THE
+LONE BARRIER: exactly one of seven routes, Thm 1.5 item 2 (Boolean Max-IP at
+$d = \log^k n$ in $n^{2-\varepsilon}$, constant $\varepsilon$), is a genuine polynomial
+speedup at $\omega(\log n)$ and WOULD refute SETH/OVC; a builder must not pursue it as a
+live target. HONESTY: it is PROVED that SETH forces $n^{2-o(1)}$ at $2^{O(\log^\ast n)}$
+(verbatim); it is INFERRED (uncontroversially, stated by Chen) that this does not block
+the log-shave bar (no published positive consistency theorem exists).
+
+STATUS. As of June 2026 NEXP not in poly-size THR-of-THR remains OPEN; the Chen-2018
+program has not produced it. The only proved nontrivial THR-of-THR results are the
+$n^{2-o(1)}$-WIRE bound (Chen-Tamaki / ACW) and the one-bottom-layer ACC-of-THR SIZE
+bound (Murray-Williams 2018). arXiv:1805.10698 is an UNPUBLISHED preprint (DBLP: CoRR
+only); the companion SETH paper IS published. A second, co-equal obstruction is
+unchanged (finding 20): even a successful geometry log-shave only fires the Williams
+connection; whether the resulting separation evades natural proofs stays conditional on
+the open TC0-PRF question. Source:
+[`circuit_complexity/e_threshold_geometry_gap.py`](circuit_complexity/e_threshold_geometry_gap.py)
+and the new "Fine-grained gap map" subsection 4a of
+[`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md).

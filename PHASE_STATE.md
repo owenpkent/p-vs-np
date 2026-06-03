@@ -80,9 +80,20 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
    THR-of-THR with no subquadratic-bottom restriction (equivalently, the Chen 2018
    log-shaving geometry algorithm). See
    [`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md)
-   and LEARNINGS finding 20. Next concrete sub-steps: confirm the residual
-   needs-citation parameters (that note's section 9), and decide whether to attack
-   the dense-THR-of-THR SAT speedup directly or via the Chen 2018 geometry reduction.
+   and LEARNINGS finding 20. The geometry reduction is now GAP-MAPPED (finding 23,
+   subsection 4a, `experiments/circuit_complexity/e_threshold_geometry_gap.py`): the
+   THR-of-THR bottleneck is a polylog-dimension log-shave for the EXACT integer
+   problems ($Z$-Max-IP, Hopcroft, exact closest/furthest pair), where best-known
+   shaves ZERO logs; the single most attackable target is Boolean Max-IP at
+   $d = n^\varepsilon$ (Chen Thm 1.5.1), baseline already $n^2\,\mathrm{polylog}$, only
+   logs to shave. The bar is SETH-CONSISTENT and genuinely OPEN (a log-shave does not
+   refute SETH; Chen disclaims it himself), with exactly one route (Thm 1.5.2, polylog
+   Max-IP in $n^{2-\varepsilon}$) being a SETH-refuting barrier to AVOID. The
+   Boolean-OV shave is a trap (gives only the weaker SYM-of-THR). Co-equal obstruction
+   unchanged: even a successful log-shave only fires the connection; natural-proofs
+   evasion stays conditional on the TC0-PRF question (finding 20). Next concrete
+   sub-steps: study the Boolean-Max-IP-at-$n^\varepsilon$ log-shave (Thm 1.5.1) as the
+   cleanest attackable object, and/or the natural-proofs binding-wall question.
 2. **Strand-3: TWO sharp no-go coordinates now; the topology search is nearly
    exhausted.** Two 2026-06-03 multi-agent passes (real homology + group computation,
    adversary-audited, verifier-confirmed) closed both candidate shapes. (a) Finding 21:
@@ -120,9 +131,9 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 - All experiment modules run to completion (re-verified 2026-06-03): the Phase-0
   four plus `e_tc0_sat_savings`, `e_acc0_polynomial_method`, `e_monotone_clique`,
   `e_resolution_width_php`, `e_plethysm_kronecker`, `e_nisan_wigderson_prg`,
-  `algebrization_probe`, `strand3.e_ledger`, `strand3.e_bockstein_forcing`, and
-  `strand3.e_symmetry_route` (the last two need numpy + sympy). Standard library only
-  elsewhere; plots optional.
+  `algebrization_probe`, `strand3.e_ledger`, `strand3.e_bockstein_forcing`,
+  `strand3.e_symmetry_route`, and `circuit_complexity.e_threshold_geometry_gap` (the
+  strand3 pair needs numpy + sympy). Standard library only elsewhere; plots optional.
 - Strand-3 round 3 (2026-06-03): `strand3.e_bockstein_forcing` runs clean
   (VERIFIER-confirmed, real homology cross-validated by Smith normal form vs sympy);
   the algebrization probe gained two char-p RANK fixtures (`torsion_existence_count`,
@@ -155,6 +166,7 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 | 2026-06-03 | TC0 hinge grounding (multi-agent: 4 surveyors, fact-checkers, builder, adversary, final fact-check) | Corrected the "polynomial method dies at threshold gates" conflation (probabilistic vs approximate degree); located the open frontier as dense depth-2 THR-of-THR; caught 3 synthesis defects (paper-title, gates-vs-wires, over-strong algebrization claim). New note `2050_tc0_hinge_grounded.md`; LEARNINGS finding 20; findings 8/11/13 and the dossier corrected; experiment rewritten, smoke test 5/5. |
 | 2026-06-03 | Strand-3 Bockstein bridge (multi-agent: 3 surveys, builder, adversary, verifier) | Verdict NO-GO COORDINATE: a cheap count forces only the EXISTENCE of torsion (a rank fact that algebrizes), never a located $\beta(x)$; lens-space $L(p^2)$ vs $L(p)$ witness. New experiment `strand3/e_bockstein_forcing.py` (real homology, VERIFIER-confirmed); probe gained the third invariant category (char-p rank functionals algebrize too) + two fixtures; LEARNINGS finding 21; findings 9/14 and both strand-3 docs corrected; ledger gained two coordinates (LIVE still 0). Reframed live route: symmetry (Smith-theory fixed point), not count. |
 | 2026-06-03 | Strand-3 gap 2, the symmetry route (multi-agent: 3 surveys, builder, adversary, verifier) | Verdict NO-GO COORDINATE on both decisive questions. The symmetry provably EXISTS (AGL(1,q) Oliver structure verified $q \in \{4,5,8,9\}$) but Q1 fails (certificate is the rational $\chi(\mathrm{Fix})$, algebrizes by the Oliver-number trichotomy across the whole branch) and Q2 fails (query bound $\binom{n}{2}$, never circuit size). Structural root: KSS topology is downstream of the algorithm, so the complex is acyclic by construction. New experiment `strand3/e_symmetry_route.py` (group + homology computation, VERIFIER-confirmed; three scratch files consolidated to one); LEARNINGS finding 22; ledger ninth coordinate; gap-2 reframed. Only non-dead strand-3 remainder: the free-$\mathbb{Z}/2$ Babson-Kozlov route (clears Q1, fails Q2). |
+| 2026-06-03 | TC0 spine: Chen-2018 fine-grained gap map (multi-agent: 3 surveys, builder, adversary, verifier; primary sources read directly) | FAVORABLE coordinate. The THR-of-THR bottleneck is a polylog-dimension log-shave for the EXACT integer geometry ($Z$-Max-IP, Hopcroft, exact closest/furthest pair), best-known shaves ZERO logs; most attackable = Boolean Max-IP at $d=n^\varepsilon$ (Thm 1.5.1). The bar is SETH-CONSISTENT and OPEN (a log-shave does not refute SETH); exactly one route (Thm 1.5.2) is a SETH-refuting barrier to avoid; the Boolean-OV shave is a trap (only SYM-of-THR). New experiment `circuit_complexity/e_threshold_geometry_gap.py` (gap calculator, VERIFIER-confirmed, all params web-verified verbatim; one scratch file consolidated); LEARNINGS finding 23; note subsection 4a + section-8 upgrade (Chen 2018 verified, companion SETH paper added, unpublished-preprint status confirmed). |
 
 ## How to update this file
 

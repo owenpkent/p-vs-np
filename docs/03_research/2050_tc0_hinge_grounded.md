@@ -130,18 +130,113 @@ Two equivalent bars:
    deterministic algorithm in polylogarithmic dimension $d$ for ANY of: Hopcroft's
    problem / integer Orthogonal-Vectors $Z\text{-}\mathrm{OV}_{n,d}$,
    $\ell_2$-Furthest-Pair, exact Bichromatic-$\ell_2$-Closest-Pair, or Max-IP, per
-   Chen 2018 (Thm 1.1, web-confirmed verbatim 2026-06-03). Caveat: the APPROXIMATE
-   Bichromatic-Closest-Pair and Boolean Max-IP give only the weaker SYM-of-THR
-   conclusion (Thm 1.2); the exact problems above give THR-of-THR. The reduction runs
-   through two threshold-circuit structure lemmas (Chen 2018 Lemmas 1.6-1.7: every
-   THR-of-THR is a Gap-OR of THR-of-MAJ).
+   Chen 2018 (Thm 1.1, web-confirmed verbatim 2026-06-03). Caveat (refined in
+   subsection 4a): the DIMENSION regime, not Booleanity alone, decides the
+   conclusion. The APPROXIMATE Bichromatic-Closest-Pair gives only the weaker
+   SYM-of-THR (Thm 1.2). Boolean Max-IP at POLYLOG $d$ also gives only SYM-of-THR
+   (Thm 1.2; this routing is in the theorem body, not the abstract,
+   NEEDS-BODY-VERIFICATION), but Boolean Max-IP at $d = n^\varepsilon$ gives the full
+   THR-of-THR (Thm 1.5). The reduction runs through two threshold-circuit structure
+   lemmas (Chen 2018 Lemmas 1.6-1.7: Lemma 1.6 is a deterministic poly-time
+   normal form, every THR-of-THR is a Gap-OR of THR-of-MAJ; Lemma 1.7 is a randomized
+   subexponential form, every $s$-size THR-of-THR with $s = 2^{o(n)}$ is a
+   DOR-of-MAJ-of-MAJ).
 
-Either yields $\mathsf{NEXP} \not\subseteq$ poly-size THR of THR.
+Either yields $\mathsf{NEXP} \not\subseteq$ poly-size THR of THR. How far known
+algorithms are from this bar, and whether the bar is SETH-consistent, is mapped in
+subsection 4a below.
 
 Against what current best: ACW 2016 Thm 1.8 (deterministic $2^{n - n^\varepsilon}$
 for AC0[m] of LTF of LTF but ONLY with $n^{2-\delta}$ bottom gates), and the trivial
 $2^n \cdot \mathrm{poly}$ brute force. No nontrivial algorithm exists for the dense
 case.
+
+## 4a. Fine-grained gap map: how close are known algorithms to the Chen-2018 bar, and is the bar SETH-consistent?
+
+Added 2026-06-03 (a two-survey + builder + adversary + verifier pass; all Chen-2018
+and Chen-2020-ToC parameters web-confirmed verbatim against arXiv:1805.10698 and
+arXiv:1802.02325, except two items flagged below). Section 4 states the geometry
+reduction exists but never maps the algorithm-vs-bar gap or the SETH status. This
+subsection supplies both. Runnable model:
+[`../../experiments/circuit_complexity/e_threshold_geometry_gap.py`](../../experiments/circuit_complexity/e_threshold_geometry_gap.py)
+(exit 0; smoke test stays 5/5).
+
+The two questions: **Q-GAP** (for each problem/dimension/bar, the best-known
+algorithm and the gap) and **Q-SETH** (would meeting the bar refute SETH, a barrier,
+or is it SETH-consistent, genuinely open).
+
+### The gap table (best-known vs the Thm 1.1 bar $n^2\,\mathrm{poly}(d)/\log^{\omega(1)} n$ at polylog $d$)
+
+| Problem (dim) | Best known | Conclusion if met | SETH |
+| --- | --- | --- | --- |
+| **Exact integer geometry** {$Z$-OV/Hopcroft, $\ell_2$-Furthest-Pair, exact Bichrom.-$\ell_2$-Closest-Pair, $Z$-Max-IP}, polylog $d$ | $n^{2-1/O(d)}$ (Matousek 1992; AESW 1991; Yao 1982): at polylog $d$ this is $n^{2-o(1)}$, saved factor sub-$\log^1 n$, **zero log-shave** | THR-of-THR | consistent-open |
+| Same four, $d = c\log n$ | $n^{2-1/O(\log n)}$: constant-factor saving only | THR-of-THR | consistent-open |
+| **Boolean OV**, polylog $d$ (THE TRAP) | $n^{2-1/O(\log c)}$ (AWY SODA 2015; Chan-Williams SODA 2016): log-exponent grows, clears the SHAPE bar | **SYM-of-THR** | consistent-open |
+| **Boolean Max-IP**, $d = n^\varepsilon$ (Thm 1.5.1, MOST ATTACKABLE) | $n^2\,\mathrm{polylog}$ via rectangular matmul (Coppersmith 1982): only logs separate baseline from bar | THR-of-THR | consistent-open |
+| **Boolean Max-IP**, $d = \log^k n$ in $n^{2-\varepsilon}$ (Thm 1.5.2, THE LONE BARRIER) | $n^{2-\Omega(1/\sqrt{d/\log n})}$ (ACW FOCS 2016): only a log-shave at polylog $d$ | THR-of-THR | **WOULD-REFUTE-SETH** |
+| $(1+\varepsilon)$-approx Bichrom.-$\ell_2$-Closest-Pair, $\varepsilon = 1/\log^3 n$ | $n^{2-\Omega(\varepsilon^{1/3})}$ as Chen restates it (see caveat) | SYM-of-THR | consistent-open |
+
+### Q-GAP: the bottleneck, and why the Boolean-OV shave does not settle it
+
+The THR-of-THR bottleneck is the **exact integer geometry at polylog $d$** (cleanest
+single object: $Z$-Max-IP), equivalently **Boolean Max-IP at $d = n^\varepsilon$**.
+Best-known shaves ZERO logs on the integer problems at polylog $d$; the full
+$\log^{\omega(1)} n$ shave is the open gap. The most attackable single target is
+Thm 1.5.1 (Boolean Max-IP at $n^\varepsilon$), where the baseline is already
+$n^2\,\mathrm{polylog}$ (Coppersmith 1982) and only the logs need shaving.
+
+The **Boolean-OV polynomial-method shave** (AWY SODA 2015, $n^{2-1/O(\log c)}$ at
+$d = c\log n$) is a TRAP, for three independent reasons: (i) WRONG PROBLEM (Boolean
+OV, not the integer/exact problems Thm 1.1 needs); (ii) WRONG DIMENSION (the exponent
+$1/O(\log c)$ decays to $o(1)$ by polylog $d$); (iii) WRONG CONCLUSION, decisive
+(Boolean routes through Thm 1.2 to the weaker SYM-of-THR, already attackable by
+classical sign-rank / UPP methods). The model tags the AWY row `meets_bar=True` but
+`conclusion=SYM-of-THR`. **Discipline to carry:** any "clears the bar" phrasing MUST
+be paired with the conclusion strength, or it overclaims progress on the prize.
+
+### Q-SETH: the bar is SETH-consistent, the target is genuinely open
+
+SETH (via OVC, Williams 2005) forbids only a CONSTANT-exponent polynomial speedup
+$n^{2-\Omega(1)}$. The Chen bar $n^2\,\mathrm{poly}(d)/\log^{\omega(1)} n$ is a pure
+LOG-SHAVE: the exponent stays exactly $2$, the bar is itself $n^{2-o(1)}$, so it lives
+strictly inside the band SETH guarantees and refutes nothing. Chen disclaims this
+himself: the SETH bound "says nothing about whether shaving logs is possible."
+
+PRECISION (pre-empts a misreading): polylog dimension is INSIDE the SETH-hard regime,
+NOT below it. SETH-hardness reaches DOWN to $d = 2^{O(\log^\ast n)}$ for $Z$-Max-IP
+(Chen, ToC 16(4) 2020; $\ell_2$-Furthest-Pair and Bichrom.-$\ell_2$-Closest-Pair
+inherit via the Williams SODA 2018 reduction) and to $d = \omega((\log\log n)^2)$ for
+the geometry problems (Williams SODA 2018). The target is open because of the
+log-shave-vs-polynomial-shave SCALE gap, not because the dimension dodges SETH.
+
+The LONE SETH-refuting route is Thm 1.5.2 (Boolean Max-IP at $d = \log^k n$ in
+$n^{2-\varepsilon}$, constant $\varepsilon$): a genuine polynomial speedup at
+$\omega(\log n)$. A builder must NOT pursue it as a live target. The other six routes
+are SETH-consistent.
+
+Honest status separation: it is PROVED that SETH forces $n^{2-o(1)}$ at
+$2^{O(\log^\ast n)}$ (Chen ToC 16(4) 2020, verbatim). It is INFERRED (uncontroversially,
+and stated by Chen) that this does NOT block the log-shave bar. There is no published
+positive consistency theorem; the consistency is the safe inference that SETH
+lower-bounds only at the $n^{2-\Omega(1)}$ granularity.
+
+### Two flagged items (carry as hedges)
+
+- NEEDS-BODY-VERIFICATION: "Boolean Max-IP at polylog $d \to$ SYM-of-THR (Thm 1.2)"
+  is in the theorem BODY; the Chen-2018 ABSTRACT names only approximate closest-pair
+  for Thm 1.2. The trap resolution does not depend on this routing claim.
+- NEEDS-CITATION: the $(1+\varepsilon)$-approx closest-pair exponent. Chen 2018
+  restates ACW 2016 as $n^{2-\Omega(\varepsilon^{1/3})}$; the ACW primary
+  (arXiv:1608.04355) is $n^{2-\Omega(\varepsilon^{1/3}/\log(1/\varepsilon))}$.
+  Non-load-bearing (both vanish at $\varepsilon = 1/\log^3 n$).
+
+### Status stamp
+
+As of June 2026, NEXP not in poly-size THR-of-THR remains OPEN; the Chen-2018 program
+has not produced it. The only proved nontrivial THR-of-THR results are the
+$n^{2-o(1)}$-WIRE bound (Chen-Tamaki / ACW) and the one-bottom-layer ACC-of-THR SIZE
+bound (Murray-Williams 2018). arXiv:1805.10698 is an UNPUBLISHED preprint (DBLP: CoRR
+only); the companion SETH paper IS published.
 
 ## 5. Why a purely algebraic-polynomial approach is not obviously enough, stated carefully
 
@@ -284,9 +379,22 @@ barrier has been independently cleared.
   communication complexity." CCC 2001, DOI 10.1109/ccc.2001.933877. Sign-rank /
   linear UPP lower bound for inner-product-mod-2. VERIFIED (Crossref).
 - L. Chen. "Toward super-polynomial size lower bounds for depth-two threshold
-  circuits." arXiv:1805.10698 (2018). Reduces a depth-2 THR-of-THR size lower bound
-  to a polylog-dimension geometry log-shave. Title VERIFIED; exact Thm 1.1 parameters
-  needs-citation.
+  circuits." arXiv:1805.10698 (2018), unpublished preprint (DBLP: CoRR only). Reduces
+  a depth-2 THR-of-THR size lower bound to a polylog-dimension geometry log-shave.
+  Thm 1.1 (the five exact integer/real problems), Thm 1.2 (the weaker SYM-of-THR via
+  approximate closest-pair / Boolean Max-IP at polylog $d$), Thm 1.5 (modest-dimension
+  Max-IP), and Lemmas 1.6-1.7 (the structure lemmas) all VERIFIED VERBATIM
+  (2026-06-03, read from the arXiv PDF). See subsection 4a for the gap map.
+- L. Chen. "On the hardness of approximate and exact (bichromatic) maximum inner
+  product." CCC 2018 / Theory of Computing 16(4):1-50 (2020), DOI
+  10.4086/toc.2019.v016a004 (arXiv:1802.02325). The companion SETH paper (Chen 2018's
+  internal `[Che18]`): exact integer Max-IP requires $n^{2-o(1)}$ under SETH already at
+  dimension $d = 2^{O(\log^\ast n)}$. PUBLISHED (unlike arXiv:1805.10698). VERIFIED
+  verbatim (2026-06-03).
+- R. Williams. "On the difference between closest, furthest, and orthogonal pairs:
+  nearly-linear vs barely-subquadratic complexity." SODA 2018 (arXiv:1709.05282). The
+  SETH reduction giving $d = \omega((\log\log n)^2)$ hardness for the geometry
+  problems. VERIFIED (abstract).
 
 Confirmed by the 2026-06-03 residual-citation pass (web-grounded, with identifiers):
 
