@@ -27,7 +27,7 @@ Run it through the [barrier checker](../../../experiments/_shared/barriers.py)
 
 | ID | Milestone | Status |
 |---|---|---|
-| M1 | Reproduce the algorithm-to-lower-bound connection on paper, with the exact time bound that triggers the lower bound | open (study target) |
+| M1 | Reproduce the algorithm-to-lower-bound connection on paper, with the exact time bound that triggers the lower bound | studied (see "State of the art" below; Williams 2015 / 2021 notes) |
 | M2 | Encode the $\mathsf{ACC}^0$ SAT algorithm's structure in a small experiment (the polynomial representation of $\mathsf{ACC}^0$ functions, Beigel-Tarui) | open |
 | M3 | Extend toward $\mathsf{TC}^0$ (threshold circuits): the open problem is a non-trivial $\mathsf{TC}^0$ satisfiability algorithm | open, frontier |
 | M4 | Bring the hard function from $\mathsf{NEXP}$ down to $\mathsf{NP}$ | open, very hard |
@@ -40,6 +40,51 @@ $\mathsf{ACC}^0$ dies because MAJORITY has approximate degree $\Theta(n)$ (Patur
 needed instead. This rung is now modeled in the
 [`e_tc0_sat_savings`](../../../experiments/circuit_complexity/e_tc0_sat_savings.py)
 experiment.
+
+## State of the art (from the June 2026 reading pass)
+
+Synthesized from the [reading notes](../reading_notes/) on the Williams-method and
+approximate-degree sources.
+
+**The spine is barrier-clean, and the first step past $\mathsf{ACC}^0$ is taken.**
+[Williams 2015](../reading_notes/williams_method/williams_2015_thinking_algorithmically.md)
+states the thesis (a sub-$2^n$ Circuit SAT algorithm implies a lower bound).
+[Williams 2013](../reading_notes/williams_method/williams_2013_natural_proofs_vs_derandomization.md)
+proves NEXP lower bounds are *equivalent* to constructive useful properties, with
+a refinement worth pinning: the method is non-natural by dropping *largeness*, not
+constructivity (constructivity is unavoidable). [Murray-Williams 2018](../reading_notes/williams_method/murray_williams_2018_easy_witness_nqp.md)
+pushes the hard class down to NQP/NP and lands the first rung past $\mathsf{ACC}^0$:
+NQP has no quasi-polynomial $\mathsf{ACC}^0$ circuits with one bottom threshold
+layer (ACC of THR). [Chen-Lyu-Williams 2020](../reading_notes/williams_method/chen_lyu_williams_2020_ae_lower_bounds.md)
+upgrades these to almost-everywhere and average-case, still stopping at ACC0 o THR.
+[Williams 2021](../reading_notes/williams_method/williams_2021_lower_bounds_from_algorithm_design.md)
+is the status check, and it names a fourth barrier, *locality*, alongside the
+canonical three (corroborating the dossier's implied fourth barrier).
+
+**The wall is genuinely the threshold layer, confirmed from two sides.** (a) By
+approximate degree: [Paturi 1992](../reading_notes/approx_degree_tc0/paturi_1992_symmetric_approx_degree.md)
+gives MAJORITY approximate degree $\Theta(n)$ (no low-degree approximant), while
+[Bun-Thaler 2017](../reading_notes/approx_degree_tc0/bun_thaler_2017_ac0_approx_degree.md)
+shows $\mathsf{AC}^0$ already reaches approximate degree $n^{1-\delta}$, so
+$\mathsf{AC}^0$ is not the wall, the threshold layer is. (b) By the structure of
+the certificates: the [Bun-Thaler 2022 survey](../reading_notes/approx_degree_tc0/bun_thaler_2022_approx_degree_survey.md),
+the explicit dual witnesses of [Bun-Thaler 2016](../reading_notes/approx_degree_tc0/bun_thaler_2016_dual_polynomials.md),
+and the [Sherstov 2011](../reading_notes/approx_degree_tc0/sherstov_2011_pattern_matrix.md)
+pattern-matrix lift are all rational, LP/spectral objects that algebrize, so the
+approximate-degree method cannot itself be the non-algebrizing ingredient.
+[Kumar 2023](../reading_notes/approx_degree_tc0/kumar_2023_ac0_to_tc0_correlation.md)
+and [Kane-Williams 2016](../reading_notes/approx_degree_tc0/kane_williams_2016_threshold_lower_bounds.md)
+chart how far the random-restriction toolkit reaches up to the wall (a sharp cliff
+at gate balance $\approx n^{1/d}$, and depth-2/3 threshold bounds capped by
+$\sqrt{n}$ anti-concentration) without crossing it.
+
+**Open cruxes this exposes.** (1) The M3 hinge is a non-trivial $\mathsf{TC}^0$
+(THR-of-THR or MAJ-of-MAJ) satisfiability or CAPP algorithm beating brute force;
+Chen-Williams (CCC 2019, in the bibliography) already reduces such an algorithm to
+a $\mathsf{TC}^0$ lower bound. (2) The speedup must be combinatorial (a Boolean or
+sign-rank collapse), not the polynomial method, since the latter's certificates
+algebrize. (3) The locality barrier (Williams 2021) must be threaded, which is the
+content of LEARNINGS finding 10.
 
 ## Why this is the most-leveraged direction
 

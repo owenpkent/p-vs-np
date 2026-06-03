@@ -177,3 +177,24 @@ dossier's repair (graft meta-complexity onto the spine, do not let the arithmeti
 W2A core be the barrier-clearing ingredient). Source: the meta-complexity
 [reading notes](../docs/03_research/reading_notes/meta_complexity/) and the
 deepened [research direction 02](../docs/03_research/research_directions/02_natural_proofs_evasion.md).
+
+### 13. The $\mathsf{TC}^0$ wall is confirmed from two independent sides, and the method is non-natural by non-largeness.
+
+The Williams-method and approximate-degree reading establishes three things. First,
+the algorithmic-method spine is barrier-clean and the first rung past $\mathsf{ACC}^0$
+is already taken: Murray-Williams 2018 gives NQP lower bounds against ACC of THR
+(one bottom threshold layer), upgraded to almost-everywhere and average-case by
+Chen-Lyu-Williams 2020. Second, the $\mathsf{TC}^0$ wall is confirmed two ways:
+(a) by approximate degree, MAJORITY needs $\Theta(n)$ (no low-degree approximant)
+while $\mathsf{AC}^0$ already reaches $n^{1-\delta}$ (Bun-Thaler 2017), so the wall
+is the threshold layer not $\mathsf{AC}^0$; (b) by certificate structure, the dual
+polynomials and pattern-matrix lift (Bun-Thaler, Sherstov) are rational LP/spectral
+objects that algebrize, so the approximate-degree method cannot itself be the
+non-algebrizing ingredient. Third, a refinement to pin: Williams 2013 proves the
+method is non-natural by dropping *largeness*, not constructivity (constructivity is
+unavoidable), which sharpens the dossier's "non-constructive" phrasing. Williams
+2021 independently names a fourth barrier (locality), corroborating finding 10.
+Finding: the leading path's hinge is real and located precisely, and the
+barrier-clearing speedup must be combinatorial (Boolean / sign-rank), not the
+polynomial method. Source: the [reading notes](../docs/03_research/reading_notes/)
+and the deepened [research direction 01](../docs/03_research/research_directions/01_circuit_lower_bounds.md).
