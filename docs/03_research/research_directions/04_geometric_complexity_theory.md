@@ -87,7 +87,7 @@ perm-versus-det, which is exactly the padding BIP weaponized.
 | ID | Milestone | Status |
 |---|---|---|
 | M1 | Reproduce the Mignon-Ressayre quadratic lower bound on determinantal complexity of the permanent (small $n$, explicit Hessian rank computation) | open, scoped |
-| M2 | Compute small plethysm / Kronecker coefficients and check the BIP 2016 multiplicity-nonzero phenomenon on a small partition | scoped (the DIP 2019 Chow vs Veronese secant case, $\lambda = (n^2-2,n,2)$, is the model multiplicity obstruction to compute) |
+| M2 | Compute small plethysm / Kronecker coefficients and check the BIP 2016 multiplicity-nonzero phenomenon on a small partition | done (Kronecker coefficients computed from scratch via Murnaghan-Nakayama in [`gct/e_plethysm_kronecker.py`](../../../experiments/gct/e_plethysm_kronecker.py), verified for $n \le 6$; the DIP 2019 Chow vs Veronese case is the model obstruction to target next) |
 | M3 | Encode the occurrence vs multiplicity distinction so the barrier checker treats occurrence obstructions as a closed sub-route and multiplicity obstructions as open | open |
 
 ## Barrier status

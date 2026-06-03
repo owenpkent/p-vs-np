@@ -26,8 +26,9 @@ Task tracking for the P vs NP research repo. Checkbox format.
       approximation over F_3 (`circuit_complexity/e_acc0_polynomial_method.py`)
 - [x] Resolution-width lower bound for the pigeonhole principle (Haken 1985)
       (`proof_complexity/e_resolution_width_php.py`; BSW vacuous for PHP, honest finding)
-- [ ] GCT permanent-vs-determinant multiplicity computation (with BIP 2016 no-go
-      as the boundary)
+- [x] GCT permanent-vs-determinant multiplicity computation (with BIP 2016 no-go
+      as the boundary) (`gct/e_multiplicity_obstruction.py` barrier check +
+      `gct/e_plethysm_kronecker.py` Kronecker computation from scratch)
 - [ ] Nisan-Wigderson PRG demo (circuit hardness implies derandomization)
 - [ ] Monotone clique lower bound (Razborov 1985) in miniature
 
