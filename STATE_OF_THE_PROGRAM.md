@@ -3,7 +3,7 @@
 > A one-page strategic snapshot: where every architecture stands, what wall each
 > hit, where the live work is, and the single most-leveraged next move. Companion
 > to the operational [`PHASE_STATE.md`](PHASE_STATE.md) and the synthesis surface
-> [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md). Last updated: 2026-06-02.
+> [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md). Last updated: 2026-06-03.
 
 ## The thesis in one paragraph
 
@@ -83,6 +83,43 @@ very low. The value of the work is that the barriers are now precise enough to
 say what a proof must look like, and the partial results (weak-class lower
 bounds, the satisfiability-algorithm / lower-bound connection, arithmetic proof
 complexity) are contributions in their own right.
+
+## Recent progress (overnight run, 2026-06-02)
+
+An autonomous orchestrated loop ran the experimental and documentation backlog to
+completion: 13 tasks, each committed separately (per-task log in
+[`OVERNIGHT_BACKLOG.md`](OVERNIGHT_BACKLOG.md); cross-architecture findings 11-19 in
+[`experiments/LEARNINGS.md`](experiments/LEARNINGS.md)). It produced research
+scaffolding and negative-result coordinates, not breakthroughs. The open mathematics
+is exactly as open as before.
+
+Concrete additions, all verified (self-checks pass):
+
+- Five new runnable experiments: the Razborov-Smolensky $\mathbb{F}_3$-degree bound,
+  pigeonhole resolution width, Kronecker coefficients computed from scratch
+  (Murnaghan-Nakayama), Nisan-Wigderson designs, and the monotone-clique sunflower
+  lemma.
+- The 31 grounded reading notes synthesized into the four research directions and the
+  SAT writeup, plus a strand-3 missing-object synthesis and a coordinate ledger
+  ([`docs/03_research/strand3_ledger.md`](docs/03_research/strand3_ledger.md)).
+- The Lean skeleton now compiles against core Lean: two real bugs were fixed (a
+  `Clause.eval` abbreviation-resolution error and a too-narrow `RunsInPolyTime`), with
+  the documented `sorry` targets remaining as the open math.
+
+Three findings worth flagging:
+
+- **A propagated error was corrected.** MAJORITY's approximate degree is $\Theta(n)$,
+  not $\Theta(\sqrt{n})$ (that is OR / AND); the correction strengthens the
+  $\mathsf{TC}^0$-hinge argument. Grounded reading against primary sources is the
+  mechanism that caught it (LEARNINGS #11).
+- **The strand-3 search has a sharp coordinate.** No candidate invariant clears both
+  strands: every cheap count algebrizes, and every torsion class is not a cheap count.
+  So the one object worth building is the forcing Bockstein bridge (a cheap count
+  forcing a mod-2 torsion class to be nonzero), not another one-sided invariant.
+- **Negative results, recorded as coordinates.** The Ben-Sasson-Wigderson width-size
+  tradeoff is vacuous for the pigeonhole principle (Haken's bound needs bottleneck
+  counting), and the Nisan-Wigderson generator genuinely needs a hard function. Both
+  narrow where the real work must live.
 
 ## Canonical pointers
 
