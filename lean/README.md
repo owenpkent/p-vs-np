@@ -81,6 +81,40 @@ theorems. For each target, a VERIFIER agent should either propose a minimal
 Mathlib extension to contribute back, or reduce the claim to existing Mathlib
 lemmas with any extra axioms flagged.
 
+## Mathlib mapping audit and build status (2026-06-02)
+
+From the overnight P4a audit (toolchain present: Lean 4.13.0, Lake 5.0.0).
+
+- **The skeleton is Mathlib-free.** The lakefile `require`s Mathlib, but no module
+  imports it: every `PvsNP/*.lean` uses only core Lean (`List`, `Bool`, `Nat`,
+  `Prop`). So `lake build` would fetch and build gigabytes of Mathlib for nothing.
+  The modules compile against core Lean directly. Recommendation: build standalone
+  (drop or comment the unused Mathlib `require`) until a target genuinely imports
+  Mathlib, and reinstate it only then.
+- **Per-module compile status (bare `lean`, no Mathlib), dependency order:**
+  - `Basic.lean`: compiles cleanly, 0 `sorry` (the foundational classes and
+    `inP_subset_inNP` are fully proved).
+  - `SAT.lean`: a real compile error (not a documented `sorry`), now a P4b target.
+    At line 65, `([] : Clause).eval a` resolves to the nonexistent `List.eval`
+    because `Clause` is a reducible abbreviation for `List Literal`, so dot notation
+    uses the `List` head. Fix: call `Clause.eval ([] : Clause) a` explicitly (or make
+    `Clause` a structure). `CNF.eval` (line 40) avoids this only because its binder
+    is annotated `Clause`.
+  - `CookLevin.lean`, `Relativization.lean`, `CircuitLowerBounds.lean`: not yet
+    reached, pending the SAT fix.
+- **Per-target Mathlib mapping.** The statement surface needs no Mathlib; core Lean
+  suffices. Mathlib's `Computability` namespace has Turing machines (`Turing.TM0/1/2`),
+  partial recursive functions, and encodings, but NO time-bounded cost model or
+  complexity classes, so #TM-1/2/3, #CL-1/2/3, #REL-*, and #CKT-* remain genuine
+  gaps requiring new development rather than a lemma lookup. The external
+  [lean-dojo/LeanMillenniumPrizeProblems](https://github.com/lean-dojo/LeanMillenniumPrizeProblems)
+  repo is the closest existing Lean 4 statement surface for P, NP, poly-time
+  reductions, and NP-completeness to diff against (it parameterizes over the missing
+  cost model rather than axiomatizing it).
+- **Conclusion.** The near-term win is a standalone (Mathlib-free) green build once
+  the `SAT.lean` error is fixed; the Mathlib dependency should be deferred until a
+  target genuinely imports it.
+
 ## How agents use this
 
 - **BUILDER**: writes mathematical definitions in `PvsNP/`.
