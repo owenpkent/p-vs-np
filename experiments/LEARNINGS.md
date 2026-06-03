@@ -333,10 +333,13 @@ $2^{n-n^\varepsilon}$ for dense depth-2 LTF-of-LTF (equivalently, per Chen 2018
 arXiv:1805.10698, shaving all polylog factors off a polylog-dimension
 closest/furthest-pair problem; medium confidence). Third, the barrier profile is more
 honest than "evades all three." Relativization is genuinely evaded (a real SAT
-algorithm opens the gate structure). Natural proofs is CONDITIONALLY evaded: ACW 2016
-warn their richest threshold class likely supports PRF candidates, which would make
-any constructive lower-bound method there natural, a co-equal open obstruction, not a
-clean pass. Algebrization is NOT YET ASSESSABLE, not "evaded": $\mathsf{algebrizes} =
+algorithm opens the gate structure). Natural proofs is CONDITIONALLY evaded, and this
+is arguably the BINDING constraint at dense poly-size TC0: that class likely computes
+pseudorandom functions, which would make any constructive lower-bound method there
+natural. This is now double-sourced: ACW 2016 say so explicitly (arXiv:1608.04355
+Section 1, located after Theorem 1.9), and Chen-Tell 2019 independently flag the same
+collision via a Miles-Viola 2015 candidate PRF in depth-d TC0 with $n^{1+O(1/d)}$
+wires. So it is a co-equal open obstruction, not a clean pass. Algebrization is NOT YET ASSESSABLE, not "evaded": $\mathsf{algebrizes} =
 \mathsf{False}$ is a property of a nonexistent algorithm, in the same epistemic state
 as the retired "Boolean-rank collapse" placeholder. The "combinatorial =
 non-algebrizing, algebraic = algebrizing" dichotomy is false within our own solved

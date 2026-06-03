@@ -38,10 +38,19 @@ needs a non-natural property. See [natural_proofs experiment](../../experiments/
 
 **Where the live work is.** The Williams program: better circuit-satisfiability
 algorithms yield new lower bounds via the algorithm-to-lower-bound connection.
-This is non-natural (non-constructive diagonalization), non-relativizing, and
-non-algebrizing. Pushing it from $\mathsf{ACC}^0$ to $\mathsf{TC}^0$ /
-$\mathsf{NC}^1$ / $\mathsf{P/poly}$ and from $\mathsf{NEXP}$ to $\mathsf{NP}$ is
-the open frontier.
+For the existing results this is non-relativizing, non-natural, and non-algebrizing.
+The threshold frontier is now located precisely (see
+[`../03_research/2050_tc0_hinge_grounded.md`](../03_research/2050_tc0_hinge_grounded.md)):
+the first threshold rung is already climbed ($\mathsf{NQP} \not\subseteq$ ACC-of-THR,
+Murray-Williams 2018), and the open object is a satisfiability speedup for DENSE
+depth-2 THR-of-THR, not "$\mathsf{TC}^0$" in the abstract. A caution that sharpened in
+June 2026: at dense poly-size $\mathsf{TC}^0$ the natural-proofs barrier is plausibly
+the BINDING constraint, because that class likely computes pseudorandom functions.
+This is now double-sourced: ACW 2016 say so explicitly (arXiv:1608.04355 Section 1,
+after Theorem 1.9), and Chen-Tell 2019 flag the same collision via a Miles-Viola 2015
+candidate PRF in depth-$d$ $\mathsf{TC}^0$ with $n^{1+O(1/d)}$ wires. Pushing on to
+$\mathsf{NC}^1$ / $\mathsf{P/poly}$ and from $\mathsf{NEXP}$ to $\mathsf{NP}$ remains
+the longer-range frontier.
 
 ## Architecture 2: diagonalization and hierarchy theorems
 
