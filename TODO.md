@@ -22,8 +22,8 @@ Task tracking for the P vs NP research repo. Checkbox format.
       numeric coordinate (`circuit_complexity/e_tc0_sat_savings.py`), runnable
 - [x] (f) Algebrization probe: rational-trace vs torsion invariant classifier
       (`_shared/algebrization_probe.py`), runnable
-- [ ] ACC0 polynomial method (Razborov-Smolensky): MOD_2 has no low-degree
-      approximation over F_3
+- [x] ACC0 polynomial method (Razborov-Smolensky): MOD_2 has no low-degree
+      approximation over F_3 (`circuit_complexity/e_acc0_polynomial_method.py`)
 - [ ] Resolution-width lower bound for the pigeonhole principle (Haken 1985)
 - [ ] GCT permanent-vs-determinant multiplicity computation (with BIP 2016 no-go
       as the boundary)

@@ -70,6 +70,7 @@ These replace the Riemann repo's four RH architectures.
 | Hardness landscape | [`sat_phase_transition/e_sat_phase.py`](sat_phase_transition/) | Runs to completion | SAT/UNSAT crossing at $\alpha \approx 4.28$, hardness peak at 4.25, near $\alpha_c \approx 4.267$ |
 | Circuit complexity (the hinge) | [`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py) | Runs to completion | models the $\mathsf{TC}^0$ step of the Williams program, pins that the polynomial method dies at threshold gates, and reproduces the savings mirage, $2^{m^{0.001}}$ does not beat $m^3$ until $m \approx 10^{4668}$ |
 | Algebrization probe | [`_shared/algebrization_probe.py`](_shared/algebrization_probe.py) | Runs to completion | classifies a hardness invariant as algebrizing char-0 trace/rank/volume vs candidate-non-algebrizing mod-2 torsion |
+| Circuit complexity (polynomial method) | [`circuit_complexity/e_acc0_polynomial_method.py`](circuit_complexity/e_acc0_polynomial_method.py) | Runs to completion | PARITY has exact $\mathbb{F}_3$ multilinear degree $n$ (top coefficient $\equiv 1 \bmod 3$); low-degree $\mathbb{F}_3$ polynomials cannot match it (best degree-2 agreement 14/16 at $n=4$); the method is natural, disqualified vs $\mathsf{P/poly}$, valid only vs $\mathsf{AC}^0[p]$ |
 
 ## AI-centric methodology
 
@@ -82,8 +83,11 @@ that barrier (as Williams's does).
 
 ## Per-architecture next steps
 
-- **Circuit complexity.** Extend the restriction demo to ACC0 (mod gates) and
-  reproduce the polynomial-method intuition behind Razborov-Smolensky. The
+- **Circuit complexity.** The polynomial-method intuition behind Razborov-Smolensky
+  is now reproduced in
+  [`circuit_complexity/e_acc0_polynomial_method.py`](circuit_complexity/e_acc0_polynomial_method.py)
+  (PARITY needs full $\mathbb{F}_3$ degree, and the method is natural hence
+  restricted-class only). The
   $\mathsf{TC}^0$-SAT savings hinge is now modeled in
   [`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py):
   it is the single most-leveraged target, since the polynomial method that beat
