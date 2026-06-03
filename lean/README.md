@@ -10,10 +10,11 @@
 
 ## Status
 
-**Skeleton. NOT expected to build without further work.** Mathlib's
-complexity-theory coverage is thin as of 2026 (there is no canonical Turing-
-machine cost model wired for poly-time class definitions, no SAT, no Cook-Levin,
-no P/poly). So this skeleton uses lightweight self-contained models: a
+**Skeleton. As of the 2026-06-02 P4b fix, the five modules compile against core
+Lean (no Mathlib); the documented `sorry` targets remain the open mathematics.**
+Mathlib's complexity-theory coverage is thin as of 2026 (there is no canonical
+Turing-machine cost model wired for poly-time class definitions, no SAT, no
+Cook-Levin, no P/poly). So this skeleton uses lightweight self-contained models: a
 `Language` is a predicate on bit strings, "runs in polynomial time" is an abstract
 `Prop` field (the first VERIFIER target), and circuits / CNF formulas are real
 inductive types with real evaluation.
@@ -91,17 +92,18 @@ From the overnight P4a audit (toolchain present: Lean 4.13.0, Lake 5.0.0).
   The modules compile against core Lean directly. Recommendation: build standalone
   (drop or comment the unused Mathlib `require`) until a target genuinely imports
   Mathlib, and reinstate it only then.
-- **Per-module compile status (bare `lean`, no Mathlib), dependency order:**
-  - `Basic.lean`: compiles cleanly, 0 `sorry` (the foundational classes and
-    `inP_subset_inNP` are fully proved).
-  - `SAT.lean`: a real compile error (not a documented `sorry`), now a P4b target.
-    At line 65, `([] : Clause).eval a` resolves to the nonexistent `List.eval`
+- **Per-module compile status (bare `lean`, no Mathlib), dependency order: ALL
+  COMPILE** (P4b, 2026-06-02). Two real bugs were fixed to get here:
+  - `Basic.lean`: `RunsInPolyTime` was typed `BitString -> Bool` only, so a
+    reduction's `f : BitString -> BitString` did not typecheck (the CookLevin
+    `PolyReduction` field). Generalized to be polymorphic in the codomain (still the
+    `True` placeholder, #TM-1).
+  - `SAT.lean`: `([] : Clause).eval a` resolved to the nonexistent `List.eval`
     because `Clause` is a reducible abbreviation for `List Literal`, so dot notation
-    uses the `List` head. Fix: call `Clause.eval ([] : Clause) a` explicitly (or make
-    `Clause` a structure). `CNF.eval` (line 40) avoids this only because its binder
-    is annotated `Clause`.
-  - `CookLevin.lean`, `Relativization.lean`, `CircuitLowerBounds.lean`: not yet
-    reached, pending the SAT fix.
+    used the `List` head. Rewritten to call `Clause.eval` explicitly.
+  - `CookLevin.lean`, `Relativization.lean`, `CircuitLowerBounds.lean`: compile, with
+    the documented `sorry` targets (#CL-1/2, #REL-A/B, #CKT-P/goal) remaining as the
+    genuine open mathematics (they compile as warnings, not errors).
 - **Per-target Mathlib mapping.** The statement surface needs no Mathlib; core Lean
   suffices. Mathlib's `Computability` namespace has Turing machines (`Turing.TM0/1/2`),
   partial recursive functions, and encodings, but NO time-bounded cost model or
@@ -111,9 +113,13 @@ From the overnight P4a audit (toolchain present: Lean 4.13.0, Lake 5.0.0).
   repo is the closest existing Lean 4 statement surface for P, NP, poly-time
   reductions, and NP-completeness to diff against (it parameterizes over the missing
   cost model rather than axiomatizing it).
-- **Conclusion.** The near-term win is a standalone (Mathlib-free) green build once
-  the `SAT.lean` error is fixed; the Mathlib dependency should be deferred until a
-  target genuinely imports it.
+- **Conclusion.** The standalone (Mathlib-free) build is now GREEN: all five modules
+  typecheck against core Lean, with only the documented `sorry` targets open.
+  Reproduce from `lean/` by compiling the modules with bare `lean` in dependency
+  order (Basic, SAT, CookLevin, Relativization, CircuitLowerBounds) with `LEAN_PATH`
+  pointing at the output directory. A `lake build` would still fetch Mathlib for
+  nothing; drop the unused `require mathlib` in `lakefile.lean` to build via Lake
+  standalone.
 
 ## How agents use this
 

@@ -23,9 +23,11 @@ abbrev BitString := List Bool
 def Language := BitString → Prop
 
 /-- Abstract "runs in time polynomial in the input length" predicate for a
-    decision procedure `f`. VERIFIER target #TM-1: replace by a real cost model
-    (a Turing machine or a clocked recursion) with an explicit polynomial bound. -/
-def RunsInPolyTime (_f : BitString → Bool) : Prop := True
+    procedure `f` (a decider `BitString → Bool` or a reduction `BitString →
+    BitString`; polymorphic in the codomain so both uses typecheck). VERIFIER
+    target #TM-1: replace by a real cost model (a Turing machine or a clocked
+    recursion) with an explicit polynomial bound. -/
+def RunsInPolyTime {β : Type} (_f : BitString → β) : Prop := True
 
 /-- Abstract "runs in time polynomial in |x| + |w|" for a two-argument verifier.
     VERIFIER target #TM-2. -/

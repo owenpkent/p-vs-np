@@ -62,9 +62,11 @@ theorem empty_cnf_satisfiable : Satisfiable ([] : CNF) :=
     satisfied literal. Provable now. -/
 theorem empty_clause_unsat (φ : CNF) (h : ([] : Clause) ∈ φ) : ¬ Satisfiable φ := by
   rintro ⟨a, ha⟩
-  have : ([] : Clause).eval a = true := by
-    have := List.all_eq_true.mp ha [] h
-    simpa using this
-  simp [Clause.eval] at this
+  -- `Clause` is a reducible abbrev for `List Literal`, so dot notation
+  -- `([] : Clause).eval` would resolve to the nonexistent `List.eval`. Call
+  -- `Clause.eval` explicitly instead.
+  simp only [CNF.eval] at ha
+  have hc : Clause.eval [] a = true := List.all_eq_true.mp ha [] h
+  simp [Clause.eval] at hc
 
 end PvsNP

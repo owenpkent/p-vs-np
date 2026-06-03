@@ -58,9 +58,14 @@ Task tracking for the P vs NP research repo. Checkbox format.
 - [x] `PvsNP.lean` main module + skeleton sub-modules
 - [x] Typed statements with documented `sorry` (P, NP, SAT, Cook-Levin, BGS,
       circuit lower bounds, the P_neq_NP goal)
-- [ ] Wire to any Mathlib complexity-theory definitions that exist
+- [x] Wire to any Mathlib complexity-theory definitions that exist (P4a audit:
+      Mathlib has Turing machines but no cost/poly-time class, so the skeleton is
+      intentionally Mathlib-free; nothing to wire yet)
 - [ ] Replace placeholder predicates with real statements where Mathlib allows
-- [ ] Get a green `lake build` (currently a skeleton; not required)
+      (P4b fixed two real bugs; the remaining placeholders are documented `sorry`
+      targets = genuine open math, not Mathlib-supportable yet)
+- [x] Get a green build: all five modules compile against core Lean (P4b); a
+      Mathlib-based `lake build` still needs the unused `require mathlib` dropped
 
 ## References and visualizations
 
