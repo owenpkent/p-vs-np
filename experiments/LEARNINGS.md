@@ -260,3 +260,18 @@ the protocol-circuit duality that Bonet-Pitassi-Raz weaponize against extended F
 is not provably blocked. Source: the
 [proof-complexity reading notes](../docs/03_research/reading_notes/proof_complexity/) and
 [research direction 03](../docs/03_research/research_directions/03_proof_complexity.md).
+
+### 18. The width-size tradeoff is vacuous for the pigeonhole principle.
+
+Computing the minimum resolution refutation width of $\mathrm{PHP}^{n+1}_n$ for the
+two smallest cases (via width-bounded saturation) gives width exactly equal to the
+hole count $n$ (2 and 3), which is the initial pigeon-clause width. So
+$w(F \vdash \square) - w(F) \approx 0$, and with $N = \Theta(n^2)$ variables the
+Ben-Sasson-Wigderson exponent $(w - w_0)^2 / N$ is $\approx 0$: the width-size
+tradeoff gives no size lower bound for PHP. Finding: Haken's $2^{\Omega(n)}$ bound is
+a bottleneck-counting argument, NOT a width argument, and PHP is a poor example for
+"lower bound via width". BSW is exponential precisely for constant-width,
+$O(n)$-variable formulas with refutation width $\Omega(n)$ (Tseitin on expanders,
+random k-SAT), where the exponent is $\Theta(n)$. This is a coordinate: it tells a
+builder which formula families the width method can and cannot reach. Source:
+[`proof_complexity/e_resolution_width_php.py`](proof_complexity/e_resolution_width_php.py).

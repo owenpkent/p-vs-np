@@ -71,6 +71,7 @@ These replace the Riemann repo's four RH architectures.
 | Circuit complexity (the hinge) | [`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py) | Runs to completion | models the $\mathsf{TC}^0$ step of the Williams program, pins that the polynomial method dies at threshold gates, and reproduces the savings mirage, $2^{m^{0.001}}$ does not beat $m^3$ until $m \approx 10^{4668}$ |
 | Algebrization probe | [`_shared/algebrization_probe.py`](_shared/algebrization_probe.py) | Runs to completion | classifies a hardness invariant as algebrizing char-0 trace/rank/volume vs candidate-non-algebrizing mod-2 torsion |
 | Circuit complexity (polynomial method) | [`circuit_complexity/e_acc0_polynomial_method.py`](circuit_complexity/e_acc0_polynomial_method.py) | Runs to completion | PARITY has exact $\mathbb{F}_3$ multilinear degree $n$ (top coefficient $\equiv 1 \bmod 3$); low-degree $\mathbb{F}_3$ polynomials cannot match it (best degree-2 agreement 14/16 at $n=4$); the method is natural, disqualified vs $\mathsf{P/poly}$, valid only vs $\mathsf{AC}^0[p]$ |
+| Proof complexity (resolution width) | [`proof_complexity/e_resolution_width_php.py`](proof_complexity/e_resolution_width_php.py) | Runs to completion | PHP min refutation width equals the hole count (2 and 3 for the two smallest cases), so the BSW width-size tradeoff is vacuous for PHP (exponent $\approx 0$, Haken needs bottleneck counting); BSW is exponential for constant-width $O(n)$-variable formulas (Tseitin, random k-SAT) |
 
 ## AI-centric methodology
 

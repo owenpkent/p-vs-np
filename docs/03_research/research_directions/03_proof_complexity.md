@@ -61,7 +61,7 @@ matching the dossier's A4 repair.
 
 | ID | Milestone | Status |
 |---|---|---|
-| M1 | Reproduce the resolution-width lower bound for the pigeonhole principle (Haken 1985 via the Ben-Sasson-Wigderson width-size tradeoff) as a runnable experiment | open, scoped in PLAN.md |
+| M1 | Reproduce the resolution-width lower bound for the pigeonhole principle (Haken 1985 via the Ben-Sasson-Wigderson width-size tradeoff) as a runnable experiment | done ([`proof_complexity/e_resolution_width_php.py`](../../../experiments/proof_complexity/e_resolution_width_php.py)); honest finding: BSW is vacuous for PHP (width = hole count), so Haken's bound is bottleneck counting, not width |
 | M2 | Connect bounded-depth Frege lower bounds to the AC0 switching lemma already demonstrated in `circuit_complexity/` | open |
 | M3 | Survey the Frege lower-bound barrier (feasible interpolation failure) and the bounded-arithmetic connection (Krajicek) | open |
 
