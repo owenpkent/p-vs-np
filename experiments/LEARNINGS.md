@@ -103,14 +103,20 @@ is the only component no adversary could disqualify. Finding: the compass readin
 is consistent across the architectures the exercise probed. The frontier is to
 push Williams from ACC0 toward P/poly (the leading imagined path rides
 meta-complexity on the spine, using a proved non-constructivity of high-$Kt$ truth
-tables). The everything-routes-through milestone is the $\mathsf{TC}^0$ hinge: a
-combinatorial non-algebrizing $\mathsf{TC}^0$-satisfiability speedup yielding
-$\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$, where the polynomial method that beat
-$\mathsf{ACC}^0$ dies because MAJORITY has approximate degree $\Theta(n)$ (Paturi 1992), so it has no low-degree approximant.
-That hinge is compute-light and attackable now; it is modeled in
-[`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py),
-which disqualifies the naive polynomial-method route (natural and algebrizing) and
-shows the candidate Boolean-rank-collapse speedup evading all three barriers.
+tables). The everything-routes-through milestone is the threshold hinge: a combinatorial
+satisfiability speedup for dense threshold circuits, fed through the Williams
+connection. CORRECTED by finding 20 (2026-06-03): the earlier claim here, that the
+polynomial method "dies" at threshold gates because MAJORITY has approximate degree
+$\Theta(n)$ (Paturi 1992), was a conflation. The satisfiability algorithm spends
+PROBABILISTIC degree (MAJORITY $\Theta(\sqrt{n})$), not approximate degree, and it
+already crosses one threshold layer; the open object is a SAT speedup for DENSE
+depth-2 THR-of-THR, not "$\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$" generically.
+The hinge is compute-light and attackable now; it is modeled in
+[`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py)
+and grounded in
+[`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md). The
+"Boolean-rank-collapse" name is a placeholder coinage, retired in favor of its real
+referents.
 
 ### 9. The missing object is a fast-to-compute invariant that does not algebrize.
 
@@ -150,11 +156,15 @@ degree as $\Theta(\sqrt{n})$. Paturi 1992 gives $\Theta(\sqrt{n(n - \Gamma(f))})
 symmetric $f$; MAJORITY has its sign change at the center ($\Gamma \approx 0$), so its
 approximate degree is $\Theta(n)$, while OR and AND (endpoint change) are the ones at
 $\Theta(\sqrt{n})$. The Bun-Thaler survey states $\widetilde{\deg}(\mathrm{MAJ}) =
-\Theta(n)$ directly. Finding: the correction strengthens the $\mathsf{TC}^0$-hinge
-argument rather than weakening it. MAJORITY requires the maximum (linear) approximate
-degree, so it has no low-degree approximant at all, which is precisely why the
-Razborov-Smolensky low-degree polynomial method cannot reach threshold gates. The
-docs were corrected on 2026-06-02. Methodological lesson: grounded reading against
+\Theta(n)$ directly. Finding: MAJORITY requires the maximum (linear) approximate
+degree, so it has no low-degree (uniform) approximant. CORRECTED by finding 20
+(2026-06-03): this fact blocks only the low-degree-CORRELATION route to a lower
+bound; it does NOT block the satisfiability algorithm, which spends PROBABILISTIC
+degree ($\Theta(\sqrt{n})$ for MAJORITY) and already crosses one threshold layer
+(Alman-Chan-Williams 2016). The earlier gloss that this is "precisely why the
+Razborov-Smolensky polynomial method cannot reach threshold gates" was itself the
+conflation finding 20 retires. The approximate-degree fix in this finding (an
+earlier $\Theta(\sqrt{n})$ error) was correctly landed on 2026-06-02. Methodological lesson: grounded reading against
 primary sources is the honesty mechanism that catches errors a confident summary
 would carry forward.
 
@@ -184,19 +194,26 @@ The Williams-method and approximate-degree reading establishes three things. Fir
 the algorithmic-method spine is barrier-clean and the first rung past $\mathsf{ACC}^0$
 is already taken: Murray-Williams 2018 gives NQP lower bounds against ACC of THR
 (one bottom threshold layer), upgraded to almost-everywhere and average-case by
-Chen-Lyu-Williams 2020. Second, the $\mathsf{TC}^0$ wall is confirmed two ways:
-(a) by approximate degree, MAJORITY needs $\Theta(n)$ (no low-degree approximant)
-while $\mathsf{AC}^0$ already reaches $n^{1-\delta}$ (Bun-Thaler 2017), so the wall
-is the threshold layer not $\mathsf{AC}^0$; (b) by certificate structure, the dual
-polynomials and pattern-matrix lift (Bun-Thaler, Sherstov) are rational LP/spectral
-objects that algebrize, so the approximate-degree method cannot itself be the
-non-algebrizing ingredient. Third, a refinement to pin: Williams 2013 proves the
-method is non-natural by dropping *largeness*, not constructivity (constructivity is
-unavoidable), which sharpens the dossier's "non-constructive" phrasing. Williams
-2021 independently names a fourth barrier (locality), corroborating finding 10.
-Finding: the leading path's hinge is real and located precisely, and the
-barrier-clearing speedup must be combinatorial (Boolean / sign-rank), not the
-polynomial method. Source: the [reading notes](../docs/03_research/reading_notes/)
+Chen-Lyu-Williams 2020 (venue/year flagged needs-citation). Second, the threshold
+obstruction has two DISTINCT sides that finding 20 separates (correcting this
+finding's "wall confirmed two ways" framing into "two sides of a hinge"): (a) on the
+lower-bound/CORRELATION side, MAJORITY needs approximate degree $\Theta(n)$ (no
+low-degree approximant) while $\mathsf{AC}^0$ already reaches $n^{1-\delta}$
+(Bun-Thaler 2017); (b) on the ALGORITHM side the picture is the opposite, the
+satisfiability algorithm spends PROBABILISTIC degree $\Theta(\sqrt{n})$ and DOES
+cross one threshold layer (Alman-Chan-Williams 2016), so there is no flat wall, only
+a density/depth/error budget. CORRECTED by finding 20: the claim that the
+dual-polynomial / pattern-matrix objects "algebrize" is PROJECT INFERENCE, not an
+Aaronson-Wigderson theorem (downgraded to speculation); the defensible reason the
+approximate-degree route is not the non-algebrizing ingredient is that it is NATURAL
+(large + constructive). Third: Williams 2013 proves the method is non-natural by
+dropping *largeness*, not constructivity (constructivity is unavoidable), which
+sharpens the dossier's "non-constructive" phrasing. Williams 2021 independently names
+a fourth barrier (locality), corroborating finding 10. Finding: the hinge is located
+precisely (dense depth-2 THR-of-THR), but "the speedup must be combinatorial (Boolean
+/ sign-rank)" overstates: "combinatorial" is not the same axis as "non-algebrizing"
+(ACW's algebraic method already crossed a layer), and sign-rank alone provably cannot
+crack THR-of-THR. See finding 20. Source: the [reading notes](../docs/03_research/reading_notes/)
 and the deepened [research direction 01](../docs/03_research/research_directions/01_circuit_lower_bounds.md).
 
 ### 14. Algebraic topology supplies the tools and a precedent for strand 3, but not the object.
@@ -290,3 +307,43 @@ surroundings: Impagliazzo-Wigderson 1997 turns hardness into $\mathsf{BPP} =
 \mathsf{P}$, and Kabanets-Impagliazzo 2004 turns derandomization back into circuit
 lower bounds, so the two are entangled, though none of this is a direct separation.
 Source: [`hardness_randomness/e_nisan_wigderson_prg.py`](hardness_randomness/e_nisan_wigderson_prg.py).
+
+### 20. The TC0 hinge, re-grounded: the polynomial method does not die at threshold gates, and the open object is a dense two-layer threshold SAT speedup.
+
+A survey-plus-fact-check pass against the primary sources corrected a load-bearing
+error that findings 8 and 11 had propagated, and located the hinge precisely. Three
+corrections. First, "the polynomial method provably stops at threshold gates because
+MAJORITY has approximate degree $\Theta(n)$" is FALSE as stated: it conflates two
+measures. The SAT algorithm spends PROBABILISTIC degree, where MAJORITY and every
+symmetric function are only $\Theta(\sqrt{n \log(1/\varepsilon)})$ (Alman-Williams
+FOCS 2015, arXiv:1507.05106; Alman-Chan-Williams FOCS 2016, arXiv:1608.04355), tight
+against Razborov-Smolensky 1987. The worst-case approximate degree $\Theta(n)$
+(Paturi 1992) is real but blocks the SEPARATE low-degree-correlation route, not the
+algorithm. Built from probabilistic polynomials, ACW 2016 (Thm 1.8, Cor 1.1) cross
+one EXTRA threshold layer (deterministic $2^{n-n^\varepsilon}$ SAT for AC0[m] of LTF
+of LTF with a subquadratic bottom threshold-GATE count, not wire count; this
+gate-vs-wire distinction was itself a repo error, now fixed), yielding
+$\mathsf{E}^{\mathsf{NP}}$ not in that class. Second, the FIRST threshold rung is
+already climbed: Murray-Williams STOC 2018 (ECCC TR17-188) get $\mathsf{NQP}$ not in
+$n^{\log^k n}$-size ACC of THR via Williams's 2014 ACC-of-THR SAT algorithm. So
+"$\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$ as the first rung" is imprecise; the
+open frontier is the SECOND threshold layer once dense (general depth-2 THR-of-THR,
+no subquadratic bottom restriction). The concrete target: a SAT/CAPP speedup
+$2^{n-n^\varepsilon}$ for dense depth-2 LTF-of-LTF (equivalently, per Chen 2018
+arXiv:1805.10698, shaving all polylog factors off a polylog-dimension
+closest/furthest-pair problem; medium confidence). Third, the barrier profile is more
+honest than "evades all three." Relativization is genuinely evaded (a real SAT
+algorithm opens the gate structure). Natural proofs is CONDITIONALLY evaded: ACW 2016
+warn their richest threshold class likely supports PRF candidates, which would make
+any constructive lower-bound method there natural, a co-equal open obstruction, not a
+clean pass. Algebrization is NOT YET ASSESSABLE, not "evaded": $\mathsf{algebrizes} =
+\mathsf{False}$ is a property of a nonexistent algorithm, in the same epistemic state
+as the retired "Boolean-rank collapse" placeholder. The "combinatorial =
+non-algebrizing, algebraic = algebrizing" dichotomy is false within our own solved
+set, since ACW's algebraic probabilistic-polynomial method already crossed a
+threshold layer. The claim that the dual-polynomial / pattern-matrix LP method
+"algebrizes" (finding 13) is project inference, NOT an Aaronson-Wigderson theorem,
+and is downgraded to speculation; the defensible reason that route fails is that it
+is natural. Source: the new note
+[`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md) and
+[`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py).

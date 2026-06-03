@@ -70,11 +70,19 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 
 ## Recommended next session actions
 
-1. **Attack the $\mathsf{TC}^0$-SAT hinge.** A non-trivial threshold-circuit
-   satisfiability / CAPP algorithm beating brute force, fed through the Williams
-   connection, is the single most-leveraged target (modeled in
-   `circuit_complexity/e_tc0_sat_savings.py`). The speedup must be combinatorial,
-   not the polynomial method, which dies at threshold gates.
+1. **Attack the $\mathsf{TC}^0$-SAT hinge (now precisely located).** A 2026-06-03
+   multi-agent grounding pass corrected the framing and pinned the target: the first
+   threshold rung (ACC-of-THR, one bottom layer) is already climbed (Murray-Williams
+   2018), the polynomial method does NOT die at threshold gates (it spends
+   probabilistic degree $\Theta(\sqrt{n})$, not approximate degree $\Theta(n)$, and
+   crosses one layer via Alman-Chan-Williams 2016), and the open object is a
+   satisfiability / CAPP speedup of $2^{n-n^\varepsilon}$ for DENSE depth-2
+   THR-of-THR with no subquadratic-bottom restriction (equivalently, the Chen 2018
+   log-shaving geometry algorithm). See
+   [`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md)
+   and LEARNINGS finding 20. Next concrete sub-steps: confirm the residual
+   needs-citation parameters (that note's section 9), and decide whether to attack
+   the dense-THR-of-THR SAT speedup directly or via the Chen 2018 geometry reduction.
 2. **Specify the strand-3 forcing bridge.** The coordinate ledger shows no invariant
    clears both strands; the object worth building is a Bockstein / universal-
    coefficients sequence forcing a mod-2 torsion class nonzero from a cheap count.
@@ -97,7 +105,11 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
   `algebrization_probe`, and `strand3.e_ledger`. Standard library only; plots optional.
 - Lean: all five `PvsNP/` modules compile against core Lean (documented `sorry`
   targets remain).
-- Git: 17 commits since the scaffold; working tree clean.
+- TC0 hinge grounding (2026-06-03): `e_tc0_sat_savings.py` rewritten and still runs
+  to exit 0; the corrected note `docs/03_research/2050_tc0_hinge_grounded.md` is in
+  place; LEARNINGS finding 20 added and findings 8/11/13 plus the dossier corrected.
+- Git: working tree has the TC0-hinge-grounding change set, pending commit
+  (authorization not yet given).
 
 ## Session log (recent)
 
@@ -107,6 +119,7 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 | 2026-06-02 | 2050 backward-induction dossier | Nine adversarially stress-tested resolution paths; the TC0-hinge and algebrization-probe experiments; curated reading resources (31 sources downloaded). |
 | 2026-06-02 | Overnight orchestrated loop (13 tasks) | Reading-notes synthesis into the research directions (LEARNINGS 11-19); five architecture experiments; the strand-3 coordinate ledger; two real Lean bugs fixed (skeleton now compiles against core Lean); MAJORITY approximate-degree correction. |
 | 2026-06-03 | Documentation refresh | README, STATE_OF_THE_PROGRAM, and PHASE_STATE updated to current reality; repo-wide no-dash check; pushed. |
+| 2026-06-03 | TC0 hinge grounding (multi-agent: 4 surveyors, fact-checkers, builder, adversary, final fact-check) | Corrected the "polynomial method dies at threshold gates" conflation (probabilistic vs approximate degree); located the open frontier as dense depth-2 THR-of-THR; caught 3 synthesis defects (paper-title, gates-vs-wires, over-strong algebrization claim). New note `2050_tc0_hinge_grounded.md`; LEARNINGS finding 20; findings 8/11/13 and the dossier corrected; experiment rewritten, smoke test 5/5. |
 
 ## How to update this file
 

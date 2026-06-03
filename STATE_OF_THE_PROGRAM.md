@@ -66,23 +66,62 @@ non-constructive ingredient can be pushed from $\mathsf{NEXP}$ down to
 $\mathsf{NP}$. This is where unconditional progress has actually happened since
 2011.
 
-The specific hinge is the $\mathsf{TC}^0$ step, the first rung past
-$\mathsf{ACC}^0$: a non-algebrizing $\mathsf{TC}^0$-satisfiability speedup would
-yield $\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$. The polynomial method that beat
-$\mathsf{ACC}^0$ dies at threshold gates because MAJORITY has approximate degree
-$\Theta(n)$ (Paturi 1992): it has no low-degree polynomial approximant at all, so a
-genuinely new (combinatorial, non-natural) speedup is needed. This rung is compute-light and attackable now. The speculative
-backward-induction dossier ([`docs/03_research/2050_backward_induction.md`](docs/03_research/2050_backward_induction.md))
-routes its strongest stories through this step, and the runnable model in
+The specific hinge is the threshold step of the Williams program, now grounded
+against the primary sources (2026-06-03; see
+[`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md)).
+The first threshold rung is already climbed: $\mathsf{NQP} \not\subseteq$ ACC-of-THR
+with one bottom threshold layer (Murray-Williams 2018), and one extra threshold layer
+is done under a restriction ($\mathsf{E}^{\mathsf{NP}}$ not in AC0[m] of LTF of LTF
+with a subquadratic bottom THRESHOLD-GATE count, Alman-Chan-Williams 2016). The
+genuine open frontier is the SECOND threshold layer once dense: a satisfiability /
+CAPP speedup of $2^{n - n^\varepsilon}$ for general depth-2 THR-of-THR (LTF-of-LTF)
+with no subquadratic-bottom restriction, which by the Williams connection yields
+$\mathsf{NEXP} \not\subseteq$ poly-size THR-of-THR. Crucially, the earlier slogan
+"the polynomial method dies at threshold gates because MAJORITY has approximate
+degree $\Theta(n)$" was a conflation: the SAT algorithm spends PROBABILISTIC degree
+($\Theta(\sqrt{n})$ for MAJORITY), not approximate degree, and that is exactly why it
+already crosses one threshold layer. The barrier profile of the open target is
+honest-but-weaker than "evades all three": relativization is genuinely evaded,
+natural-proofs evasion is CONDITIONAL on whether dense poly-size $\mathsf{TC}^0$
+supports PRFs (ACW 2016 warn it likely does, a co-equal open obstruction), and
+algebrization is NOT YET ASSESSABLE (a property of a nonexistent algorithm). This
+rung is compute-light and attackable now. The runnable model in
 [`experiments/circuit_complexity/e_tc0_sat_savings.py`](experiments/circuit_complexity/e_tc0_sat_savings.py)
-shows the naive polynomial-method push is disqualified (natural + algebrizing)
-while a Boolean-rank-collapse speedup evades all three barriers.
+encodes the corrected picture; the "Boolean-rank-collapse" placeholder is retired in
+favor of its real referents (dense LTF-of-LTF SAT, open; sparse case
+Impagliazzo-Paturi-Schneider 2013; the Chen 2018 log-shaving geometry reduction).
 
 Honest odds: an unconditional resolution of P vs NP from any current program is
 very low. The value of the work is that the barriers are now precise enough to
 say what a proof must look like, and the partial results (weak-class lower
 bounds, the satisfiability-algorithm / lower-bound connection, arithmetic proof
 complexity) are contributions in their own right.
+
+## Recent progress (TC0 hinge grounding, 2026-06-03)
+
+A multi-agent run (4 surveyors over the threshold-circuit-SAT literature, paired
+fact-checkers, a builder synthesis, an adversary audit, and a final fact-check
+against primary sources) re-grounded the project's single most-leveraged target. It
+corrected a load-bearing error, not just added scaffolding. The "polynomial method
+dies at threshold gates" slogan conflated worst-case approximate degree (MAJORITY
+$\Theta(n)$, Paturi 1992, which blocks only the correlation route) with probabilistic
+degree (MAJORITY $\Theta(\sqrt{n})$, Alman-Williams 2015 / Alman-Chan-Williams 2016,
+which the SAT algorithm spends and which already crosses one threshold layer). The
+first threshold rung is already climbed (Murray-Williams 2018, NQP not in ACC-of-THR,
+verified against ECCC TR17-188), so the open frontier is the dense SECOND threshold
+layer (general depth-2 THR-of-THR), not "$\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$"
+generically. The adversary caught three real defects in the synthesis before they
+landed: a paper-title misattribution (the FOCS 2016 ACW paper is "Polynomial
+Representations of Threshold Functions", not the FOCS 2015 Hamming-nearest-neighbors
+paper), a gates-vs-wires error (the ACW restriction is on bottom-layer GATES), and an
+over-strong barrier claim (algebrization is NOT YET ASSESSABLE for a nonexistent
+algorithm, and natural-proofs evasion is conditional on the open TC0-PRF question).
+New artifact:
+[`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md);
+LEARNINGS gains finding 20 and findings 8/11/13 plus the dossier are corrected;
+the experiment [`e_tc0_sat_savings.py`](experiments/circuit_complexity/e_tc0_sat_savings.py)
+is rewritten and still runs green (smoke test 5/5). Residual needs-citation items are
+listed in the note's section 9 for human review.
 
 ## Recent progress (overnight run, 2026-06-02)
 

@@ -1,34 +1,70 @@
 """The TC0 hinge: a satisfiability-savings model for the Williams program's
-first rung past ACC0.
+threshold rungs.
 
 The 2050 backward-induction dossier (docs/03_research/2050_backward_induction.md)
 identifies a single load-bearing milestone on the leading path to
-P != NP: the late-2030s step where the algorithm-to-lower-bound connection
-(Williams 2011) climbs from ACC0 to TC0 (threshold circuits). Every surviving
-P != NP scenario routes through that connection, and in 2026 the connection is
-stuck at exactly one wall. The Razborov-Smolensky polynomial method, which
-powered the ACC0 / AC0[p] bounds, provably stops at threshold gates: MAJORITY has
-no low-degree polynomial representation (its approximate degree is Theta(n), the
-maximum for a symmetric function, Paturi 1992; OR/AND are only Theta(sqrt n)), so
-the low-degree-approximation budget that beats ACC0 blows up at TC0.
+P != NP: the step where the algorithm-to-lower-bound connection (Williams 2011)
+climbs through the threshold-circuit (TC0) ladder. Every surviving P != NP
+scenario routes through that connection. The corrected picture, grounded against
+the primary sources, is NOT "the polynomial method dies at threshold gates."
+
+What is actually true (corrected 2026-06-03 from the survey/fact-check pass):
+
+  - The ladder has more than one rung and the FIRST threshold rung is already
+    climbed. ACC0 with a SINGLE bottom layer of linear threshold gates
+    (ACC of THR) is done: Williams 2014 ("New algorithms and lower bounds for
+    circuits with linear threshold gates", STOC 2014 / Theory of Computing 14:17
+    2018) gives the ACC-of-THR SAT/evaluation algorithm, and Murray-Williams 2018
+    ("An Easy Witness Lemma for NP and NQP", STOC 2018) feeds it through a new
+    easy-witness lemma to get NQP not in n^(log^k n)-size ACC of THR, upgraded to
+    average-case (Chen, FOCS 2019) and almost-everywhere (Chen-Lyu-Williams,
+    ~FOCS 2020; exact venue/year to be confirmed).
+
+  - The polynomial method does NOT die at threshold gates. It uses PROBABILISTIC
+    degree, not worst-case approximate degree. MAJORITY's probabilistic degree to
+    error eps is Theta(sqrt(n log(1/eps))) (Alman-Williams FOCS 2015;
+    Alman-Chan-Williams FOCS 2016 Thm 1.1), tight against Razborov-Smolensky 1987,
+    which is FAR below its worst-case approximate degree Theta(n) (Paturi 1992).
+    Built directly from these probabilistic polynomials, ACW 2016 (Thm 1.8) give a
+    deterministic 2^{n - n^eps} SAT algorithm for AC0[m] of LTF of LTF with a
+    subquadratic number of bottom-layer linear threshold GATES (n^{2-eps} GATES,
+    not wires), climbing one EXTRA threshold layer, and via the Williams connection
+    (Cor 1.1) prove E^NP not in that class.
+
+  - The real wall is a DENSITY / DEPTH / ERROR budget, not a flat impossibility.
+    Each threshold layer costs ~sqrt(n) probabilistic degree; the ACW construction
+    needs a subquadratic bottom threshold-GATE count and bounded threshold depth;
+    pushing error below 2^{-n} (to union-bound over all inputs) inflates the
+    per-layer degree by log(1/eps). The method stalls when threshold layers become
+    both dense and deep. (A separate n^{2-o(1)}-WIRE bound for THR-of-THR exists,
+    Chen-Tamaki / ACW; do not conflate that wire bound with the ACW gate bound.) Separately, ACW 2016 warn (after Thm 1.9) that their most powerful
+    threshold class "seems likely" to support pseudorandom function candidates, so
+    a natural-proofs collision looms exactly where the method would reach dense
+    poly-size TC0. The worst-case approximate-degree Theta(n) fact is a real but
+    SECOND, independent reason the Razborov-Smolensky low-degree-APPROXIMATION
+    (correlation) route is blocked; it is not the resource the SAT algorithm spends.
 
 This module pins the hinge as a runnable, checkable object. It does two things.
 
-  1. Barrier audit of two candidate routes to a TC0-SAT speedup:
-       - the naive "extend the polynomial method to TC0" route, which is caught
-         by the natural-proofs barrier (the method of low-degree approximation is
-         large + constructive) and which does not even apply at threshold gates;
-       - the candidate "Boolean-rank-collapse" combinatorial speedup fed through
-         the Williams template, which (if it exists) threads all three barriers
-         exactly as Williams's ACC0 argument does. Its `algebrizes=False` is the
-         load-bearing claim: the speedup must be genuinely combinatorial, not the
-         arithmetizing polynomial method.
+  1. Barrier audit of two candidate routes to a deeper threshold-SAT speedup:
+       - the naive "prove TC0 lower bounds by low-degree (worst-case)
+         approximability" route, caught by the natural-proofs barrier (large +
+         constructive). Note this is the correlation/approximate-degree route, NOT
+         the probabilistic-polynomial SAT algorithm, which is already non-natural
+         the way Williams's ACC0 argument is.
+       - the candidate combinatorial speedup for DENSE / DEEP threshold circuits
+         (the open frontier object), fed through the Williams template, which (if
+         it exists) threads all three barriers as Williams's ACC0 argument does.
+         Its `algebrizes=False` is the load-bearing claim.
 
-  2. A savings-reality-check reproducing the dossier's numerical coordinate: a
-     savings factor of the form 2^{n^eps} for tiny eps is asymptotically
-     "superpolynomial" yet a mirage at any feasible scale, while a genuinely
-     strong savings (2^{n / polylog n}) dominates a polynomial bar at human
-     scale. The Williams connection needs the latter, not the former.
+  2. A savings-reality-check: a savings factor 2^{n^eps} for tiny eps is
+     asymptotically "superpolynomial" yet a mirage at feasible scale, while a
+     genuinely strong savings (2^{n / polylog n}, the form the ACC and ACW
+     algorithms actually achieve, 2^{n - n^eps}) dominates a polynomial bar at
+     human scale. Williams 2010 ("Improving Exhaustive Search", STOC 2010 /
+     SICOMP 2013) Thm 1.1: ANY superpolynomial savings over the 2^n*poly
+     truth-table cost yields NEXP not in P/poly; Thm 1.2: 2^{(1-delta)n} savings
+     buys the stronger exponential-size E^NP bound.
 
 Run:
     python -m experiments.circuit_complexity.e_tc0_sat_savings
@@ -46,51 +82,93 @@ from experiments._shared import BarrierChecker, BARRIERS, ProofTechnique
 # Part 1: barrier audit of two routes to a TC0-SAT speedup.
 # --------------------------------------------------------------------------
 
-# The naive route: try to push Razborov-Smolensky's low-degree polynomial method
-# from ACC0 up to TC0. It is a natural proof (large + constructive: the method
-# certifies hardness by a property of the function's low-degree approximability,
-# which holds for a constant fraction of functions and is poly(2^n)-testable).
-# It also does not relativize (it opens the circuit), and it is the arithmetizing
-# object, so it algebrizes. The decisive fact, however, is structural: the method
-# requires a low-degree polynomial approximation that simply does not exist for
-# threshold gates, so it cannot reach TC0 even before the barrier bites.
-tc0_polynomial_method = ProofTechnique(
-    name="TC0-SAT via the polynomial method (Razborov-Smolensky pushed to threshold gates)",
+# The naive route: prove TC0 lower bounds by WORST-CASE low-degree approximability
+# (the correlation / approximate-degree route, the analog of how a generic
+# function is certified hard). It is a natural proof (large + constructive: the
+# certifying property holds for a constant fraction of functions and is
+# poly(2^n)-testable). It does not relativize (it opens the circuit) and it is the
+# arithmetizing object, so it algebrizes. The approximate-degree obstruction
+# (MAJORITY needs Theta(n), Paturi 1992) blocks THIS route's correlation bounds.
+#
+# IMPORTANT correction (2026-06-03): this technique is NOT the probabilistic
+# polynomial-method SAT algorithm. That algorithm spends PROBABILISTIC degree,
+# where MAJORITY is only Theta(sqrt(n log(1/eps))) (Alman-Williams 2015; ACW 2016
+# Thm 1.1), and it DOES cross one threshold layer (ACW 2016 Thm 1.8, a 2^{n-n^eps}
+# SAT algorithm for AC0[m] of LTF of LTF with a subquadratic n^{2-eps} bottom
+# threshold-GATE count). So the "polynomial method cannot represent even one
+# threshold gate" framing was wrong; it conflated worst-case approximate degree
+# with the probabilistic degree the algorithm actually uses.
+tc0_approx_degree_route = ProofTechnique(
+    name="TC0 lower bounds via worst-case low-degree approximation (correlation / approximate-degree route)",
     relativizes=False,
     natural_largeness=True,
     natural_constructivity=True,
     algebrizes=True,
     notes=(
-        "Natural (large + constructive) and algebrizing. Independently, it does not "
-        "even apply: MAJORITY has approximate degree Theta(n) (Paturi 1992), the maximum "
-        "for a symmetric function, so the low-degree budget that beats ACC0 cannot "
-        "represent even one threshold gate. This is "
-        "the wall the Williams program hits at the first rung past ACC0."
+        "Natural (large + constructive): that is the PRIMARY, citable disqualifier "
+        "(Razborov-Rudich). The further flag algebrizes=True (the dual-polynomial / "
+        "pattern-matrix objects being rational LP/spectral functionals) is PROJECT "
+        "INFERENCE, not a cited Aaronson-Wigderson theorem; treat it as a modeling "
+        "choice, not an established fact. The approximate-degree obstruction (MAJORITY "
+        "worst-case approximate degree Theta(n), Paturi 1992; OR/AND only "
+        "Theta(sqrt n)) blocks this correlation route specifically. It is NOT the "
+        "probabilistic-polynomial SAT algorithm, which spends probabilistic degree "
+        "Theta(sqrt n) and crosses one threshold layer (ACW 2016)."
     ),
 )
 
-# The candidate winning route: a combinatorial faster-than-brute-force
-# satisfiability / circuit-analysis algorithm for TC0 (working name
-# "Boolean-rank collapse"), fed through the Williams algorithm-to-lower-bound
-# connection. If such an algorithm exists, the resulting lower bound threads all
-# three barriers exactly as Williams's ACC0 proof does: non-relativizing (the
-# algorithm opens the gate structure), non-natural (the diagonalization is
-# non-constructive and function-specific, not a large property), and
-# non-algebrizing (the speedup is combinatorial, not a low-degree polynomial
-# functional). The algebrizes=False flag is the load-bearing claim.
-tc0_sat_boolean_rank = ProofTechnique(
-    name="TC0-SAT via a combinatorial Boolean-rank-collapse speedup (Williams template)",
+# The candidate winning route: a faster-than-brute-force satisfiability / CAPP
+# algorithm for DENSE, DEEPER threshold circuits (the open frontier object, past
+# the one-threshold-layer ACW 2016 result), fed through the Williams connection.
+# If such an algorithm exists, the resulting lower bound would need the same
+# three-barrier profile as Williams's ACC0 proof: non-relativizing (a real
+# circuit-SAT speedup must read the gate structure), non-natural (the
+# diagonalization drops largeness, function-specific, per Williams 2013), and
+# non-algebrizing.
+#
+# HONESTY NOTE (2026-06-03, from the adversary audit): do NOT equate "combinatorial"
+# with "non-algebrizing". ACW 2016's probabilistic-polynomial method is ALGEBRAIC,
+# and it already crossed one threshold layer and fired the connection, so "algebraic
+# method" and "algebrizes (survives the Aaronson-Wigderson algebraic-oracle game)"
+# are different axes. algebrizes=False here is therefore NOT YET ASSESSABLE: it is a
+# property of a nonexistent algorithm whose mechanism is undetermined, and no cited
+# source establishes it. The flag encodes the NECESSARY target condition (the same
+# profile Williams's proof has), not a cleared barrier.
+#
+# NAMING NOTE (2026-06-03): the earlier working name "Boolean-rank collapse" is a
+# project coinage with no published theorem behind it. The honest status: the
+# real, citable frontier objects in this neighborhood are (a) a SAT/CAPP speedup
+# for dense depth-2 LTF-of-LTF (no nontrivial algorithm is known for the dense
+# case; ACW 2016 needs a subquadratic n^{2-eps} bottom threshold-GATE count; the
+# sparse cn-wire case is solved by Impagliazzo-Paturi-Schneider FOCS 2013 via
+# Vector Domination); equivalently
+# (b) "shaving all polylog factors" off a polylog-dimension geometric problem
+# (ell_2-Furthest-Pair / Bichromatic-Closest-Pair / Max-IP) per Chen 2018
+# (arXiv:1805.10698) Thm 1.1, which would give NEXP not in poly-size THR of THR.
+# Sign-rank / dimension complexity is a real object class but provably CANNOT
+# crack THR-of-THR alone (a linear-size THR-of-THR circuit can have exponential
+# sign-rank), so the hoped-for object must go beyond sign-rank. We keep
+# algebrizes=False as the necessary condition, with the object now named by its
+# real referents rather than the placeholder.
+threshold_sat_combinatorial = ProofTechnique(
+    name="Dense/deep-threshold SAT or CAPP via a combinatorial speedup (Williams template)",
     relativizes=False,
     natural_largeness=False,
     natural_constructivity=False,
     algebrizes=False,
     notes=(
-        "The honest target for the late-2030s hinge: a non-trivial TC0 satisfiability "
-        "algorithm beating brute force by a genuinely superpolynomial factor, fed "
-        "through the Williams connection to yield NEXP not in TC0. Load-bearing claim: "
-        "the speedup must be combinatorial (a Boolean / sign-rank collapse), NOT the "
-        "polynomial method, or it algebrizes and the algebrization evasion fails. This "
-        "is asserted here, not proved: it is the open problem the hinge names."
+        "The honest target for the hinge: a nontrivial SAT/CAPP algorithm for dense "
+        "depth-2 LTF-of-LTF (or deeper TC0), beating brute force by 2^{n^eps}, fed "
+        "through the Williams connection. Real citable forms: a dense depth-2 "
+        "threshold SAT speedup (open; sparse case done by IPS 2013), or a log-shaving "
+        "geometry algorithm (Chen 2018 Thm 1.1) yielding NEXP not in poly THR-of-THR. "
+        "algebrizes=False is NOT YET ASSESSABLE (a property of a nonexistent "
+        "algorithm), not a cleared barrier: it encodes the necessary target profile. "
+        "natural_largeness=False is CONDITIONAL: ACW 2016 warn dense poly-size TC0 "
+        "likely supports PRF candidates, and if it does, no natural property separates "
+        "there, so this evasion fails (a co-equal open obstruction). 'Boolean-rank "
+        "collapse' was a placeholder coinage; sign-rank alone provably cannot crack "
+        "THR-of-THR."
     ),
 )
 
@@ -100,9 +178,13 @@ tc0_sat_boolean_rank = ProofTechnique(
 # --------------------------------------------------------------------------
 #
 # Brute-force circuit-SAT on m inputs costs 2^m (times poly). A useful algorithm
-# costs 2^m / savings(m). For the Williams connection to fire, savings(m) must be
-# superpolynomial in m, i.e. m^{omega(1)}. We compare three quantities, all in
-# log10 to avoid astronomical overflow, against a modest polynomial bar m^c.
+# costs 2^m / savings(m). Williams 2010 (STOC 2010 / SICOMP 2013) Thm 1.1: for the
+# connection to fire toward NEXP not in P/poly, savings(m) need only be ANY
+# superpolynomial factor m^{omega(1)} over the 2^m*poly truth-table cost; Thm 1.2:
+# a constant-savings-in-exponent 2^{(1-delta)m} buys the stronger exponential-size
+# E^NP bound. The ACC and ACW threshold algorithms achieve 2^{m - m^eps}, the
+# 2^{m/polylog}-style "genuine" savings modeled below. We compare three quantities,
+# all in log10 to avoid astronomical overflow, against a modest polynomial bar m^c.
 
 def log10_savings_tiny(log10_m: float, eps: float = 0.001) -> float:
     """log10 of a 2^{m^eps} savings factor, given m = 10^{log10_m}.
@@ -194,28 +276,37 @@ def main() -> int:
     checker = BarrierChecker()
 
     print("=== Part 1: the TC0 hinge, barrier audit ===\n")
-    print("[Naive route] push the polynomial method from ACC0 up to TC0:")
-    naive = checker.check(tc0_polynomial_method)
+    print("[Naive route] prove TC0 bounds by worst-case low-degree approximation:")
+    naive = checker.check(tc0_approx_degree_route)
     print(naive.report())
     print()
-    print("[Candidate winning route] combinatorial Boolean-rank-collapse SAT algorithm:")
-    cand = checker.check(tc0_sat_boolean_rank)
+    print("[Candidate winning route] combinatorial dense/deep-threshold SAT speedup:")
+    cand = checker.check(threshold_sat_combinatorial)
     print(cand.report())
     print()
     print("[Reference] Williams 2011 NEXP not in ACC0 (the proof-of-concept it must imitate):")
     print(checker.check(BARRIERS["williams_acc0"]).report())
     print()
 
-    # The structural fact that makes TC0 the wall, stated numerically.
-    print("Structural wall: approximate degree of MAJORITY on n bits is Theta(n) (Paturi 1992):")
-    print("it needs full linear degree, with no low-degree approximant (OR/AND need only ~sqrt(n)).")
+    # Two DISTINCT obstructions, stated numerically. They live on opposite sides of
+    # the hinge and must not be conflated (the prior version conflated them).
+    print("Obstruction A (lower-bound / correlation side): WORST-CASE approximate degree")
+    print("of MAJORITY is Theta(n) (Paturi 1992); OR/AND only Theta(sqrt n). This blocks the")
+    print("low-degree-approximation correlation route, NOT the SAT algorithm.")
+    print("Obstruction B (algorithm side): PROBABILISTIC degree of MAJORITY is Theta(sqrt n)")
+    print("(Alman-Williams 2015; ACW 2016 Thm 1.1). The SAT algorithm spends THIS, and it")
+    print("crosses ONE threshold layer (ACW 2016 Thm 1.8). The wall is density/depth/error budget.")
+    print(f"    {'n':>9} | {'approx-deg MAJ ~ n':>18} | {'prob-deg MAJ ~ sqrt(n)':>22} | {'OR/AND ~ sqrt(n)':>16}")
     for n in (100, 10_000, 1_000_000):
-        print(f"    n = {n:>9,}:  MAJORITY approx degree ~ n = {n:>9,}   vs OR/AND ~ sqrt(n) = {math.isqrt(n):>5}")
+        r = math.isqrt(n)
+        print(f"    {n:>9,} | {n:>18,} | {r:>22} | {r:>16}")
     print()
 
     print("=== Part 2: the savings-reality-check ===\n")
-    print("Williams connection needs savings(m) = m^{omega(1)} that DOMINATES the 2^m")
-    print("truth-table work at feasible scale. All values below are log10.\n")
+    print("Williams 2010 Thm 1.1: ANY superpolynomial savings(m) = m^{omega(1)} over the")
+    print("2^m*poly truth-table cost yields NEXP not in P/poly. The mirage below is that a")
+    print("2^{m^eps} factor is superpolynomial in the limit yet negligible at any feasible")
+    print("scale; the ACC/ACW algorithms instead achieve 2^{m-m^eps}. All values log10.\n")
     header = f"{'log10(m)':>10} | {'log10(2^{m^.001})':>18} | {'log10(2^{m/polylog})':>20} | {'log10(m^3) bar':>14}"
     print(header)
     print("-" * len(header))
@@ -231,10 +322,15 @@ def main() -> int:
     print(f"First scale where 2^(m/polylog) beats the m^3 bar: m ~ 10^{cross_genuine:.1f}  (feasible)")
     print()
 
-    # ---- self-checks pinning the dossier's coordinates ----
-    assert naive.hits_natural_proofs, "polynomial-method route must hit the natural-proofs barrier"
-    assert not naive.evades_all, "polynomial-method route must be disqualified"
-    assert cand.evades_all, "the combinatorial candidate must evade all three (necessary, not sufficient)"
+    # ---- self-checks pinning the corrected coordinates ----
+    # NOTE: BarrierChecker is a transparent lookup, not a proof. cand.evades_all
+    # records the DECLARED necessary target profile (the same one Williams's proof
+    # has); it does NOT certify that the algebrization barrier has been cleared for
+    # any actual algorithm. algebrizes=False for the candidate is "not yet
+    # assessable" (no such algorithm exists yet); see the HONESTY NOTE above.
+    assert naive.hits_natural_proofs, "approximate-degree correlation route must hit natural proofs"
+    assert not naive.evades_all, "approximate-degree correlation route must be disqualified"
+    assert cand.evades_all, "the combinatorial candidate must match the necessary target profile (declared, not cleared)"
 
     # Mirage: 2^{m^0.001} does not beat m^3 anywhere near feasible scale (10^300).
     assert not savings_table()[3].tiny_beats_bar, "2^(m^0.001) must NOT beat m^3 at m=10^300"
@@ -243,9 +339,14 @@ def main() -> int:
     assert savings_table()[1].genuine_beats_bar, "2^(m/polylog) must beat m^3 by m=10^30"
     assert cross_genuine < 30.0, "the genuine savings must cross at a feasible scale"
 
-    print("Self-check OK: polynomial-method route disqualified; combinatorial candidate")
-    print("evades all three; tiny-eps savings is a mirage, genuine savings is feasible.")
-    print("The hinge is the existence of the combinatorial TC0-SAT speedup. It is open.")
+    print("Self-check OK: the worst-case approximate-degree (correlation) route is")
+    print("disqualified by natural proofs; the combinatorial SAT candidate matches the")
+    print("necessary target profile (algebrization NOT yet assessable; natural-proofs")
+    print("evasion CONDITIONAL on the open TC0-PRF question); tiny-eps savings is a")
+    print("mirage, genuine 2^{n-n^eps}-style savings is feasible. CORRECTED hinge: the")
+    print("first threshold rung (ACC of THR, one bottom layer) is ALREADY climbed")
+    print("(Murray-Williams 2018); the open object is a SAT/CAPP speedup for DENSE")
+    print("depth-2 LTF-of-LTF (or deeper TC0). It is open.")
     return 0
 
 

@@ -96,18 +96,27 @@ original W2A-closure version):
   \mathsf{ACC}^0$.
 
 The one milestone everything hinges on, the "if this falls, the dominoes start"
-step, is the late-2030s **$\mathsf{TC}^0$ step of the Williams program**: a
-non-trivial circuit-satisfiability algorithm for threshold circuits yielding
-$\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$. Every $\mathsf{P} \neq \mathsf{NP}$
-path the adversary did not immediately kill routes through the Williams
-connection, and that connection is stuck in 2026 at exactly one wall: the
-polynomial method that powered $\mathsf{ACC}^0$ provably stops working at
-threshold gates (MAJORITY has no low-degree polynomial approximant: its
-approximate degree is $\Theta(n)$, Paturi 1992). The
-atlas already names this as the open frontier. $\mathsf{TC}^0$ is the first rung
-past $\mathsf{ACC}^0$; if it falls, the climb to $\mathsf{NC}^1$ and
-$\mathsf{P/poly}$ becomes a quantitative grind rather than a barrier. It is
-compute-light and theory-bound, which means it is attackable now.
+step, is the **threshold step of the Williams program**: a non-trivial
+circuit-satisfiability algorithm for dense threshold circuits, fed through the
+Williams connection. Every $\mathsf{P} \neq \mathsf{NP}$ path the adversary did
+not immediately kill routes through that connection.
+
+CORRECTION (2026-06-03, grounded against primary sources in
+[`2050_tc0_hinge_grounded.md`](2050_tc0_hinge_grounded.md)): the earlier framing
+here, "the polynomial method provably stops at threshold gates because MAJORITY
+has approximate degree $\Theta(n)$ (Paturi 1992)," was wrong. It conflated
+worst-case approximate degree (MAJORITY $\Theta(n)$, which blocks only the
+low-degree-correlation route) with PROBABILISTIC degree (MAJORITY
+$\Theta(\sqrt{n})$, Alman-Williams 2015 / Alman-Chan-Williams 2016), which is what
+the satisfiability algorithm actually spends, and which already crosses one
+threshold layer. The first threshold rung is in fact already climbed:
+$\mathsf{NQP} \not\subseteq$ ACC-of-THR with one bottom threshold layer
+(Murray-Williams 2018). So "$\mathsf{TC}^0$ is the first rung past
+$\mathsf{ACC}^0$" is imprecise: the genuine open frontier is the SECOND threshold
+layer once dense, a satisfiability speedup for general depth-2 THR-of-THR
+(LTF-of-LTF) with no subquadratic-bottom restriction. If it falls, the climb to
+$\mathsf{NC}^1$ and $\mathsf{P/poly}$ becomes a quantitative grind rather than a
+barrier. It is compute-light and theory-bound, which means it is attackable now.
 
 ## 3. The braided path
 
@@ -367,9 +376,13 @@ plus an unconditional Boolean-rank-collapse SAT algorithm. Leap: the Compression
 Lemma that lets Williams diagonalize at the polynomial $\mathsf{NP}$ witness scale
 instead of the exponential $\mathsf{NEXP}$ scale. Breaks at: the easy-witness
 step encodes the conclusion (circularity), and $2^{m^{0.001}}$ savings is a
-mirage at feasible scale. Repair: the "Boolean-rank instead of polynomial-degree"
-idea is the right anti-algebrization target; aim it at the honest frontier
-($\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$).
+mirage at feasible scale. Repair: the anti-algebrization INTENT is right, but
+"Boolean-rank collapse" is a project coinage with no theorem behind it (retired
+2026-06-03; see [`2050_tc0_hinge_grounded.md`](2050_tc0_hinge_grounded.md)). Its
+real referents are a dense depth-2 LTF-of-LTF satisfiability speedup (open; the
+sparse case is Impagliazzo-Paturi-Schneider 2013) or the equivalent Chen 2018
+log-shaving geometry algorithm, and the honest frontier is dense depth-2
+THR-of-THR, not general $\mathsf{TC}^0$.
 
 **A3. GCT delivers (dead, 0.04).** Theorem: a multiplicity obstruction separates
 permanent from determinant, giving $\mathsf{VNP} \neq \mathsf{VP}$ and (via a
