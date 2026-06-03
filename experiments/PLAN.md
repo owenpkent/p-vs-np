@@ -73,6 +73,7 @@ These replace the Riemann repo's four RH architectures.
 | Circuit complexity (polynomial method) | [`circuit_complexity/e_acc0_polynomial_method.py`](circuit_complexity/e_acc0_polynomial_method.py) | Runs to completion | PARITY has exact $\mathbb{F}_3$ multilinear degree $n$ (top coefficient $\equiv 1 \bmod 3$); low-degree $\mathbb{F}_3$ polynomials cannot match it (best degree-2 agreement 14/16 at $n=4$); the method is natural, disqualified vs $\mathsf{P/poly}$, valid only vs $\mathsf{AC}^0[p]$ |
 | Proof complexity (resolution width) | [`proof_complexity/e_resolution_width_php.py`](proof_complexity/e_resolution_width_php.py) | Runs to completion | PHP min refutation width equals the hole count (2 and 3 for the two smallest cases), so the BSW width-size tradeoff is vacuous for PHP (exponent $\approx 0$, Haken needs bottleneck counting); BSW is exponential for constant-width $O(n)$-variable formulas (Tseitin, random k-SAT) |
 | GCT (Kronecker coefficients) | [`gct/e_plethysm_kronecker.py`](gct/e_plethysm_kronecker.py) | Runs to completion | computes $S_n$ characters (Murnaghan-Nakayama) and Kronecker coefficients $g(\lambda,\mu,\nu)$ from scratch; verifies orthonormality, hook-length dimensions, and the trivial/sign tensor identities for $n \le 6$. These are the GCT multiplicities, whose positivity is #P-hard to decide |
+| Hardness vs randomness (NW PRG) | [`hardness_randomness/e_nisan_wigderson_prg.py`](hardness_randomness/e_nisan_wigderson_prg.py) | Runs to completion | builds the polynomial $(l,k)$-design (size $q$, intersection $\le k$, stretch $q^2 \to q^{k+1}$) and shows NW with an easy $f$ (parity) is distinguishable while a nonlinear $f$ (majority) resists, so the PRG property needs hardness |
 
 ## AI-centric methodology
 
@@ -108,5 +109,7 @@ that barrier (as Williams's does).
   pigeonhole principle (Haken 1985).
 - **GCT.** Add a small permanent-vs-determinant orbit-closure / representation-
   multiplicity computation, with the BIP 2016 no-go documented as the boundary.
-- **Hardness vs randomness.** Add a Nisan-Wigderson pseudorandom-generator demo
-  connecting circuit hardness to derandomization.
+- **Hardness vs randomness.** Done: the Nisan-Wigderson pseudorandom-generator demo
+  ([`hardness_randomness/e_nisan_wigderson_prg.py`](hardness_randomness/e_nisan_wigderson_prg.py))
+  builds the polynomial design and shows the PRG property needs a hard $f$ (easy
+  parity is distinguishable, nonlinear majority resists).

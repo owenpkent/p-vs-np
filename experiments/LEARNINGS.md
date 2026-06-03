@@ -275,3 +275,18 @@ $O(n)$-variable formulas with refutation width $\Omega(n)$ (Tseitin on expanders
 random k-SAT), where the exponent is $\Theta(n)$. This is a coordinate: it tells a
 builder which formula families the width method can and cannot reach. Source:
 [`proof_complexity/e_resolution_width_php.py`](proof_complexity/e_resolution_width_php.py).
+
+### 19. The Nisan-Wigderson generator's pseudorandomness genuinely requires hardness.
+
+The polynomial $(l,k)$-design plus a parity-versus-majority distinguisher make the
+hardness-randomness connection concrete. With an easy (linear) $f = $ PARITY, every
+output bit of $NW_f$ is an $\mathbb{F}_2$-linear function of the seed, so once the
+generator stretches ($m > d$) there is a linear dependency among the output bits
+whose XOR is identically 0, a perfect distinguisher. With a nonlinear $f = $
+MAJORITY the same dependency does not collapse, and the trivial attack fails.
+Finding: the PRG property is not free, it is exactly the place the hardness of $f$
+is spent (Nisan-Wigderson 1994). This is Architecture 5, the structural
+surroundings: Impagliazzo-Wigderson 1997 turns hardness into $\mathsf{BPP} =
+\mathsf{P}$, and Kabanets-Impagliazzo 2004 turns derandomization back into circuit
+lower bounds, so the two are entangled, though none of this is a direct separation.
+Source: [`hardness_randomness/e_nisan_wigderson_prg.py`](hardness_randomness/e_nisan_wigderson_prg.py).

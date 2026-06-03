@@ -29,7 +29,8 @@ Task tracking for the P vs NP research repo. Checkbox format.
 - [x] GCT permanent-vs-determinant multiplicity computation (with BIP 2016 no-go
       as the boundary) (`gct/e_multiplicity_obstruction.py` barrier check +
       `gct/e_plethysm_kronecker.py` Kronecker computation from scratch)
-- [ ] Nisan-Wigderson PRG demo (circuit hardness implies derandomization)
+- [x] Nisan-Wigderson PRG demo (circuit hardness implies derandomization)
+      (`hardness_randomness/e_nisan_wigderson_prg.py`)
 - [ ] Monotone clique lower bound (Razborov 1985) in miniature
 
 ## Documentation
