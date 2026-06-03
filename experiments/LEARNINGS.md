@@ -198,3 +198,23 @@ Finding: the leading path's hinge is real and located precisely, and the
 barrier-clearing speedup must be combinatorial (Boolean / sign-rank), not the
 polynomial method. Source: the [reading notes](../docs/03_research/reading_notes/)
 and the deepened [research direction 01](../docs/03_research/research_directions/01_circuit_lower_bounds.md).
+
+### 14. Algebraic topology supplies the tools and a precedent for strand 3, but not the object.
+
+The algebraic-topology reading shows the toolkit is exactly the right shape for the
+dossier's missing non-algebrizing invariant. Hatcher gives the mod-2 torsion
+machinery (universal coefficients, the Bockstein $\beta$, and $Sq^1 = \beta$);
+field coefficients erase torsion, which is why a characteristic-0 functional cannot
+see it. Kahn-Saks-Sturtevant (via Miller's survey) is a worked precedent where a
+mod-$p$ torsion obstruction, through Smith theory and a Lefschetz fixed-point
+argument under a vertex-transitive symmetry, forces a tight complexity lower bound,
+the essential ingredient being $\mathbb{F}_p$ not rational homology. Bjorner maps
+which invariants are rational/algebrizing (Euler characteristic, $\mathbb{Q}$-Betti,
+$\mathbb{Q}$-Lefschetz) versus torsion-sensitive ($\mathbb{Z}/p$-acyclicity, the
+$\mathbb{Z}_p$-index). Finding: the vocabulary and one precedent exist, but three
+gaps remain, an explicit $(C, \text{instance})$ complex, the symmetry that would
+make a fixed-point argument bite, and the Bockstein exact sequence forcing a char-2
+torsion class nonzero from a char-0 count. The honest status is that topology gives
+the words, not a route. Source: the
+[strand-3 synthesis](../docs/03_research/strand3_missing_object.md) and the
+[algebraic-topology reading notes](../docs/03_research/reading_notes/algebraic_topology/).

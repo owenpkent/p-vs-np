@@ -155,7 +155,10 @@ the cheap feasibility gate (strand 1); the torsion class is the lower-bound
 obstruction (strand 3); meta-complexity certifies that testing the class is
 itself hard (strand 2). That object does not exist in 2026 and no scenario
 contained it. It is the precise specification of the missing tool, written as a
-wiring diagram across three architectures.
+wiring diagram across three architectures. A synthesis of what the algebraic-topology
+toolkit (Bockstein, Steenrod, Smith theory) offers toward this object, and the three
+concrete gaps that remain, is in
+[`strand3_missing_object.md`](strand3_missing_object.md).
 
 ## 4. The fourth barrier
 
