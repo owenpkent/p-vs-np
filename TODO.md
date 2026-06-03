@@ -31,7 +31,8 @@ Task tracking for the P vs NP research repo. Checkbox format.
       `gct/e_plethysm_kronecker.py` Kronecker computation from scratch)
 - [x] Nisan-Wigderson PRG demo (circuit hardness implies derandomization)
       (`hardness_randomness/e_nisan_wigderson_prg.py`)
-- [ ] Monotone clique lower bound (Razborov 1985) in miniature
+- [x] Monotone clique lower bound (Razborov 1985) in miniature
+      (`circuit_complexity/e_monotone_clique.py`; sunflower-lemma engine)
 
 ## Documentation
 
