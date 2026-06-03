@@ -68,6 +68,8 @@ These replace the Riemann repo's four RH architectures.
 | Circuit complexity | [`circuit_complexity/e_parity_restriction.py`](circuit_complexity/) | Runs to completion | parity is restriction-robust (1856/1856), width-$w$ terms collapse at empirical 0.589 vs exact 0.594 |
 | Natural proofs (barrier) | [`natural_proofs/e_largeness_constructivity.py`](natural_proofs/) | Runs to completion | high-sensitivity property is natural (large+constructive); MCSP constructivity is the open crux |
 | Hardness landscape | [`sat_phase_transition/e_sat_phase.py`](sat_phase_transition/) | Runs to completion | SAT/UNSAT crossing at $\alpha \approx 4.28$, hardness peak at 4.25, near $\alpha_c \approx 4.267$ |
+| Circuit complexity (the hinge) | [`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py) | Runs to completion | models the $\mathsf{TC}^0$ step of the Williams program, pins that the polynomial method dies at threshold gates, and reproduces the savings mirage, $2^{m^{0.001}}$ does not beat $m^3$ until $m \approx 10^{4668}$ |
+| Algebrization probe | [`_shared/algebrization_probe.py`](_shared/algebrization_probe.py) | Runs to completion | classifies a hardness invariant as algebrizing char-0 trace/rank/volume vs candidate-non-algebrizing mod-2 torsion |
 
 ## AI-centric methodology
 
@@ -81,7 +83,21 @@ that barrier (as Williams's does).
 ## Per-architecture next steps
 
 - **Circuit complexity.** Extend the restriction demo to ACC0 (mod gates) and
-  reproduce the polynomial-method intuition behind Razborov-Smolensky.
+  reproduce the polynomial-method intuition behind Razborov-Smolensky. The
+  $\mathsf{TC}^0$-SAT savings hinge is now modeled in
+  [`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py):
+  it is the single most-leveraged target, since the polynomial method that beat
+  $\mathsf{ACC}^0$ dies at threshold gates (MAJORITY has approximate degree
+  $\Theta(\sqrt{n})$) and a combinatorial non-algebrizing $\mathsf{TC}^0$-SAT
+  speedup would carry $\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$ along the
+  Williams spine.
+- **Strategic source for 2026 moves.** The speculative 2050 backward-induction
+  dossier ([`../docs/03_research/2050_backward_induction.md`](../docs/03_research/2050_backward_induction.md))
+  is a compass-calibration exercise (nine imagined resolution paths,
+  adversarially stress-tested, then ranked; narrative-level, none Lean-verified).
+  Its convergence finding (graft onto the Williams spine rather than replace it)
+  and its identification of the $\mathsf{TC}^0$ step as the attackable-now hinge
+  motivate the next moves above.
 - **Proof complexity.** Add a resolution-width lower-bound experiment for the
   pigeonhole principle (Haken 1985).
 - **GCT.** Add a small permanent-vs-determinant orbit-closure / representation-

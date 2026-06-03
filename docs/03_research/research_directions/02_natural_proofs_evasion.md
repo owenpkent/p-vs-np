@@ -48,6 +48,25 @@ truth tables at all; it is non-constructive in a strong sense. This is the
 existence proof that the non-constructive branch is reachable. Direction 1 and
 Direction 2 are two views of the same escape.
 
+## Pointer: the dossier's leading path and the anti-algebrization probe
+
+The speculative [2050 backward-induction dossier](../2050_backward_induction.md)
+(a strategy exercise, not proven mathematics) ranks meta-complexity as its leading
+path, and it uses meta-complexity as the non-natural device in a sharper form than
+the open MCSP question above: a *proved* (not assumed) non-constructivity of "this
+truth table has high $Kt$," grafted onto the Williams algorithm-to-lower-bound
+spine. Same escape route, with the non-constructivity discharged rather than
+conjectured.
+
+The dossier also surfaces a related anti-algebrization question: is a candidate
+hardness invariant reconstructible from a low-degree oracle extension? That is now
+operationalized in the
+[algebrization_probe experiment](../../../experiments/_shared/algebrization_probe.py),
+which classifies a proposed invariant as "algebrizes" (characteristic-0
+trace/rank/volume functional) or "candidate-non-algebrizing" (mod-2 torsion or
+non-abelian, e.g. Steenrod / Bockstein / $\pi_1$). A non-natural property that also
+clears this probe is the kind of object the dossier's braided path is missing.
+
 ## What this enables / what remains open
 
 Enables: a precise statement of what a $\mathsf{P/poly}$ lower-bound property must

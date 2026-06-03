@@ -44,6 +44,15 @@ them. This closed the original concrete plan ("plan A") of GCT.
 - Whether GCT can deliver any separation is genuinely open. The partial results
   (advances in symmetric-function and representation-theory computations) are
   valuable independently of P vs NP.
+- **Sign coordinate (from the speculative 2050 backward-induction exercise,
+  [`../2050_backward_induction.md`](../2050_backward_induction.md)):** that
+  narrative-level strategy dossier (not verified mathematics) sharpens the
+  reading of BIP 2016. In the padded regime BIP gives multiplicity
+  *domination*, $\mathrm{mult}_{\text{perm}} \le \mathrm{mult}_{\text{det}}$,
+  which is the opposite sign of what a separation needs, and padding is exactly
+  the lever BIP weaponized. So a live GCT route must either avoid padding or use
+  a containment-monotone quantity (dimension or codimension) rather than a raw
+  multiplicity comparison.
 
 ## Milestones
 

@@ -13,8 +13,11 @@ findings ([`experiments/LEARNINGS.md`](../../../experiments/LEARNINGS.md)).
 
 ## Priority reading order
 
-For the live front (the circuit-lower-bound architecture via the Williams
-template):
+For a prioritized, strand-by-strand reading guide tied to the dossier's leading
+path (with entry points and access tags), see
+[`../resources_for_the_leading_path.md`](../resources_for_the_leading_path.md).
+The short version, for the live front (the circuit-lower-bound architecture via
+the Williams template):
 
 1. Arora-Barak, *Computational Complexity*, chapters on circuit complexity and
    the barriers (the textbook substrate).

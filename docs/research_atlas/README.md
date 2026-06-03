@@ -141,7 +141,12 @@ be. The barriers are not five separate dead ends; they are one statement seen
 from several angles: a winning technique must engage the exact structure of an
 NP-complete problem in a way that is non-relativizing, non-natural, and
 non-algebrizing. That is the compass. See
-[`docs/researcher_mindset.md`](../researcher_mindset.md).
+[`docs/researcher_mindset.md`](../researcher_mindset.md). A speculative
+backward-induction exercise (the [2050 dossier](../03_research/2050_backward_induction.md))
+ranks resolution paths and finds the strongest converge on the Williams spine
+(Architecture 1), with the missing object specified as a non-algebrizing
+invariant a fast algorithm can compute (the strand-1-vs-strand-3 Bockstein-bridge
+target).
 
 ## Pointers
 
@@ -149,3 +154,4 @@ non-algebrizing. That is the compass. See
 - Cross-architecture findings: [`experiments/LEARNINGS.md`](../../experiments/LEARNINGS.md)
 - Known approaches and why each is stuck: [`docs/solutions/`](../solutions/)
 - Research directions with operational specs: [`docs/03_research/research_directions/`](../03_research/research_directions/)
+- Speculative strategy exercise: [2050 backward-induction dossier](../03_research/2050_backward_induction.md) ranks nine imagined resolution paths against the three barriers (narrative-level, none Lean-verified) and names the late-2030s $\mathsf{TC}^0$ hinge of the Williams program as the milestone everything routes through. Companion experiments: [`e_tc0_sat_savings.py`](../../experiments/circuit_complexity/e_tc0_sat_savings.py) models the $\mathsf{TC}^0$ hinge and the savings-mirage coordinate; [`algebrization_probe.py`](../../experiments/_shared/algebrization_probe.py) classifies a proposed hardness invariant as algebrizing or candidate-non-algebrizing.

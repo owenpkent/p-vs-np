@@ -18,6 +18,10 @@ Task tracking for the P vs NP research repo. Checkbox format.
 - [x] (b) Random 3-SAT phase transition + hardness peak, runnable
 - [x] (c) Natural-proofs largeness / constructivity check, runnable
 - [x] (d) Hastad switching-lemma parity demo, runnable
+- [x] (e) TC0-SAT savings model: the Williams-program hinge + savings-mirage
+      numeric coordinate (`circuit_complexity/e_tc0_sat_savings.py`), runnable
+- [x] (f) Algebrization probe: rational-trace vs torsion invariant classifier
+      (`_shared/algebrization_probe.py`), runnable
 - [ ] ACC0 polynomial method (Razborov-Smolensky): MOD_2 has no low-degree
       approximation over F_3
 - [ ] Resolution-width lower bound for the pigeonhole principle (Haken 1985)
@@ -37,6 +41,9 @@ Task tracking for the P vs NP research repo. Checkbox format.
 - [x] `docs/solutions/` (known approaches and why each is stuck)
 - [x] `docs/research_atlas/` (master map of all architectures + obstructions)
 - [x] `docs/researcher_mindset.md`
+- [x] `docs/03_research/2050_backward_induction.md` (backward-induction dossier:
+      nine 2050 resolution paths, adversary-tested, ranked; leading path, the TC0
+      hinge, the braided path, the implied fourth barrier)
 - [ ] Expand intuitive docs with worked NP-completeness examples
 - [ ] Add a graduate doc on interactive proofs / arithmetization (the
       algebrization story)

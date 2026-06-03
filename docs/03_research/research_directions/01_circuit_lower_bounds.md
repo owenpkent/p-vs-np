@@ -32,6 +32,15 @@ Run it through the [barrier checker](../../../experiments/_shared/barriers.py)
 | M3 | Extend toward $\mathsf{TC}^0$ (threshold circuits): the open problem is a non-trivial $\mathsf{TC}^0$ satisfiability algorithm | open, frontier |
 | M4 | Bring the hard function from $\mathsf{NEXP}$ down to $\mathsf{NP}$ | open, very hard |
 
+The speculative [2050 backward-induction dossier](../2050_backward_induction.md)
+(a strategy exercise, not established mathematics) singles out M3 as THE hinge:
+the first rung past $\mathsf{ACC}^0$, where the polynomial method that beat
+$\mathsf{ACC}^0$ dies because MAJORITY has approximate degree $\Theta(\sqrt{n})$,
+so a non-algebrizing combinatorial $\mathsf{TC}^0$-satisfiability speedup is
+needed instead. This rung is now modeled in the
+[`e_tc0_sat_savings`](../../../experiments/circuit_complexity/e_tc0_sat_savings.py)
+experiment.
+
 ## Why this is the most-leveraged direction
 
 It is the only architecture where unconditional progress has actually happened

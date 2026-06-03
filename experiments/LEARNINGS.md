@@ -90,3 +90,54 @@ first concrete plan is closed; any continuation must use *multiplicity* (not mer
 occurrence) obstructions, which is a strictly harder representation-theoretic
 computation. This is the GCT analog of the marginal-positivity coordinate: the
 soft version is ruled out, so the work concentrates on the sharp version.
+
+### 8. Forced to defend themselves, independent futures converge on the Williams spine.
+
+The [2050 backward-induction dossier](../docs/03_research/2050_backward_induction.md)
+is a speculative exercise, not mathematics: it imagines nine "2050 historian"
+resolution paths, stress-tests each against the three barriers and for
+circularity, then ranks the survivors (six died, three wounded). The headline is a
+coordinate, not a theorem. Four of the kills carry the *same* repair, graft onto
+the Williams algorithm-to-lower-bound spine rather than replace it, and that spine
+is the only component no adversary could disqualify. Finding: the compass reading
+is consistent across the architectures the exercise probed. The frontier is to
+push Williams from ACC0 toward P/poly (the leading imagined path rides
+meta-complexity on the spine, using a proved non-constructivity of high-$Kt$ truth
+tables). The everything-routes-through milestone is the $\mathsf{TC}^0$ hinge: a
+combinatorial non-algebrizing $\mathsf{TC}^0$-satisfiability speedup yielding
+$\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$, where the polynomial method that beat
+$\mathsf{ACC}^0$ dies because MAJORITY has approximate degree $\Theta(\sqrt{n})$.
+That hinge is compute-light and attackable now; it is modeled in
+[`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py),
+which disqualifies the naive polynomial-method route (natural and algebrizing) and
+shows the candidate Boolean-rank-collapse speedup evading all three barriers.
+
+### 9. The missing object is a fast-to-compute invariant that does not algebrize.
+
+The braided path needs one object that does not yet exist: a quantity computable
+cheaply by a #SAT-style algorithm (the algorithmic strand) that is provably NOT
+reconstructible from a low-degree oracle extension (the algebrization strand).
+Every rational trace, rank, or volume invariant proposed for this role algebrizes
+(Lefschetz number, Betti numbers, Sum-of-Squares degree, Schur multiplicity,
+free-energy width all fail the same way). The only candidate reconciliation in the
+[dossier](../docs/03_research/2050_backward_induction.md) is a "Bockstein bridge":
+a characteristic-0 algorithmic count forcing a characteristic-2 torsion class to be
+non-vanishing. Finding: this is a concrete shopping list, not a dead end, and it is
+now operationalized in [`_shared/algebrization_probe.py`](_shared/algebrization_probe.py),
+which classifies a proposed invariant as "algebrizes" (characteristic-0
+trace/rank/volume functional) versus "candidate-non-algebrizing" (mod-2 torsion or
+non-abelian, e.g. Steenrod, Bockstein, $\pi_1$). The probe turns the
+strand-1-vs-strand-3 tension into a filter any future invariant must pass.
+
+### 10. An implied fourth barrier: bounded-interface reconstruction.
+
+The same [dossier](../docs/03_research/2050_backward_induction.md) reads the three
+known barriers as instances of one pattern: a technique fails if its hardness
+certificate can be reconstructed across a bounded, low-interaction interface
+(relativization is bit access, algebrization is low-degree-point access, natural
+proofs is a bounded-cost decision interface). Finding: this is a unifying
+coordinate to aim for, not a proved theorem. It is not yet correctly axiomatized,
+and every attempt so far to wield it as a separate obstruction collapsed back into
+one of the three known barriers. Stated honestly: the prize would be an invariant
+whose certificate survives every bounded interface, and the value of the conjecture
+right now is as a sharper compass for the strand-1-vs-strand-3 search in finding 9.

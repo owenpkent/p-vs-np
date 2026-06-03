@@ -14,6 +14,12 @@ The strategic picture lives in two places you should read first:
 - [`STATE_OF_THE_PROGRAM.md`](../../STATE_OF_THE_PROGRAM.md): the one-page
   snapshot of where each architecture stands and the single most-leveraged next
   move.
+- [`2050_backward_induction.md`](2050_backward_induction.md): the forward-looking,
+  speculative strategy document. It runs nine imagined 2050 resolution paths,
+  stress-tests each against the three barriers, then ranks them. The leading path
+  is meta-complexity riding the Williams spine, and the hinge everything routes
+  through is the $\mathsf{TC}^0$ step ($\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$).
+  Narrative-level compass calibration, not proven mathematics.
 
 ## The proof program in brief
 
@@ -41,9 +47,15 @@ Numbered specs in [`research_directions/`](research_directions/):
 4. [`04_geometric_complexity_theory.md`](research_directions/04_geometric_complexity_theory.md):
    multiplicity obstructions after the BIP 2016 occurrence no-go.
 
-## Reading notes
+## Reading list and notes
+
+[`resources_for_the_leading_path.md`](resources_for_the_leading_path.md) is the
+prioritized reading guide: what to read, and in what order, to work on the
+dossier's leading path (meta-complexity over the Williams spine, the $\mathsf{TC}^0$
+hinge, and the cross-disciplinary missing object). The full bibliography is in
+[`references/README.md`](../../references/README.md) (sections 08 to 16 cover the
+gap areas the dossier surfaced).
 
 [`reading_notes/`](reading_notes/) holds section-by-section notes on the
-reference library (see [`references/README.md`](../../references/README.md) for
-the bibliography). The notes map each source to the directions and findings it
+reference library. The notes map each source to the directions and findings it
 informs.

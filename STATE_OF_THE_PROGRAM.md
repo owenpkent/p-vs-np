@@ -45,6 +45,15 @@ multiplicity obstructions).
   complexity of the Minimum Circuit Size Problem.
 - **Average-case is not worst-case** (LEARNINGS #5). The SAT threshold locates
   random hardness, but P vs NP is a worst-case question.
+- **The strong stories converge on the Williams spine** (speculative). A
+  backward-induction exercise (nine imagined 2050 resolution paths, stress-tested
+  against the three barriers, six died and three were wounded) found that four of
+  the kills carry the same repair: graft onto the Williams algorithm-to-lower-bound
+  spine instead of replacing it, the one component no adversary could disqualify.
+  It also gestures at an implied fourth barrier (a technique fails if its hardness
+  certificate is reconstructible across a bounded, low-interaction interface), not
+  yet correctly axiomatized. Narrative-level only, none of it is Lean-verified. See
+  [`docs/03_research/2050_backward_induction.md`](docs/03_research/2050_backward_induction.md).
 
 ## The single most-leveraged next move
 
@@ -56,6 +65,18 @@ Williams connection yield new lower bounds, and (b) understand whether the
 non-constructive ingredient can be pushed from $\mathsf{NEXP}$ down to
 $\mathsf{NP}$. This is where unconditional progress has actually happened since
 2011.
+
+The specific hinge is the $\mathsf{TC}^0$ step, the first rung past
+$\mathsf{ACC}^0$: a non-algebrizing $\mathsf{TC}^0$-satisfiability speedup would
+yield $\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$. The polynomial method that beat
+$\mathsf{ACC}^0$ dies at threshold gates because MAJORITY has approximate degree
+$\Theta(\sqrt{n})$, so a genuinely new (combinatorial, non-natural) speedup is
+needed. This rung is compute-light and attackable now. The speculative
+backward-induction dossier ([`docs/03_research/2050_backward_induction.md`](docs/03_research/2050_backward_induction.md))
+routes its strongest stories through this step, and the runnable model in
+[`experiments/circuit_complexity/e_tc0_sat_savings.py`](experiments/circuit_complexity/e_tc0_sat_savings.py)
+shows the naive polynomial-method push is disqualified (natural + algebrizing)
+while a Boolean-rank-collapse speedup evades all three barriers.
 
 Honest odds: an unconditional resolution of P vs NP from any current program is
 very low. The value of the work is that the barriers are now precise enough to
@@ -71,4 +92,5 @@ complexity) are contributions in their own right.
 - Master research map (all architectures, obstructions): [`docs/research_atlas/README.md`](docs/research_atlas/README.md)
 - Operating philosophy: [`docs/researcher_mindset.md`](docs/researcher_mindset.md)
 - The research directions: [`docs/03_research/research_directions/`](docs/03_research/research_directions/)
+- Speculative 2050 backward-induction (strategy/compass calibration, not proven math): [`docs/03_research/2050_backward_induction.md`](docs/03_research/2050_backward_induction.md)
 - Lean skeleton + targets: [`lean/README.md`](lean/README.md)
