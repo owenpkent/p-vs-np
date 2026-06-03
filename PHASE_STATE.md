@@ -83,17 +83,27 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
    and LEARNINGS finding 20. Next concrete sub-steps: confirm the residual
    needs-citation parameters (that note's section 9), and decide whether to attack
    the dense-THR-of-THR SAT speedup directly or via the Chen 2018 geometry reduction.
-2. **Strand-3 bridge: REFRAMED to a no-go, pursue the symmetry route instead.** A
-   2026-06-03 multi-agent pass (two surveys, builder computation
-   `experiments/strand3/e_bockstein_forcing.py`, adversary audit, verifier) computed
-   real homology and established that the "cheap count forces a located char-2 torsion
-   class" bridge is a NO-GO: a cheap count forces only the EXISTENCE of torsion (a rank
-   fact that algebrizes), and the located $\beta(x) \ne 0$ is not count-forced (the
-   lens-space $L(p^2)$ vs $L(p)$ witness). The reframed live targets are gap 2 (a
-   prime-power-structured symmetry for the Smith-theory / fixed-point route, the route
-   the KSS precedent actually uses) and a located non-algebrizing operation certifying
-   a bound directly (Babson-Kozlov 2007 chromatic 2-torsion). See LEARNINGS finding 21
-   and the two new ledger coordinates. Do NOT re-attempt the count-forces-torsion shape.
+2. **Strand-3: TWO sharp no-go coordinates now; the topology search is nearly
+   exhausted.** Two 2026-06-03 multi-agent passes (real homology + group computation,
+   adversary-audited, verifier-confirmed) closed both candidate shapes. (a) Finding 21:
+   the "cheap count forces a located char-2 torsion class" bridge is a NO-GO (a count
+   forces only EXISTENCE of torsion, a rank fact that algebrizes; the located
+   $\beta(x) \ne 0$ is not count-forced, lens-space $L(p^2)$ vs $L(p)$ witness;
+   `experiments/strand3/e_bockstein_forcing.py`). (b) Finding 22: the Oliver/Smith
+   SYMMETRY fixed-point route (gap 2) is ALSO a no-go. The symmetry provably EXISTS
+   ($\mathrm{AGL}(1,q)$ has the exact Oliver shape, verified $q \in \{4,5,8,9\}$,
+   `experiments/strand3/e_symmetry_route.py`), but its certificate is the rational
+   $\chi(\mathrm{Fix})$ (algebrizes, by the Oliver-number trichotomy, across the whole
+   branch) and its output is a query bound $D(h) = \binom{n}{2}$, never circuit size.
+   Structural root: KSS topology is downstream of the algorithm, so the complex is
+   acyclic by construction and the certificate is forced rational. The ONE non-dead
+   remainder is the structurally opposite free-$\mathbb{Z}/2$ Borsuk-Ulam route
+   (Babson-Kozlov chromatic 2-torsion): it clears Q1 (located non-algebrizing torsion)
+   but fails Q2 (bounds chromatic number, no circuit-size bridge) and is open on
+   strand 1. Recommendation: do NOT re-attempt the count or Oliver shapes. Either probe
+   the Babson-Kozlov route (low odds, the Q2 bridge is the wall), or treat strand 3 as a
+   well-mapped dead-end and concentrate on the Williams spine / TC0 hinge (finding 20),
+   which is independent of this topology search.
 3. **Discharge a Lean `sorry`** or seek external review of the atlas obstruction
    claims and reading-note syntheses. These are verification, not new scaffolding.
 
@@ -110,21 +120,29 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 - All experiment modules run to completion (re-verified 2026-06-03): the Phase-0
   four plus `e_tc0_sat_savings`, `e_acc0_polynomial_method`, `e_monotone_clique`,
   `e_resolution_width_php`, `e_plethysm_kronecker`, `e_nisan_wigderson_prg`,
-  `algebrization_probe`, `strand3.e_ledger`, and `strand3.e_bockstein_forcing`
-  (the last needs numpy + sympy). Standard library only elsewhere; plots optional.
+  `algebrization_probe`, `strand3.e_ledger`, `strand3.e_bockstein_forcing`, and
+  `strand3.e_symmetry_route` (the last two need numpy + sympy). Standard library only
+  elsewhere; plots optional.
 - Strand-3 round 3 (2026-06-03): `strand3.e_bockstein_forcing` runs clean
   (VERIFIER-confirmed, real homology cross-validated by Smith normal form vs sympy);
   the algebrization probe gained two char-p RANK fixtures (`torsion_existence_count`,
   `fp_acyclicity`) now pinned as algebrizing; LEARNINGS finding 21 added; findings 9
   and 14 and the two strand-3 docs corrected for the count-forces-torsion no-go.
+- Strand-3 gap 2 (2026-06-03): `strand3.e_symmetry_route` runs clean (VERIFIER-confirmed:
+  AGL(1,q) Oliver structure + 2-transitivity, the chi(Fix)=1 Smith step, the PHP
+  Oliver-failure, all independently re-derived). The Oliver/Smith symmetry route is a
+  no-go on both Q1 (certificate is the rational chi, algebrizes) and Q2 (query bound,
+  not circuit size); LEARNINGS finding 22 added; the ledger gained a ninth coordinate;
+  the missing-object gap-2 reframed. Three builder scratch experiments were consolidated
+  to the single `e_symmetry_route.py`.
 - Lean: all five `PvsNP/` modules compile against core Lean (documented `sorry`
   targets remain).
 - TC0 hinge grounding (2026-06-03): `e_tc0_sat_savings.py` rewritten and still runs
   to exit 0; the corrected note `docs/03_research/2050_tc0_hinge_grounded.md` is in
   place; LEARNINGS finding 20 added and findings 8/11/13 plus the dossier corrected.
-- Git: the TC0-hinge-grounding change set is committed (commits `0baf79c`,
-  `899357f`, `149dcfa`). The strand-3 round-3 change set is in the working tree,
-  pending commit.
+- Git: the TC0-hinge-grounding change set (`0baf79c`, `899357f`, `149dcfa`) and the
+  strand-3 round-3 change set (`670f7ef`) are committed. The strand-3 gap-2 change set
+  is in the working tree, pending commit.
 
 ## Session log (recent)
 
@@ -136,6 +154,7 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 | 2026-06-03 | Documentation refresh | README, STATE_OF_THE_PROGRAM, and PHASE_STATE updated to current reality; repo-wide no-dash check; pushed. |
 | 2026-06-03 | TC0 hinge grounding (multi-agent: 4 surveyors, fact-checkers, builder, adversary, final fact-check) | Corrected the "polynomial method dies at threshold gates" conflation (probabilistic vs approximate degree); located the open frontier as dense depth-2 THR-of-THR; caught 3 synthesis defects (paper-title, gates-vs-wires, over-strong algebrization claim). New note `2050_tc0_hinge_grounded.md`; LEARNINGS finding 20; findings 8/11/13 and the dossier corrected; experiment rewritten, smoke test 5/5. |
 | 2026-06-03 | Strand-3 Bockstein bridge (multi-agent: 3 surveys, builder, adversary, verifier) | Verdict NO-GO COORDINATE: a cheap count forces only the EXISTENCE of torsion (a rank fact that algebrizes), never a located $\beta(x)$; lens-space $L(p^2)$ vs $L(p)$ witness. New experiment `strand3/e_bockstein_forcing.py` (real homology, VERIFIER-confirmed); probe gained the third invariant category (char-p rank functionals algebrize too) + two fixtures; LEARNINGS finding 21; findings 9/14 and both strand-3 docs corrected; ledger gained two coordinates (LIVE still 0). Reframed live route: symmetry (Smith-theory fixed point), not count. |
+| 2026-06-03 | Strand-3 gap 2, the symmetry route (multi-agent: 3 surveys, builder, adversary, verifier) | Verdict NO-GO COORDINATE on both decisive questions. The symmetry provably EXISTS (AGL(1,q) Oliver structure verified $q \in \{4,5,8,9\}$) but Q1 fails (certificate is the rational $\chi(\mathrm{Fix})$, algebrizes by the Oliver-number trichotomy across the whole branch) and Q2 fails (query bound $\binom{n}{2}$, never circuit size). Structural root: KSS topology is downstream of the algorithm, so the complex is acyclic by construction. New experiment `strand3/e_symmetry_route.py` (group + homology computation, VERIFIER-confirmed; three scratch files consolidated to one); LEARNINGS finding 22; ledger ninth coordinate; gap-2 reframed. Only non-dead strand-3 remainder: the free-$\mathbb{Z}/2$ Babson-Kozlov route (clears Q1, fails Q2). |
 
 ## How to update this file
 

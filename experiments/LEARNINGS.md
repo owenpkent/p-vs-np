@@ -412,3 +412,65 @@ symmetry of a generic instance is trivial, a structural obstruction to porting K
 Source: [`strand3/e_bockstein_forcing.py`](strand3/e_bockstein_forcing.py), the updated
 [`strand3_ledger.md`](../docs/03_research/strand3_ledger.md) and
 [`strand3_missing_object.md`](../docs/03_research/strand3_missing_object.md).
+
+### 22. The symmetry / Smith fixed-point route (gap 2) is a no-go for strand 3: the prime-power-transitive symmetry provably EXISTS, but its certificate is the rational chi(Fix) (algebrizes), and its output is a query bound, not circuit size.
+
+Finding 21 reframed strand 3's live route from the count-forces-torsion bridge (a no-go)
+to the route the one worked precedent (Kahn-Saks-Sturtevant evasiveness) actually uses: a
+structured prime-power-transitive group action plus an acyclicity fact forcing a
+fixed-point contradiction via Smith theory and Oliver's theorem (gap 2). The
+[`e_symmetry_route.py`](strand3/e_symmetry_route.py) computation, VERIFIER-checked (runs
+to exit 0; the verifier independently re-derived $\mathrm{AGL}(1,q)$ normality and
+2-transitivity, the $\mathrm{is\_normal\_robust}$ workaround for a genuine sympy bug, the
+$\chi(\mathrm{Fix}) = 1$ Smith step, and an exhaustive-subgroup PHP Oliver-failure) and
+ADVERSARY-audited (verdict no-go, no error or over-claim found), settles both decisive
+questions NEGATIVELY. The symmetry is NO LONGER the missing piece: it provably EXISTS and
+is fully explicit. $\mathrm{AGL}(1,q) = \mathbb{F}_q \rtimes \mathbb{F}_q^*$ on $q = p^k$
+points has the exact Oliver $n_G = 0$ shape (translations = normal elementary-abelian
+$p$-group of order $q$, quotient = cyclic $\mathbb{F}_q^*$ of order $q-1$, 2-transitive so
+the only nonempty invariant graph is $K_q$), verified for $q \in \{4,5,8,9\}$; the
+elementary-abelian Cayley translation core (Tseitin) and the Paley translation core carry
+the same shape. Q1 (ALGEBRIZATION): NEGATIVE, and structurally inescapable by the
+Oliver-number trichotomy. For finite $G$ not of prime-power order,
+$\{\chi(X^G) - 1 : X$ a finite contractible $G$-CW complex$\} = n_G \mathbb{Z}$, and the
+deciding invariant in every regime is the integer Euler characteristic $\chi(\mathrm{Fix})$
+($n_G = 0$ forces $\chi = 1$; intermediate forces $\chi \equiv 1 \pmod{n_G}$; $n_G = 1$
+gives no constraint). $\chi$ is coefficient-independent (verified on the
+$\mathbb{Z} \xrightarrow{2} \mathbb{Z}$ toy), so it is a rank functional a low-degree oracle
+extension carries, and it ALGEBRIZES (verified concretely: the order-3 rotation on the
+$\mathbb{F}_2$-acyclic 2-simplex fixes a single barycenter with $\chi = 1$). This
+GENERALIZES the $\mathbb{F}_p$-acyclicity DEAD ledger verdict (finding 21) from the single
+KSS precedent to the whole Oliver branch (KSS, Tseitin/Cayley, affine/Singer, Paley all
+consume the same rational $\chi = 1$). Q2 (CIRCUIT vs QUERY): NEGATIVE. The Oliver/KSS
+output is the decision-tree bound $D(h) = \binom{n}{2} = O(n^2)$, a query measure whose
+vertices are EDGE SLOTS (the symmetry acts on the query domain, not a gate structure);
+the bound is polynomial, the implication runs the wrong way, and the trick needs
+isomorphism-invariant properties a generic instance lacks (the literal-flip stabilizer of
+a random formula is trivial). PHP is a definitive negative: its $S_m \times S_n$ symmetry
+is transitive but not 2-transitive and has no normal prime-power subgroup with cyclic
+quotient ($S_k$ is not prime-power for $k \ge 3$). The prime-power restriction is a hard
+ceiling: no $\mathbb{F}_n$ and no $\mathrm{AGL}(1,n)$ for non-prime-power $n$ (smallest
+$n = 6$), the literal boundary of the open AKR evasiveness cases. THE STRUCTURAL ROOT
+(the audit's circularity finding): in KSS the topology is DOWNSTREAM of the algorithm
+(the decision tree IS the collapsing schedule), so the complex is acyclic BY
+CONSTRUCTION, torsion is never produced, and the certificate is forced to be rational.
+An invariant computed cheaply downstream of an algorithm (strand 1) cannot carry torsion
+the algorithm did not put there. This is why strand 1 and strand 3 resist meeting. The
+ONE non-algebrizing certificate among surveyed symmetry families is the FREE
+$\mathbb{Z}/2$ Babson-Kozlov route (located integral 2-torsion in
+$H^*(\mathrm{Hom}(C_{2r+1}, K_n); \mathbb{Z})$ for even $n$, Stiefel-Whitney $w_1^k$ for
+odd $n$), the structural OPPOSITE of Oliver (Borsuk-Ulam, NO fixed point); its torsion is
+the PRIMARY object (not downstream of an algorithm), which is exactly why it can be
+non-algebrizing where Oliver cannot, and exactly why it bounds chromatic number with no
+circuit-size bridge: it clears Q1 and fails Q2. Two honesty caveats the audit requires:
+"$\chi = 1$ algebrizes" and "located 2-torsion is non-algebrizing" are the project's sound
+Aaronson-Wigderson reasoning, candidate-only, NOT discharged A-W theorems about
+evasiveness or coloring; and the sign-rank circuit-size touchpoint ($\log$ sign-rank $=$
+UPP communication $=$ depth-2 $\mathrm{THR} \circ \mathrm{MAJ}$ size, Forster 2002 /
+Razborov-Sherstov, provably capped below $\mathrm{THR} \circ \mathrm{THR}$) is
+survey-sourced. Finding: gap 2 is a no-go coordinate. The two topological precedents are
+NOT interchangeable (Oliver fixed-point + rational $\chi$ + query model vs Babson-Kozlov
+free $\mathbb{Z}/2$ + located torsion + chromatic model), and neither clears both
+decisive questions. Source: [`strand3/e_symmetry_route.py`](strand3/e_symmetry_route.py),
+the updated [`strand3_ledger.md`](../docs/03_research/strand3_ledger.md) and
+[`strand3_missing_object.md`](../docs/03_research/strand3_missing_object.md).

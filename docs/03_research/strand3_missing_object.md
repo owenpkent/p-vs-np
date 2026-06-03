@@ -84,9 +84,37 @@ template (evasiveness). It does not supply the object. Three concrete gaps:
    [Achlioptas-Coja-Oghlan-Ricci-Tersenghi](reading_notes/stat_physics/achlioptas_cojaoghlan_riccitersenghi_2011_solution_space_geometry.md)
    shattering picture) is the natural candidate substrate, but the complex itself is
    not defined.
-2. **The symmetry.** The evasiveness precedent derives its contradiction from a
-   vertex-transitive group action. The analogous symmetry for a SAT or circuit
-   complex, the one that would make a fixed-point argument bite, is not identified.
+2. **The symmetry (REFRAMED by gap-2, 2026-06-03: the symmetry is found, but the
+   route is a no-go for strand 3).** The symmetry the evasiveness precedent needs is
+   NO LONGER missing: it provably EXISTS and is fully explicit.
+   $\mathrm{AGL}(1,q) = \mathbb{F}_q \rtimes \mathbb{F}_q^*$ on $q = p^k$ points has the
+   exact Oliver $n_G = 0$ shape (translations are a normal elementary-abelian $p$-group
+   of order $q$, the quotient is the cyclic $\mathbb{F}_q^*$ of order $q-1$, and the
+   action is 2-transitive so the only nonempty invariant graph is $K_q$), verified for
+   $q \in \{4,5,8,9\}$ in [`e_symmetry_route.py`](../../experiments/strand3/e_symmetry_route.py);
+   the elementary-abelian Cayley translation core (Tseitin) and the Paley translation
+   core carry the same shape. What remains missing for those families is the COMPLEX,
+   not the symmetry: there is no canonical acyclic property complex on which the action
+   bites (the 3-cube clique complex has $H_1 = \mathbb{Z}^5$, $C_5$ is a circle, and
+   nonzero translations are fixed-point-free). But the deeper finding is that even
+   granting both the symmetry and an acyclic complex, the Smith-theory / fixed-point
+   route FAILS both decisive strand-3 questions. (Q1, algebrization) The certificate the
+   Lefschetz/Oliver theorem consumes is $\chi(\mathrm{Fix})$, a rational Euler number, in
+   EVERY Oliver-number regime (the trichotomy $\{\chi(X^G) - 1\} = n_G \mathbb{Z}$ pins
+   the deciding invariant to the integer $\chi(\mathrm{Fix})$, which is
+   coefficient-independent, hence a rank functional a low-degree oracle carries), so it
+   ALGEBRIZES, generalizing the $\mathbb{F}_p$-acyclicity no-go from KSS to the whole
+   Oliver branch. (Q2, circuit vs query) The output is a decision-tree bound
+   $D(h) = \binom{n}{2} = O(n^2)$, a query measure on edge slots, never a circuit-size
+   bound, and the query-to-circuit bridge is unsupplied. So gap 2 is recorded as a sharp
+   NO-GO coordinate. The structurally OPPOSITE FREE $\mathbb{Z}/2$ Borsuk-Ulam route
+   (Babson-Kozlov chromatic 2-torsion) is the one that clears Q1 (located
+   non-algebrizing torsion), but it fails Q2 (bounds chromatic number). The deeper root,
+   surfaced by the audit: in KSS the complex is acyclic BY CONSTRUCTION (the decision
+   tree IS the collapsing schedule), so torsion is never produced and the certificate is
+   forced to be rational. An invariant computed downstream of an algorithm (cheap,
+   strand 1) cannot carry torsion the algorithm did not put there. See LEARNINGS finding
+   22 and [`strand3_ledger.md`](strand3_ledger.md) (the ninth coordinate).
 3. **The bridge itself (REFRAMED by P3c, 2026-06-03: the count-forces-torsion shape
    is a no-go).** The bridge was originally phrased as a universal-coefficients or
    Bockstein exact sequence in which a char-0 algorithmic count (an Euler
