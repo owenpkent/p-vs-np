@@ -26,7 +26,11 @@ p-vs-np/
 │   ├── 02_graduate/             # Circuit classes, the three barriers, the polynomial hierarchy
 │   ├── 03_research/             # Current approaches; proof programs; numbered directions
 │   │   ├── research_directions/ # Research-grade directions with operational specs
-│   │   └── reading_notes/       # Notes on the reference library
+│   │   ├── reading_notes/       # Grounded notes on 31 downloaded sources
+│   │   ├── 2050_backward_induction.md      # Speculative backward-induction dossier
+│   │   ├── resources_for_the_leading_path.md # Prioritized reading guide
+│   │   ├── strand3_missing_object.md       # Algebraic-topology toolkit for the missing object
+│   │   └── strand3_ledger.md               # Coordinate ledger of candidate invariants
 │   ├── implications/            # Why it matters (crypto, optimization, science, AI)
 │   ├── solutions/               # Known approaches and why each is stuck
 │   ├── research_atlas/          # Master research map: all architectures + obstructions
@@ -34,10 +38,16 @@ p-vs-np/
 ├── experiments/                 # Computational thread; barrier discipline
 │   ├── PLAN.md                  # Test plan + AI-centric methodology
 │   ├── LEARNINGS.md             # Cross-architecture findings
-│   ├── _shared/                 # ProofTechnique, BarrierChecker control, smoke_test
+│   ├── _shared/                 # ProofTechnique, BarrierChecker, smoke_test, algebrization_probe
 │   ├── relativization/          # BGS oracle diagonalization (barrier a)
-│   ├── circuit_complexity/      # Hastad switching lemma / parity (architecture 1)
+│   ├── circuit_complexity/      # parity restriction, TC0-SAT hinge, ACC0 polynomial method, monotone clique
 │   ├── natural_proofs/          # Largeness + constructivity check (barrier c)
+│   ├── proof_complexity/        # resolution width (pigeonhole), eF lifting barrier check
+│   ├── gct/                     # multiplicity obstruction, Kronecker coefficients from scratch
+│   ├── hardness_randomness/     # Nisan-Wigderson PRG demo
+│   ├── fourth_barrier/          # locality / self-referential-lifting scenarios (from the dossier)
+│   ├── physics_native/          # overlap-gap hardness-bridge scenario (from the dossier)
+│   ├── strand3/                 # strand-3 coordinate-ledger driver
 │   └── sat_phase_transition/    # Random 3-SAT threshold + hardness peak (b)
 ├── references/                  # Bibliography of real papers/books (PDFs gitignored)
 ├── lean/                        # Lean 4 / Mathlib formal verification (skeleton)
@@ -110,9 +120,14 @@ Smoke test:
 python -m experiments._shared.smoke_test
 ```
 
-Four experiments run to completion: the BGS relativization diagonalization, the
-Hastad switching-lemma parity demo, the natural-proofs largeness/constructivity
-check, and the random 3-SAT phase transition.
+A suite of experiment modules runs to completion, each with an honest writeup and
+self-checks. The four Phase-0 demos (BGS relativization diagonalization, Hastad
+switching-lemma parity, natural-proofs largeness/constructivity, random 3-SAT phase
+transition), plus the architecture experiments built since: the Razborov-Smolensky
+$\mathbb{F}_3$-degree bound, pigeonhole resolution width, Kronecker coefficients from
+scratch, Nisan-Wigderson designs, the monotone-clique sunflower lemma, the
+$\mathsf{TC}^0$-SAT hinge model, the algebrization probe, and the strand-3 coordinate
+ledger.
 
 ## Cross-cutting findings
 
@@ -131,11 +146,11 @@ once. This is the project's most useful piece of map.
 | Solutions / approach catalog | `docs/solutions/` |
 | Research atlas | `docs/research_atlas/` |
 | Experiments, Phase 0 infrastructure (barrier checker + smoke test) | Complete (5/5) |
-| Experiments, relativization (BGS) | Runs to completion |
-| Experiments, circuit complexity (parity restriction) | Runs to completion |
-| Experiments, natural proofs (largeness/constructivity) | Runs to completion |
-| Experiments, SAT phase transition | Runs to completion |
-| Lean 4 / Mathlib formalization | Skeleton with documented `sorry` (need not build) |
+| Experiments, Phase 0 demos (relativization, parity restriction, natural proofs, SAT phase transition) | Run to completion |
+| Experiments, architecture suite (Razborov-Smolensky, pigeonhole resolution width, Kronecker coefficients, Nisan-Wigderson, monotone clique, TC0-SAT hinge) | Run to completion, self-checks pass |
+| Strand-3 coordinate ledger + algebrization probe | Run to completion |
+| 2050 backward-induction dossier + reading notes (31 sources) + research-direction syntheses | Complete |
+| Lean 4 formalization | Skeleton compiles against core Lean; documented `sorry` targets remain |
 | Intuitive / undergraduate / graduate docs | Substantial |
 | manim visualizations | One scene (SAT phase transition) |
 
