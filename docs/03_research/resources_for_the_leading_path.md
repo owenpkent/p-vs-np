@@ -24,7 +24,7 @@ progress on this specific part of the proof."
 
 1. [Allender, *The New Complexity Landscape Around Circuit Minimization*](https://people.cs.rutgers.edu/~allender/papers/lata.pdf) *(free)*. The fastest map into meta-complexity, the leading path.
 2. [Williams, *Algorithms for Circuits and Circuits for Algorithms* (ICM 2014)](https://people.csail.mit.edu/rrw/projects.html) *(free)*. The authoritative survey of the spine the whole path rides.
-3. [Bun & Thaler, *Approximate Degree in Classical and Quantum Computing*](https://people.cs.georgetown.edu/jthaler/adegFnT.pdf) *(free)*. Why the $\mathsf{TC}^0$ hinge is a wall: MAJORITY has approximate degree $\Theta(\sqrt{n})$.
+3. [Bun & Thaler, *Approximate Degree in Classical and Quantum Computing*](https://people.cs.georgetown.edu/jthaler/adegFnT.pdf) *(free)*. Why the $\mathsf{TC}^0$ hinge is a wall: MAJORITY has approximate degree $\Theta(n)$ (no low-degree approximant).
 4. [Chen & Williams, *Stronger Connections ... via PCPs of Proximity* (CCC 2019)](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2019.19) *(free)*. The method working at the $\mathsf{TC}^0$ frontier, the most leveraged open step.
 5. [Hatcher, *Algebraic Topology*](https://pi.math.cornell.edu/~hatcher/AT/ATpage.html) *(free)*, sections 3.1 and 3.E. The mod-2 machinery (Bockstein, Steenrod squares) the missing object is specified in.
 
@@ -51,7 +51,7 @@ The single most-leveraged milestone. The polynomial method that beat ACC0 dies a
 threshold gates. Read:
 
 1. [Bun & Thaler survey](https://people.cs.georgetown.edu/jthaler/adegFnT.pdf) *(free)*: the modern, definitive treatment.
-2. [Paturi (STOC 1992)](https://cseweb.ucsd.edu/~paturi/myPapers/pubs/Paturi_1992_stoc.pdf) *(free)*: the source of the exact $\Theta(\sqrt{n})$ for MAJORITY.
+2. [Paturi (STOC 1992)](https://cseweb.ucsd.edu/~paturi/myPapers/pubs/Paturi_1992_stoc.pdf) *(free)*: the exact approximate degree of symmetric functions: $\Theta(n)$ for MAJORITY (central jump), $\Theta(\sqrt{n})$ for OR/AND (endpoint jump).
 3. [Chen & Williams (CCC 2019)](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2019.19) *(free)*: the algorithmic method aimed straight at the $\mathsf{TC}^0$ frontier.
 4. [Kumar (CCC 2023)](https://arxiv.org/abs/2304.02770) *(free)*: the terrain between $\mathsf{AC}^0$ and $\mathsf{TC}^0$.
 5. Prerequisite vocabulary: [O'Donnell, *Analysis of Boolean Functions*](https://www.cs.cmu.edu/~odonnell/papers/Analysis-of-Boolean-Functions-by-Ryan-ODonnell.pdf) *(free)*.

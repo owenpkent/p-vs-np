@@ -35,8 +35,8 @@ Run it through the [barrier checker](../../../experiments/_shared/barriers.py)
 The speculative [2050 backward-induction dossier](../2050_backward_induction.md)
 (a strategy exercise, not established mathematics) singles out M3 as THE hinge:
 the first rung past $\mathsf{ACC}^0$, where the polynomial method that beat
-$\mathsf{ACC}^0$ dies because MAJORITY has approximate degree $\Theta(\sqrt{n})$,
-so a non-algebrizing combinatorial $\mathsf{TC}^0$-satisfiability speedup is
+$\mathsf{ACC}^0$ dies because MAJORITY has approximate degree $\Theta(n)$ (Paturi
+1992), so a non-algebrizing combinatorial $\mathsf{TC}^0$-satisfiability speedup is
 needed instead. This rung is now modeled in the
 [`e_tc0_sat_savings`](../../../experiments/circuit_complexity/e_tc0_sat_savings.py)
 experiment.

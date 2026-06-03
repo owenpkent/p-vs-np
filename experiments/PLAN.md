@@ -88,7 +88,7 @@ that barrier (as Williams's does).
   [`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py):
   it is the single most-leveraged target, since the polynomial method that beat
   $\mathsf{ACC}^0$ dies at threshold gates (MAJORITY has approximate degree
-  $\Theta(\sqrt{n})$) and a combinatorial non-algebrizing $\mathsf{TC}^0$-SAT
+  $\Theta(n)$, Paturi 1992, so no low-degree approximant) and a combinatorial non-algebrizing $\mathsf{TC}^0$-SAT
   speedup would carry $\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$ along the
   Williams spine.
 - **Strategic source for 2026 moves.** The speculative 2050 backward-induction

@@ -102,7 +102,8 @@ $\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$. Every $\mathsf{P} \neq \mathsf{NP}$
 path the adversary did not immediately kill routes through the Williams
 connection, and that connection is stuck in 2026 at exactly one wall: the
 polynomial method that powered $\mathsf{ACC}^0$ provably stops working at
-threshold gates (MAJORITY has no low-degree polynomial representation). The
+threshold gates (MAJORITY has no low-degree polynomial approximant: its
+approximate degree is $\Theta(n)$, Paturi 1992). The
 atlas already names this as the open frontier. $\mathsf{TC}^0$ is the first rung
 past $\mathsf{ACC}^0$; if it falls, the climb to $\mathsf{NC}^1$ and
 $\mathsf{P/poly}$ becomes a quantitative grind rather than a barrier. It is

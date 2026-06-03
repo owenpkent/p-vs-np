@@ -70,8 +70,8 @@ The specific hinge is the $\mathsf{TC}^0$ step, the first rung past
 $\mathsf{ACC}^0$: a non-algebrizing $\mathsf{TC}^0$-satisfiability speedup would
 yield $\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$. The polynomial method that beat
 $\mathsf{ACC}^0$ dies at threshold gates because MAJORITY has approximate degree
-$\Theta(\sqrt{n})$, so a genuinely new (combinatorial, non-natural) speedup is
-needed. This rung is compute-light and attackable now. The speculative
+$\Theta(n)$ (Paturi 1992): it has no low-degree polynomial approximant at all, so a
+genuinely new (combinatorial, non-natural) speedup is needed. This rung is compute-light and attackable now. The speculative
 backward-induction dossier ([`docs/03_research/2050_backward_induction.md`](docs/03_research/2050_backward_induction.md))
 routes its strongest stories through this step, and the runnable model in
 [`experiments/circuit_complexity/e_tc0_sat_savings.py`](experiments/circuit_complexity/e_tc0_sat_savings.py)

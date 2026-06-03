@@ -8,9 +8,9 @@ P != NP: the late-2030s step where the algorithm-to-lower-bound connection
 P != NP scenario routes through that connection, and in 2026 the connection is
 stuck at exactly one wall. The Razborov-Smolensky polynomial method, which
 powered the ACC0 / AC0[p] bounds, provably stops at threshold gates: MAJORITY has
-no low-degree polynomial representation (its approximate degree is Theta(sqrt n),
-Paturi 1992), so the low-degree-approximation budget that beats ACC0 blows up at
-TC0.
+no low-degree polynomial representation (its approximate degree is Theta(n), the
+maximum for a symmetric function, Paturi 1992; OR/AND are only Theta(sqrt n)), so
+the low-degree-approximation budget that beats ACC0 blows up at TC0.
 
 This module pins the hinge as a runnable, checkable object. It does two things.
 
@@ -62,8 +62,9 @@ tc0_polynomial_method = ProofTechnique(
     algebrizes=True,
     notes=(
         "Natural (large + constructive) and algebrizing. Independently, it does not "
-        "even apply: MAJORITY has approximate degree Theta(sqrt n) (Paturi 1992), so "
-        "the low-degree-approximation budget that beats ACC0 blows up at TC0. This is "
+        "even apply: MAJORITY has approximate degree Theta(n) (Paturi 1992), the maximum "
+        "for a symmetric function, so the low-degree budget that beats ACC0 cannot "
+        "represent even one threshold gate. This is "
         "the wall the Williams program hits at the first rung past ACC0."
     ),
 )
@@ -206,9 +207,10 @@ def main() -> int:
     print()
 
     # The structural fact that makes TC0 the wall, stated numerically.
-    print("Structural wall: approximate degree of MAJORITY on n bits is Theta(sqrt n).")
+    print("Structural wall: approximate degree of MAJORITY on n bits is Theta(n) (Paturi 1992):")
+    print("it needs full linear degree, with no low-degree approximant (OR/AND need only ~sqrt(n)).")
     for n in (100, 10_000, 1_000_000):
-        print(f"    n = {n:>9,}:  ~sqrt(n) = {math.isqrt(n):>5}  (the low-degree budget that beats ACC0 cannot reach this)")
+        print(f"    n = {n:>9,}:  MAJORITY approx degree ~ n = {n:>9,}   vs OR/AND ~ sqrt(n) = {math.isqrt(n):>5}")
     print()
 
     print("=== Part 2: the savings-reality-check ===\n")

@@ -106,7 +106,7 @@ meta-complexity on the spine, using a proved non-constructivity of high-$Kt$ tru
 tables). The everything-routes-through milestone is the $\mathsf{TC}^0$ hinge: a
 combinatorial non-algebrizing $\mathsf{TC}^0$-satisfiability speedup yielding
 $\mathsf{NEXP} \not\subseteq \mathsf{TC}^0$, where the polynomial method that beat
-$\mathsf{ACC}^0$ dies because MAJORITY has approximate degree $\Theta(\sqrt{n})$.
+$\mathsf{ACC}^0$ dies because MAJORITY has approximate degree $\Theta(n)$ (Paturi 1992), so it has no low-degree approximant.
 That hinge is compute-light and attackable now; it is modeled in
 [`circuit_complexity/e_tc0_sat_savings.py`](circuit_complexity/e_tc0_sat_savings.py),
 which disqualifies the naive polynomial-method route (natural and algebrizing) and
@@ -141,3 +141,19 @@ and every attempt so far to wield it as a separate obstruction collapsed back in
 one of the three known barriers. Stated honestly: the prize would be an invariant
 whose certificate survives every bounded interface, and the value of the conjecture
 right now is as a sharper compass for the strand-1-vs-strand-3 search in finding 9.
+
+### 11. Grounded reading corrects the record: MAJORITY needs linear approximate degree.
+
+The reading-notes pass over the downloaded sources caught a factual error that the
+dossier and several derived docs had propagated: they stated MAJORITY's approximate
+degree as $\Theta(\sqrt{n})$. Paturi 1992 gives $\Theta(\sqrt{n(n - \Gamma(f))})$ for
+symmetric $f$; MAJORITY has its sign change at the center ($\Gamma \approx 0$), so its
+approximate degree is $\Theta(n)$, while OR and AND (endpoint change) are the ones at
+$\Theta(\sqrt{n})$. The Bun-Thaler survey states $\widetilde{\deg}(\mathrm{MAJ}) =
+\Theta(n)$ directly. Finding: the correction strengthens the $\mathsf{TC}^0$-hinge
+argument rather than weakening it. MAJORITY requires the maximum (linear) approximate
+degree, so it has no low-degree approximant at all, which is precisely why the
+Razborov-Smolensky low-degree polynomial method cannot reach threshold gates. The
+docs were corrected on 2026-06-02. Methodological lesson: grounded reading against
+primary sources is the honesty mechanism that catches errors a confident summary
+would carry forward.

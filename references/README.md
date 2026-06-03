@@ -115,8 +115,8 @@ is marked by access: *(free)* readable now, *(book)* purchase/library,
 
 | Reference | Role |
 |---|---|
-| [Bun & Thaler, *Approximate Degree in Classical and Quantum Computing*, FnT 2022](https://people.cs.georgetown.edu/jthaler/adegFnT.pdf) *(free)* | The definitive survey. Why MAJORITY's $\Theta(\sqrt{n})$ approximate degree is the wall where the polynomial method dies at $\mathsf{TC}^0$. |
-| [Paturi, *On the Degree of Polynomials that Approximate Symmetric Boolean Functions*, STOC 1992](https://cseweb.ucsd.edu/~paturi/myPapers/pubs/Paturi_1992_stoc.pdf) *(free)* | Source of the exact $\Theta(\sqrt{n})$ approximate degree of MAJORITY that defines the hinge. |
+| [Bun & Thaler, *Approximate Degree in Classical and Quantum Computing*, FnT 2022](https://people.cs.georgetown.edu/jthaler/adegFnT.pdf) *(free)* | The definitive survey. Why MAJORITY's $\Theta(n)$ approximate degree (no low-degree approximant) is the wall where the polynomial method dies at $\mathsf{TC}^0$. |
+| [Paturi, *On the Degree of Polynomials that Approximate Symmetric Boolean Functions*, STOC 1992](https://cseweb.ucsd.edu/~paturi/myPapers/pubs/Paturi_1992_stoc.pdf) *(free)* | Source of the exact approximate degree of every symmetric function: MAJORITY (central jump) needs $\Theta(n)$, OR/AND (endpoint jump) only $\Theta(\sqrt{n})$. The MAJORITY bound defines the hinge. |
 | Nisan & Szegedy, *On the Degree of Boolean Functions as Real Polynomials*, 1994 *(paywalled)* | Exact and approximate degree are polynomially related to decision-tree complexity. |
 | [O'Donnell, *Analysis of Boolean Functions*, Cambridge 2014](https://www.cs.cmu.edu/~odonnell/papers/Analysis-of-Boolean-Functions-by-Ryan-ODonnell.pdf) *(free)* | The prerequisite vocabulary (degree, influence, noise sensitivity) for any approximate-degree result. |
 | Jukna, *Boolean Function Complexity: Advances and Frontiers*, Springer 2012 *(book)* | Comprehensive circuit-complexity reference; locates the $\mathsf{TC}^0$ hinge in the broader landscape. |
