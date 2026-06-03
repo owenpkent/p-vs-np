@@ -44,7 +44,7 @@ no dashes, claims trace to a cited note.
 - [x] **P1a.** Meta-complexity notes -> `research_directions/02_natural_proofs_evasion.md` deepening + LEARNINGS (the leading path: proved non-constructivity of high $Kt$).
 - [x] **P1b.** Approximate-degree / Williams notes -> `research_directions/01_circuit_lower_bounds.md` deepening + LEARNINGS (the $\mathsf{TC}^0$ hinge, the algorithmic method toward TC0).
 - [x] **P1c.** Algebraic-topology notes -> a new subsection (the strand-3 missing object, Bockstein / Steenrod) in `02` or a short note in the dossier's vicinity + LEARNINGS.
-- [ ] **P1d.** GCT, proof-complexity, and stat-physics notes -> `research_directions/04`, `03`, and the SAT-phase-transition writeup respectively + LEARNINGS.
+- [x] **P1d.** GCT, proof-complexity, and stat-physics notes -> `research_directions/04`, `03`, and the SAT-phase-transition writeup respectively + LEARNINGS.
 
 ## P2. Experiment backlog (the unbuilt TODO experiments)
 
@@ -88,3 +88,4 @@ progresses, or document precisely what blocks it.
 - 2026-06-02: P1a done. Synthesized the 7 meta-complexity notes into a "state of the art" + "open cruxes" section in research direction 02 (M3 marked done), and promoted LEARNINGS finding 12 (meta-complexity is the leading path's engine, but non-black-box is not non-relativizing, so the non-relativizing content must come from the Williams spine).
 - 2026-06-02: P1b done. Synthesized the Williams-method + approximate-degree notes into a "state of the art" section in research direction 01 (M1 marked studied), and promoted LEARNINGS finding 13 (the TC0 wall is confirmed from two sides; the method is non-natural by non-largeness, and Williams 2021 names a fourth barrier corroborating finding 10).
 - 2026-06-02: P1c done. Created docs/03_research/strand3_missing_object.md synthesizing the algebraic-topology notes (Hatcher Bockstein/Steenrod, Kahn-Saks-Sturtevant torsion precedent, Bjorner's computable-vs-torsion map), linked from the dossier's braided-path section, and promoted LEARNINGS finding 14 (topology gives the words and one precedent for strand 3, not a route; three gaps remain).
+- 2026-06-02: P1d done. Added "state of the art" sections to research directions 04 (GCT: multiplicity obstructions strictly stronger, DIP 2019; the candidate non-algebrizing GCT invariant) and 03 (proof complexity: Razborov 1995 unprovability = A6 path; GPW 2017 lifting), and a statistical-physics section to the SAT-phase-transition writeup (clustering + OGP as average-case algorithm-class barriers, not worst-case). Promoted LEARNINGS findings 15, 16, 17. P1 (reading-notes synthesis) complete.

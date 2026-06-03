@@ -218,3 +218,45 @@ torsion class nonzero from a char-0 count. The honest status is that topology gi
 the words, not a route. Source: the
 [strand-3 synthesis](../docs/03_research/strand3_missing_object.md) and the
 [algebraic-topology reading notes](../docs/03_research/reading_notes/algebraic_topology/).
+
+### 15. GCT after the no-go: multiplicity obstructions are provably stronger, and are the candidate non-algebrizing GCT invariant.
+
+Burgisser 2015 confirms the occurrence-obstruction route is closed (plethysm
+positivity forces the obstruction coefficients positive). But Dorfler-Ikenmeyer-Panova
+2019 proves, in a model case (Chow variety vs higher Veronese secant, partition
+$(n^2-2,n,2)$), that multiplicity obstructions strictly beat occurrence obstructions,
+so the program is alive. Grochow 2015 ties this to strand 3: classical lower bounds
+build GCT modules that are rank/minor/degree functionals (hence algebrize), and the
+multiplicity obstruction is the one GCT quantity that is NOT the rank of an explicit
+matrix, making it the natural GCT candidate for the missing non-algebrizing invariant.
+Finding: the live GCT target is a padding-free multiplicity comparison, and GCT and
+the strand-3 search point at the same kind of object. Source: the
+[GCT reading notes](../docs/03_research/reading_notes/gct_rep_theory/) and
+[research direction 04](../docs/03_research/research_directions/04_geometric_complexity_theory.md).
+
+### 16. Average-case geometry (clustering, OGP) is a rigorous algorithm-class barrier, not a worst-case route, and is itself natural.
+
+The statistical-physics reading sharpens LEARNINGS finding 5. Achlioptas-Coja-Oghlan-Ricci-Tersenghi
+2011 rigorously establishes solution-space shattering into frozen clusters; Gamarnik
+2021 shows the overlap-gap property rules out whole algorithm classes (stable,
+low-degree, local, AMP, Langevin, QAOA). But Gamarnik is explicit that OGP bounds
+algorithm families, not worst-case complexity, and the OGP statistic is itself
+large-plus-constructive, hence natural in the Razborov-Rudich sense. Finding: the
+clustering geometry is a candidate substrate for the strand-3 solution complex, but
+the physics stays average-case and does not touch worst-case P vs NP. Source: the
+[stat-physics reading notes](../docs/03_research/reading_notes/stat_physics/) and the
+[SAT phase-transition writeup](sat_phase_transition/).
+
+### 17. Razborov 1995 turns natural proofs into a formal unprovability theorem (the A6 path), and lifting is the modern proof-complexity engine.
+
+Razborov 1995 shows that under a strong PRG, $S_2^2(\alpha)$ cannot refute "SAT has
+small circuits", with an unconditional depth-3-with-PARITY case marking where the
+crypto assumption becomes necessary. This is the dossier's A6 independence-from-a-
+strong-arithmetic path made concrete, and it confirms the A6 caveat that the crypto
+hypothesis carries the load. Goos-Pitassi-Watson 2017 (query-to-communication lifting
+for BPP) is the engine behind modern cutting-planes and monotone lower bounds.
+Finding: the honest near-term proof-complexity targets are intermediate systems where
+the protocol-circuit duality that Bonet-Pitassi-Raz weaponize against extended Frege
+is not provably blocked. Source: the
+[proof-complexity reading notes](../docs/03_research/reading_notes/proof_complexity/) and
+[research direction 03](../docs/03_research/research_directions/03_proof_complexity.md).

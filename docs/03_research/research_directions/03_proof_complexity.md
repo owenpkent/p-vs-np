@@ -32,6 +32,31 @@ provably fails for strong systems under cryptographic assumptions (Bonet-Pitassi
 barrier: the soft, generic technique is blocked, so the proof must engage the
 specific structure of the strong system.
 
+## State of the art (from the June 2026 reading pass)
+
+Synthesized from the [proof-complexity reading notes](../reading_notes/proof_complexity/).
+
+- [Razborov 1995](../reading_notes/proof_complexity/razborov_1995_unprovability_circuit_lower_bounds.md)
+  turns the natural-proofs barrier into a formal unprovability theorem: under a
+  strong PRG (hardness $2^{n^\epsilon}$ against circuits), the theory $S_2^2(\alpha)$
+  cannot refute "SAT has small circuits" (Corollary 6.5), with an unconditional
+  depth-3-with-PARITY case (Theorem 6.1) marking exactly where the cryptographic
+  assumption becomes necessary. This is the dossier's A6 independence-from-a-strong-
+  arithmetic path in concrete form, and it confirms the A6 caveat that the crypto
+  hypothesis is doing the work.
+- [Goos-Pitassi-Watson 2017](../reading_notes/proof_complexity/goos_pitassi_watson_2017_lifting_bpp.md)
+  is the first BPP-regime query-to-communication lifting theorem: composing any $f$
+  with a polynomial-size index gadget makes randomized communication complexity
+  equal to randomized decision-tree complexity up to a $\Theta(\log n)$ factor.
+  Lifting is the modern engine behind cutting-planes and monotone proof-complexity
+  lower bounds.
+
+Cruxes: a super-polynomial Frege lower bound is still open, and the protocol-circuit
+duality that lifting exploits is exactly what Bonet-Pitassi-Raz weaponize against
+extended Frege. The honest near-term targets are intermediate systems
+($\mathsf{AC}^0$-Frege with mod gates) where the duality is not provably blocked,
+matching the dossier's A4 repair.
+
 ## Milestones
 
 | ID | Milestone | Status |

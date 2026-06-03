@@ -54,12 +54,40 @@ them. This closed the original concrete plan ("plan A") of GCT.
   a containment-monotone quantity (dimension or codimension) rather than a raw
   multiplicity comparison.
 
+## State of the art (from the June 2026 reading pass)
+
+Synthesized from the [GCT reading notes](../reading_notes/gct_rep_theory/).
+
+- [Burgisser 2015](../reading_notes/gct_rep_theory/burgisser_2015_permanent_determinant_kronecker.md)
+  lays out the occurrence-obstruction program (Mulmuley-Sohoni reduce GCT
+  coefficients to rectangular Kronecker coefficients) and reports its 2016
+  collapse: plethysm positivity forces Kronecker and GCT-coefficient positivity in
+  the obstruction-shape regime (Ikenmeyer-Panova; BIP), ruling out the occurrence
+  route.
+- [Dorfler-Ikenmeyer-Panova 2019](../reading_notes/gct_rep_theory/dorfler_ikenmeyer_panova_2019_multiplicity_obstructions.md)
+  is the reason the program is still alive: for the Chow variety versus the higher
+  Veronese secant, the partition $\lambda = (n^2-2, n, 2)$ is a multiplicity
+  obstruction (multiplicity gap exactly 1) where no occurrence obstruction can
+  separate for any $k$. So multiplicity obstructions are provably strictly stronger
+  than occurrence obstructions, in a model case.
+- [Grochow 2015](../reading_notes/gct_rep_theory/grochow_2015_unifying_lower_bounds_gct.md)
+  connects this to strand 3: most classical lower bounds (Nisan-Wigderson partial
+  derivatives, Razborov-Smolensky) already build a GCT separating module that is a
+  rank, minor, or degree functional, hence algebrizes. The multiplicity obstruction
+  is the one quantity in the GCT frame that is NOT the rank of an explicit matrix,
+  making it the natural GCT candidate for the dossier's missing non-algebrizing
+  invariant (see [`strand3_missing_object.md`](../strand3_missing_object.md)).
+
+This sharpens M2: the live target is a multiplicity comparison, and the model
+separation to study is Chow versus Veronese secant (DIP 2019), not padded
+perm-versus-det, which is exactly the padding BIP weaponized.
+
 ## Milestones
 
 | ID | Milestone | Status |
 |---|---|---|
 | M1 | Reproduce the Mignon-Ressayre quadratic lower bound on determinantal complexity of the permanent (small $n$, explicit Hessian rank computation) | open, scoped |
-| M2 | Compute small plethysm / Kronecker coefficients and check the BIP 2016 multiplicity-nonzero phenomenon on a small partition | open |
+| M2 | Compute small plethysm / Kronecker coefficients and check the BIP 2016 multiplicity-nonzero phenomenon on a small partition | scoped (the DIP 2019 Chow vs Veronese secant case, $\lambda = (n^2-2,n,2)$, is the model multiplicity obstruction to compute) |
 | M3 | Encode the occurrence vs multiplicity distinction so the barrier checker treats occurrence obstructions as a closed sub-route and multiplicity obstructions as open | open |
 
 ## Barrier status

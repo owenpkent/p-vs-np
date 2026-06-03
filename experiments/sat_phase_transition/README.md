@@ -60,6 +60,33 @@ is included because the threshold is the cleanest experimental handle on SAT
 difficulty and because the average-case/worst-case gap it makes visible is a
 genuine obstruction the proof program must respect.
 
+## The statistical-physics picture (from the June 2026 reading pass)
+
+Synthesized from the stat-physics reading notes.
+
+- [Mertens-Mezard-Zecchina 2006](../../docs/03_research/reading_notes/stat_physics/mertens_mezard_zecchina_2006_ksat_thresholds.md):
+  the 1RSB cavity-method source for the threshold ($\alpha_c(3) = 4.26675 \pm
+  0.00015$) and the large-$K$ expansion. It is the quantitative substrate for the
+  value this experiment reproduces, and it is average-case heuristic physics, not a
+  lower-bound technique.
+- [Achlioptas-Coja-Oghlan-Ricci-Tersenghi 2011](../../docs/03_research/reading_notes/stat_physics/achlioptas_cojaoghlan_riccitersenghi_2011_solution_space_geometry.md):
+  for $k \ge 8$ the solution space shatters below the threshold into exponentially
+  many small, far-apart, heavily-frozen clusters. This is the rigorous geometry
+  behind the hardness peak.
+- [Gamarnik 2021](../../docs/03_research/reading_notes/stat_physics/gamarnik_2021_overlap_gap_property.md):
+  the overlap-gap property is a rigorous average-case geometric obstruction ruling
+  out stable, low-degree, local, AMP, Langevin, and QAOA algorithm classes. The
+  load-bearing caveat: it bounds algorithm families rather than worst-case
+  complexity, it is itself large-plus-constructive (hence natural in the
+  Razborov-Rudich sense), and it proves no worst-case P-vs-NP hardness.
+
+Bearing on the program: this clustering geometry is the candidate substrate for the
+strand-3 missing object (a topological invariant of a solution complex, see
+[`strand3_missing_object.md`](../../docs/03_research/strand3_missing_object.md)),
+but the physics itself stays average-case. The average-case/worst-case gap above is
+not a presentational caveat, it is a theorem about what the overlap-gap property
+does and does not bound.
+
 ## Run
 
 ```powershell
