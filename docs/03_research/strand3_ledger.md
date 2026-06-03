@@ -28,13 +28,16 @@
   but not cheaply computable; LIVE if it clears both (the object the dossier says
   does not yet exist).
 
-## The ledger (round 1)
+## The ledger (rounds 1 and 2, six coordinates)
 
 | Candidate | strand 3 | strand 1 | status | coordinate |
 |---|---|---|---|---|
 | Euler characteristic $\chi$ of the SAT solution complex | algebrizes | cheap (alternating face count) | DEAD (strand 3) | a cheap rational count is exactly what algebrizes; $\chi$ cannot be the non-algebrizing object. |
 | Stiefel-Whitney class $w_i$ of the solution complex | candidate-non-algebrizing | no (needs the mod-2 cohomology ring) | OPEN (strand-1 gap) | a genuine mod-2 torsion class clears strand 3, but no #SAT-style algorithm is known to compute it cheaply. |
 | Steenrod-square refinement $Sq^k$ of the mod-2 cohomology | candidate-non-algebrizing | no (acts on cochains) | OPEN (strand-1 gap) | the Steenrod operation is non-algebrizing, but it is not a count; the cochain-level structure is what is missing on strand 1. |
+| Fundamental-group class $\pi_1$ of the solution nerve | candidate-non-algebrizing | no (needs the loop structure) | OPEN (strand-1 gap) | a non-abelian class clears strand 3, but it is not a count either; same strand-1 gap as the cohomological candidates. |
+| Bockstein image $\beta(x)$ of a mod-2 class | candidate-non-algebrizing | no ($\beta$ alone is not a count) | OPEN (strand-1 gap) | the closest single piece to the bridge: the LIVE object is not $\beta(x)$ alone but a rational count that FORCES $\beta(x) \ne 0$ via a Bockstein sequence. |
+| Persistent mod-2 homology barcode (discrete-Morse computable) | algebrizes | cheap (Morse collapse + persistence) | DEAD (strand 3) | the sharpest coordinate: even a cheap, torsion-AWARE computation algebrizes if it outputs ranks/Betti numbers. You need the cohomology OPERATION (Sq, $\beta$), not the ranks. |
 
 LIVE candidates: 0.
 
@@ -58,9 +61,16 @@ complex. That is the one object worth building.
 ## Next rounds
 
 The driver [`experiments/strand3/e_ledger.py`](../../experiments/strand3/e_ledger.py)
-is the place to add candidates. Each new candidate should be encoded as an
-`InvariantProfile` for the probe, given a strand-1 judgment and a circularity check,
-and appended here as a coordinate. Targets worth testing next: a fundamental-group
-class $\pi_1$ of the solution nerve, a Bockstein image $\beta(x)$ paired with the
-rational count that would force it, and a discrete-Morse / persistent count that is
-cheap yet retains torsion after collapse.
+is the place to add candidates, each encoded as an `InvariantProfile` for the probe
+with a strand-1 judgment and a circularity check. The round-2 targets (a $\pi_1$
+class, a Bockstein image, a discrete-Morse persistent count) are now logged above,
+and they sharpened the gap rather than closing it: every torsion-valued candidate is
+OPEN (no cheap count) and every cheap count (including the torsion-aware persistent
+barcode) is DEAD (it outputs ranks, which algebrize).
+
+The decisive next object is therefore not another invariant on one side. It is the
+FORCING relation itself: a universal-coefficients or Bockstein exact sequence, on an
+explicit solution complex, in which a cheap rational count (one a #SAT-style
+algorithm can produce) forces a mod-2 torsion class to be non-vanishing. That single
+construction would turn a DEAD-or-OPEN row into a LIVE one. It is the dossier's stated
+missing tool, and the six coordinates above pin exactly why nothing short of it works.

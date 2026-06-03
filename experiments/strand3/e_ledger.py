@@ -88,6 +88,45 @@ CANDIDATES: list[Candidate] = [
         strand1_note="Sq^k acts on cochains; computing it needs the cochain-level structure, not a #SAT count.",
         circularity="none; the operation is intrinsic to the complex.",
     ),
+    Candidate(
+        profile=InvariantProfile(
+            name="Fundamental-group class pi_1 of the SAT solution nerve",
+            characteristic=2,
+            is_trace_or_rank_functional=False,
+            torsion_sensitive=True,
+            reconstructible_from_low_degree_extension=None,
+            notes="a non-abelian loop class, not a rational trace; invisible to char-0 extensions.",
+        ),
+        strand1_cheap=False,
+        strand1_note="recovering a non-abelian pi_1 class needs the loop structure of the nerve, not a count.",
+        circularity="none; defined from the instance's solution nerve.",
+    ),
+    Candidate(
+        profile=InvariantProfile(
+            name="Bockstein image beta(x) of a mod-2 cohomology class",
+            characteristic=2,
+            is_trace_or_rank_functional=False,
+            torsion_sensitive=True,
+            reconstructible_from_low_degree_extension=None,
+            notes="the integral torsion detected by the Bockstein; the closest single piece to the bridge.",
+        ),
+        strand1_cheap=False,
+        strand1_note="beta(x) alone is not a count; the LIVE object would be a rational count that FORCES beta(x) != 0 via a Bockstein sequence, which does not exist yet.",
+        circularity="none; but note the forcing relation (not beta alone) is the missing bridge.",
+    ),
+    Candidate(
+        profile=InvariantProfile(
+            name="Persistent mod-2 homology barcode (discrete-Morse computable)",
+            characteristic=0,
+            is_trace_or_rank_functional=True,
+            torsion_sensitive=False,
+            reconstructible_from_low_degree_extension=True,
+            notes="cheap via discrete Morse theory, but the barcode is rank/Betti data, a char-0 functional.",
+        ),
+        strand1_cheap=True,
+        strand1_note="cheaply computable (discrete Morse collapse + persistence), but it outputs ranks/Betti numbers.",
+        circularity="none; the coordinate is that even a cheap torsion-aware computation algebrizes if it outputs ranks.",
+    ),
 ]
 
 
@@ -116,6 +155,12 @@ def main() -> int:
         "a mod-2 characteristic class should pass the strand-3 probe"
     assert by_name["Steenrod-square refinement Sq^k of the complex's mod-2 cohomology"] == "candidate-non-algebrizing", \
         "a Steenrod operation should pass the strand-3 probe"
+    assert by_name["Fundamental-group class pi_1 of the SAT solution nerve"] == "candidate-non-algebrizing", \
+        "a non-abelian pi_1 class should pass the strand-3 probe"
+    assert by_name["Bockstein image beta(x) of a mod-2 cohomology class"] == "candidate-non-algebrizing", \
+        "a Bockstein image should pass the strand-3 probe"
+    assert by_name["Persistent mod-2 homology barcode (discrete-Morse computable)"] == "algebrizes", \
+        "persistent Betti/barcode data is rank data and must algebrize"
 
     print()
     print(f"LIVE candidates (clear both strands): {live}")
