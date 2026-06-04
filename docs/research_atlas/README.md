@@ -58,8 +58,10 @@ NEXP-level bound. The genuine open obstructions are the ALGORITHMIC one (the den
 THR-of-THR SAT / Max-IP log-shave, findings 20/23/24, sharpened to the fused-max-MM,
 BUILT as four candidate fusions sharing one bulk-vs-extreme wall, then that wall HARDENED into a
 single-round cheap-measurement lower bound, then CLOSED against deterministic + adaptive bulk and
-metric methods, leaving a co-nondeterministic certificate (n^2 pinned to nonnegative rank = Set-
-Disjointness rectangle-cover = Omega(n)) as the last opening, findings 27/28/29/30), the
+metric methods, leaving a co-nondeterministic certificate as the last opening, blocked by a
+triple-lock (UPIT/NSETH, algebrization, prAM-circularity), NOT the Set-Disjointness SDPT (Chen's
+reduction is single-instance); the seam closes for the full-block case via a sufficient-statistic
+collapse with the sub-block a named open lemma, findings 27/28/29/30/31/32), the
 not-yet-assessable
 algebrization flag, and the $\mathsf{NEXP}$-to-$\mathsf{NP}$ descent, where the escape
 mechanism must flip from non-largeness to NON-CONSTRUCTIVITY (the meta-complexity

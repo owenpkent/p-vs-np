@@ -126,7 +126,7 @@ say what a proof must look like, and the partial results (weak-class lower
 bounds, the satisfiability-algorithm / lower-bound connection, arithmetic proof
 complexity) are contributions in their own right.
 
-## Recent progress (leading-path anatomy, 2026-06-03 and 2026-06-04; findings 20-30)
+## Recent progress (leading-path anatomy, 2026-06-03 and 2026-06-04; findings 20-32)
 
 A connected sequence of grounded, adversarially-audited, verifier-checked multi-agent
 passes anatomized the leading path end to end. Each result is a precise coordinate, not a
@@ -162,8 +162,13 @@ project's own prior framing.
   $\Omega(n)$ communication forcing $\Omega(n^{1-\varepsilon}/\log n)$ rounds), and the metric
   route shown conditionally impossible (doubling dimension $\Theta(n^\varepsilon)$ + exactness).
   The deterministic + adaptive wall is now CLOSED against bulk and metric methods; the lone
-  residual frontier is a co-nondeterministic certificate, where the $n^2$ pins to nonnegative
-  rank $=$ Set-Disjointness rectangle-cover $= \Omega(n)$ (finding 30).
+  residual frontier is a co-nondeterministic certificate (finding 30).
+- The non-linear adaptive seam then CLOSED for the full-block case as a theorem (sufficient-
+  statistic / data-processing collapse), with the sub-block case a named open lemma; and the
+  co-nd frontier was PINNED-BLOCKED with finding 30's mechanism CORRECTED: the block is not the
+  Set-Disjointness SDPT (Chen's reduction is single-instance) nor a nonneg-rank $\Omega(n)$
+  (a wrong-set error, corrected to $O(\log m)$), but a triple-lock (UPIT/NSETH, algebrization,
+  prAM-circularity); the CRT-correlation crack dissolved (findings 31, 32).
 - The natural-proofs "binding wall" framing was CORRECTED: the TC0-PRF collision binds the
   large-and-constructive alternatives, not the non-large Williams route (Williams 2013), so
   it is the reason a non-natural method is needed, not a doom. Fixed a real bug in the core
@@ -182,7 +187,7 @@ adaptive bulk and metric methods, the lone residual frontier a co-nondeterminist
 and barrier-free) and one binding structural barrier (J3, the locality
 barrier, a published no-go the dossier flags as an unbuilt object). The natural-proofs and
 algorithmic obstructions are now precisely located rather than vaguely feared. Detail per
-finding in [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) (20-30) and the grounded
+finding in [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) (20-32) and the grounded
 note [`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md).
 
 ## Recent progress (TC0 hinge grounding, 2026-06-03)
