@@ -370,6 +370,77 @@ Max-IP at $d = n^\varepsilon$; if one existed, $\mathsf{NEXP} \not\subseteq$ pol
 THR-of-THR would be proven, and it is not. arXiv:1805.10698 remains an unpublished preprint
 (DBLP: CoRR only).
 
+## 4c. The fused-max-MM, BUILT: four candidate constructions, one shared wall (finding 28)
+
+Added 2026-06-04 (a three-survey + four-builder + adversary-per-candidate + verifier pass;
+the Chen-2018 and log-shaving-hardness parameters re-confirmed against their venues, two
+adversary corrections applied and re-verified). Subsection 4b named the fused-max-MM as the
+real J1 frontier and stopped at "no machinery is known to touch it, the structural novelty
+must be max-extraction-without-enumeration." This subsection BUILDS that frontier as four
+natural constructions, pins the ONE wall they share, and names the precise missing property.
+Runnable model:
+[`../../experiments/circuit_complexity/e_fused_max_mm.py`](../../experiments/circuit_complexity/e_fused_max_mm.py)
+(exit 0; smoke test stays 5/5), the executable companion to
+[`e_j1_transfer.py`](../../experiments/circuit_complexity/e_j1_transfer.py).
+
+### The four natural machineries (each a genuine subquadratic fusion)
+
+| Candidate | What it fuses (no $n^2$ materialization) | Subquadratic regime | Why it cannot read the max |
+| --- | --- | --- | --- |
+| B1 Moment / tensor-power | $m_p = \langle \sum_i a_i^{\otimes p}, \sum_j b_j^{\otimes p}\rangle$ in dim $d^p$ (exact $p$-th moments) | $P < 1/\varepsilon$ (cost $n^{1+\varepsilon P}$) | Degree-$\le P$ readout; top-value indicator needs degree $\ge d$. Vandermonde: max free iff $K \le d-1$. |
+| B2 Spectral / low-rank | $\|M\|_F$, $\sigma_{\max}$, full spectrum, row 2-norms via the $d\times d$ core | $O(n d^2) = n^{1+2\varepsilon}$ | Rotation-invariant ($\ell_2$); the max is $\ell_\infty$. Equal-spectrum spread-vs-spike, max-ratio exactly $n$. |
+| B3 Count-preserving regularity | per-block-pair average density $\rho_{s,t} d$ (rebuilt AFKLM, counts kept) | few blocks $\Rightarrow$ $B^2 d \ll n^2$ | Averages, not tails. A planted cell moves the max by $\Theta(d)$, every density by $O(1/n)$. |
+| B4 Sketch / heavy-hitter | signed hashed bucket-sums (Pagh CMM + count-sketch) | width $w \ll n^2$ if argmax is heavy | Dense argmax is $\ell_2$-LIGHT (heaviness $\Theta(1/n^2)$); Frobenius primitive misses it. |
+
+### The one shared wall (bulk vs extreme)
+
+Each fusion computes a BULK statistic ($\ell_2$ / average / low-moment / spectral /
+Frobenius) of the $n^2$ inner products; the Max-IP answer is an $\ell_\infty$ / extreme /
+large-deviation statistic. The binding constraint, sharpened by the adversary on B2 and
+endorsed by the verifier, is not any one engine's multiplicative window but the
+INTEGER-GAP-1 RESOLUTION plus ARGMAX LOCALIZATION the THR-of-THR connection needs.
+Resolving max from $\text{max}-1$ to unit precision against an adversarial bulk at $d-1$
+forces super-quadratic cost (B1: $P = \Omega(n^\varepsilon \log n)$ moments; B3:
+$2^{\Omega(n^{2\varepsilon})}$ regularity blocks) or the $n^2$ baseline (B2, B4 collapse to
+the enumeration scan on dense data). The unit of extreme-value resolution is exactly what a
+fast bulk aggregation throws away.
+
+### Two corrections applied (the honesty discipline)
+
+(i) B2's "$\Theta(n)$ window kills it" was wrong: a cheap NON-invariant per-factor-row
+Cauchy-Schwarz bound is tight ($1.00\times$-$1.24\times$ on dense data), so the window is
+not binding; the operative wall is the enumeration wall, like the other three. The
+"natural + algebrizing double block" on the avenue is a category error (those barriers act
+on a lower-bound object, not on the algorithm). (ii) B4's "one-sparse recovery forces
+$\Omega(n^2)$" was mis-derived: deterministic for-all 1-sparse recovery costs
+$\lceil\log_2 N\rceil+1$ rows (demonstrated, $9$ rows for $N=256$); the exhibited collision
+came from hand-zeroing the target column. The sound wall is the $\ell_\infty$-from-$\ell_2$
+lightness: gap-1 resolution needs $s > \|M\|_F^2/\mathrm{gap}^2 = \Theta(n^2 d)$, a factor
+$d$ worse than baseline.
+
+### Finer-barrier verdict: still open, still barrier-free
+
+No finer barrier was found beyond the non-binding SETH-consistency. The strongest
+log-shaving-hardness theorems (Abboud-Hansen-V.Williams-R.Williams STOC 2016,
+arXiv:1511.06022; Abboud-Bringmann ICALP 2018, arXiv:1804.08978) cover only
+sequence/alignment problems, not OV/Max-IP; the OV-equivalence (Chen-Williams SODA 2019,
+arXiv:1811.12017) and SETH bound (Chen, ToC 2020, arXiv:1802.02325) are polynomial
+granularity only. Williams FOCS 2024 (ECCC TR24-142) makes the OV log-shave a WANTED route
+to $\mathsf{E}^{\mathsf{NP}}$ lower bounds, the opposite of a barrier. The published
+positive max-of-low-rank-via-MM methods (Valiant FOCS 2012; Karppa-Kaski-Kohonen TALG
+2018, arXiv:1510.03895; Alman SOSA 2019) are GAP-DEPENDENT and collapse to $n^{2-o(1)}$ on
+dense gapless data, the exact THR-of-THR-forcing regime, so they are the most important
+lead AND the most important pitfall.
+
+### The precise missing property
+
+A winning fused-max-MM log-shave must be a subquadratic aggregation SENSITIVE TO A SINGLE
+EXTREME ENTRY at unit integer resolution: distinguish two factored instances whose products
+$A B^\top$ differ in exactly one cell by one unit, without materializing the $n^2$ entries,
+with a worst-case (not constant-relative-gap) guarantee, and NON-LINEAR in the product
+entries. No candidate and no surveyed positive technique provides all three. The open
+object is now precisely framed, not merely "untouched."
+
 ## 5. Why a purely algebraic-polynomial approach is not obviously enough, stated carefully
 
 The audit caught a real error in the earlier framing, and the corrected statement is

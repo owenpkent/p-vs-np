@@ -819,3 +819,98 @@ standard product's global max). Source:
 5/5; two sibling scratch experiments consolidated into it) and the sharpened technique map
 in subsection 4b of
 [`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md).
+
+### 28. J1 BUILT: the fused-max-MM log-shave attacked as four candidate constructions; all four hit ONE shared, exactly-identified wall (fast bulk aggregation cannot read the $\ell_\infty$ extreme to unit precision), and the avenue is confirmed barrier-free. Extends finding 27.
+
+Finding 27 sharpened J1 from "transfer the $n^3$ machinery" to "build a fused-max-MM
+log-shave: compute $\max_{ij}(A B^\top)_{ij}$ for small-range entries at thin
+$d = n^\varepsilon$, fused into the rectangular MM, without materializing the $n^2$
+entries; the structural novelty must be max-extraction-without-enumeration." A dedicated
+pass (3 surveys, 4 builder constructions, adversary on each, verifier; all completed,
+every proved parameter web-confirmed against its venue, two adversary verdicts
+SOUND-BARRIER-FREE and two NEEDS-REVISION with all corrections applied and re-verified)
+BUILT that frontier as four natural constructions and lands four precise, honest
+NEGATIVES, with no progress on the prize.
+
+THE FOUR NATURAL MACHINERIES (each a genuine subquadratic fusion that avoids the $n^2$
+materialization). (B1) MOMENT / tensor-power: the $p$-th power-sum moment factors as one
+inner product in dimension $d^p$, $m_p = \sum_{ij}\langle a_i,b_j\rangle^p = \langle
+\sum_i a_i^{\otimes p}, \sum_j b_j^{\otimes p}\rangle$ (fusion identity verified exactly
+to $10^{-6}$); try to read the max off $m_1..m_P$. (B2) SPECTRAL / low-rank: the
+rotation-invariant $\ell_2$ toolbox of the factors (Frobenius $\|M\|_F^2 = \mathrm{tr}
+((A^\top A)(B^\top B))$, spectral norm, full spectrum via the $d\times d$ core, row
+2-norms), all in $O(n d^2) = n^{1+2\varepsilon}$; try to bracket the max. (B3)
+COUNT-PRESERVING REGULARITY: rebuild AFKLM/Kelley-Lovett-Meka to keep the integer
+codegree counts instead of collapsing to a one-bit OR, partition into regularity blocks,
+read each block's max off its average density $\rho_{s,t} d$. (B4) SKETCH / heavy-hitter:
+Pagh compressed matrix multiplication (ITCS 2012, arXiv:1108.1320) plus count-sketch
+heavy-hitters (Charikar-Chen-Farach-Colton ICALP 2002), localize the argmax as an
+$\ell_2$-heavy entry.
+
+THE ONE SHARED WALL (the bulk-vs-extreme wall). Every one of the four fuses a BULK
+statistic of the $n^2$ inner products: an $\ell_2$ / average / low-moment / spectral /
+Frobenius quantity that controls the typical entry. The Max-IP answer is an $\ell_\infty$
+/ extreme / large-deviation quantity (the single most-deviant entry). The two live on
+opposite sides of a quotient each fusion collapses. B1: $P$ moments span only degree-$\le
+P$ polynomials of the entry value, and the top-value indicator needs degree $\ge d$
+(information-theoretic Vandermonde bound, exact-arithmetic: matching $m_1..m_K$ leaves the
+max free iff $K \le d-1$, witness $X=\{3,1,1,1\}$ vs $Y=\{2,2,2,0\}$ share $m_1=6, m_2=12$
+but max $3$ vs $2$). B2: spectral aggregates are rotation-invariant, blind to the
+$\ell_\infty$ coordinate (equal-spectrum spread-vs-spike pair, max-ratio EXACTLY $n$). B3:
+regularity certifies block AVERAGES to additive $\varepsilon_{reg} d$, blind to a planted
+cell that moves every density by $O(1/n)$ while moving the max by $\Theta(d)$. B4: the
+dense argmax is $\ell_2$-LIGHT (heaviness ratio $\Theta(1/n^2)$), so a Frobenius sketch
+cannot isolate it. The sharp common form (the adversary's load-bearing correction to B2,
+verifier-endorsed): the binding constraint is NOT any one engine's multiplicative window
+but the INTEGER-GAP-1 RESOLUTION plus ARGMAX LOCALIZATION the THR-of-THR connection
+demands. Resolving max from $\text{max}-1$ to unit precision against an adversarial bulk
+parked at $d-1$ forces the cost back to super-quadratic (B1 needs $P = \Omega(n^\varepsilon
+\log n)$ moments at cost $n^{1+\omega(1)}$; B3 needs $2^{\Omega(n^{2\varepsilon})}$
+regularity blocks) or to the $n^2$ baseline (B2 and B4 collapse to the enumeration scan on
+dense data). One unit of extreme-value resolution is exactly what every bulk aggregation
+discards to be fast.
+
+TWO ADVERSARY CORRECTIONS, BOTH APPLIED AND RE-VERIFIED (the honesty discipline working).
+(i) B2's "rotation-invariant $\Rightarrow \Theta(n)$ window $\Rightarrow$ dead" story was
+internally inconsistent: a cheap NON-invariant per-factor-row Cauchy-Schwarz bound is
+multiplicatively tight ($1.00\times$ to $1.24\times$ on dense Boolean data versus the
+spectral norm's $56.8\times$ to $848\times$), so the window is not the wall; the operative
+wall is the enumeration wall (gap-1 resolution + localization), the same as B1/B3/B4. The
+"spectral certificate is doubly barrier-blocked (natural AND algebrizing)" claim was a
+category error: those barriers act on a lower-bound proof object, not on an algorithmic
+log-shave. (ii) B4's second claimed obstruction, "one-sparse recovery forces sketch
+dimension $\Omega(n^2)$", was MIS-DERIVED: deterministic for-all 1-sparse recovery needs
+only $\lceil\log_2 N\rceil+1$ linear measurements (bit-encoding matrix, demonstrated in $9$
+rows for $N=256$), and the exhibited collision existed only because the sketch hand-zeroed
+the target column. $M$ is dense and the DIFFERENCE is 1-sparse; recovering a 1-sparse
+difference is cheap. The sound binding wall is the $\ell_\infty$-from-$\ell_2$ lightness
+alone: gap-1 resolution needs $s > \|M\|_F^2/\mathrm{gap}^2 = \Theta(n^2 d)$, a factor $d$
+WORSE than baseline.
+
+BARRIER-FREE, CONFIRMED. No published result blocks the avenue. The two strongest
+log-shaving-hardness theorems (Abboud-Hansen-V.Williams-R.Williams STOC 2016,
+arXiv:1511.06022; Abboud-Bringmann ICALP 2018, arXiv:1804.08978) provably cover only
+sequence/alignment problems whose quadratic DP simulates a branching program, not
+OV/Max-IP. The OV-equivalence (Chen-Williams SODA 2019, arXiv:1811.12017) and the SETH
+lower bound (Chen, ToC 2020, arXiv:1802.02325) hold only at polynomial granularity
+$n^{2-\Omega(1)}$; the bar $n^{2-o(1)}$ sits strictly inside the SETH-permitted band.
+Newly surfaced same-direction corroboration: Williams FOCS 2024 / SICOMP 2025 (ECCC
+TR24-142) makes the OV log-shaving regime a WANTED route to $\mathsf{E}^{\mathsf{NP}}$
+lower bounds against depth-two threshold circuits, the opposite of a barrier. The target
+(Chen 2018, arXiv:1805.10698, Thm 1.5 item 1) is a WANTED implication and $\mathsf{NEXP}
+\not\subseteq$ poly-size THR-of-THR is open as of 2026.
+
+NET. J1's frontier is sharpened from "no machinery is known to touch it" (finding 27) to
+"FOUR natural machineries touch it, all hit ONE shared quantified wall, and the precise
+missing property is named." A winning fused-max-MM log-shave must be a subquadratic
+aggregation that is SENSITIVE TO A SINGLE EXTREME ENTRY at unit integer resolution: it
+must distinguish two factored instances whose products differ in exactly one cell by one
+unit, without enumeration, with a worst-case (not constant-relative-gap) guarantee, and it
+must be NON-LINEAR in the product entries. No candidate and no surveyed positive technique
+has this: the published positive max-of-low-rank-via-MM methods (Valiant FOCS 2012;
+Karppa-Kaski-Kohonen TALG 2018, arXiv:1510.03895; Alman SOSA 2019) are gap-dependent and
+collapse to $n^{2-o(1)}$ on dense gapless data, the exact THR-of-THR-forcing regime.
+Source: [`circuit_complexity/e_fused_max_mm.py`](circuit_complexity/e_fused_max_mm.py)
+(exit 0, smoke 5/5; consolidates the four candidate models) and subsection 4c of
+[`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md). No speedup
+claimed; no progress on the prize.

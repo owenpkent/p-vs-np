@@ -121,17 +121,34 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
    the NAMED LOCALITY BARRIER: deciding MCSP is capped at AC0[p] and cannot reach TC0
    because MAJORITY and NC1 reduce to MCSP-oracle circuits, Golovnev et al ICALP 2019 /
    CHOPRS JACM 2022); J4 COMPOSITION (no combining theorem; the W2A core relativizes). Next
-   concrete sub-steps: J1 is the most-attackable joint, and its frontier is now SHARPENED
-   (finding 27, `experiments/circuit_complexity/e_j1_transfer.py`): the "transfer the
-   $n^3$-scale machinery" angle does NOT port, for an OPERATION reason (AFKLM shaves
-   OR-idempotent triangle detection, Williams a per-entry $(\min,+)$ product; Max-IP is a
-   standard product then ONE global max over output indices, neither operation). The real
-   J1 frontier is the FUSED-MAX-MM (compute the global max of a small-range $(+,\times)$
-   product fused into rectangular MM, without materializing the $n^2$ entries), which is
-   OPEN, SETH-consistent, and barrier-free, with NO known fused product touching it. The
-   structural novelty must be max-extraction-without-enumeration. The binding joint J3 is a
-   published no-go (locality), so the strategic question there is whether non-local hardness
-   magnification (the dossier's unbuilt 2044-2047 object) can be designed to defeat it.
+   concrete sub-steps: J1 is the most-attackable joint, and its frontier is now BUILT
+   (finding 28, `experiments/circuit_complexity/e_fused_max_mm.py`). Finding 27
+   sharpened J1 to "build a fused-max-MM log-shave: compute $\max_{ij}(A B^\top)_{ij}$
+   at thin $d = n^\varepsilon$ without materializing the $n^2$ entries." That frontier
+   was BUILT as FOUR natural subquadratic fusions, all hitting ONE shared, exactly-
+   identified wall: (B1) moments $m_p = \langle\sum_i a_i^{\otimes p}, \sum_j
+   b_j^{\otimes p}\rangle$, (B2) spectral $\ell_2$ toolbox in $O(n d^2)$, (B3) count-
+   preserving AFKLM regularity, (B4) Pagh compressed-MM + count-sketch. Every fast
+   fusion computes a BULK statistic ($\ell_2$ / average / low-moment / spectral /
+   Frobenius); the max is an $\ell_\infty$ / extreme / large-deviation statistic. The
+   binding constraint is INTEGER-GAP-1 resolution plus argmax localization (the
+   enumeration wall), which forces cost back to super-quadratic (B1: $P =
+   \Omega(n^\varepsilon \log n)$ moments; B3: $2^{\Omega(n^{2\varepsilon})}$ blocks) or
+   to the $n^2$ baseline (B2, B4 collapse to enumeration on dense data). The avenue
+   stays OPEN, SETH-consistent, and barrier-free (AHVWW STOC 2016 and Abboud-Bringmann
+   ICALP 2018 cover only sequence/alignment; the OV-equivalence and SETH bound are
+   polynomial-granularity only; Williams FOCS 2024 / ECCC TR24-142 makes the OV log-
+   shave a WANTED route, the opposite of a barrier). The PRECISE MISSING PROPERTY is
+   now named: a winning log-shave must be a fast aggregation SENSITIVE TO A SINGLE
+   EXTREME ENTRY at unit integer resolution, worst-case (the published Valiant/light-
+   bulb positive methods are gap-dependent and collapse on dense gapless data), and
+   NON-LINEAR in the product entries. The next attack is to build toward exactly that
+   property (a non-linear, extreme-sensitive succinct certificate), or to seek a finer
+   conditional lower bound showing no such aggregation exists; the four natural bulk
+   machineries are now mapped as dead, each with a quantified wall. The binding joint
+   J3 remains a published no-go (locality), so the strategic question there is
+   unchanged: whether non-local hardness magnification (the dossier's unbuilt 2044-2047
+   object) can defeat it.
 2. **Strand-3: TWO sharp no-go coordinates now; the topology search is nearly
    exhausted.** Two 2026-06-03 multi-agent passes (real homology + group computation,
    adversary-audited, verifier-confirmed) closed both candidate shapes. (a) Finding 21:
@@ -172,7 +189,8 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
   `algebrization_probe`, `strand3.e_ledger`, `strand3.e_bockstein_forcing`,
   `strand3.e_symmetry_route`, `circuit_complexity.e_threshold_geometry_gap`,
   `circuit_complexity.e_maxip_logshave`, `natural_proofs.e_tc0_prf_collision`,
-  `circuit_complexity.e_leading_path_descent`, and `circuit_complexity.e_j1_transfer` (the
+  `circuit_complexity.e_leading_path_descent`, `circuit_complexity.e_j1_transfer`, and
+  `circuit_complexity.e_fused_max_mm` (the
   strand3 pair needs numpy + sympy; the Max-IP experiments need numpy). Standard library
   only elsewhere; plots optional.
 - Strand-3 round 3 (2026-06-03): `strand3.e_bockstein_forcing` runs clean
@@ -209,6 +227,7 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 | 2026-06-03 | Strand-3 gap 2, the symmetry route (multi-agent: 3 surveys, builder, adversary, verifier) | Verdict NO-GO COORDINATE on both decisive questions. The symmetry provably EXISTS (AGL(1,q) Oliver structure verified $q \in \{4,5,8,9\}$) but Q1 fails (certificate is the rational $\chi(\mathrm{Fix})$, algebrizes by the Oliver-number trichotomy across the whole branch) and Q2 fails (query bound $\binom{n}{2}$, never circuit size). Structural root: KSS topology is downstream of the algorithm, so the complex is acyclic by construction. New experiment `strand3/e_symmetry_route.py` (group + homology computation, VERIFIER-confirmed; three scratch files consolidated to one); LEARNINGS finding 22; ledger ninth coordinate; gap-2 reframed. Only non-dead strand-3 remainder: the free-$\mathbb{Z}/2$ Babson-Kozlov route (clears Q1, fails Q2). |
 | 2026-06-03 | TC0 spine: Chen-2018 fine-grained gap map (multi-agent: 3 surveys, builder, adversary, verifier; primary sources read directly) | FAVORABLE coordinate. The THR-of-THR bottleneck is a polylog-dimension log-shave for the EXACT integer geometry ($Z$-Max-IP, Hopcroft, exact closest/furthest pair), best-known shaves ZERO logs; most attackable = Boolean Max-IP at $d=n^\varepsilon$ (Thm 1.5.1). The bar is SETH-CONSISTENT and OPEN (a log-shave does not refute SETH); exactly one route (Thm 1.5.2) is a SETH-refuting barrier to avoid; the Boolean-OV shave is a trap (only SYM-of-THR). New experiment `circuit_complexity/e_threshold_geometry_gap.py` (gap calculator, VERIFIER-confirmed, all params web-verified verbatim; one scratch file consolidated); LEARNINGS finding 23; note subsection 4a + section-8 upgrade (Chen 2018 verified, companion SETH paper added, unpublished-preprint status confirmed). |
 | 2026-06-04 | TC0 spine: attack J1, the n^3-machinery transfer (multi-agent: 3 surveys, builder ledger, adversary, verifier; all completed) | The transfer does NOT port, for an OPERATION reason (not scale): AFKLM 2024 shaves OR-idempotent triangle detection (discards the counts the max needs); Williams 2014 shaves a per-entry $(\min,+)$ product; Max-IP is a standard product then ONE global max over output indices. Sharpens finding 24's "wrong scale" labels to "wrong operation". The real frontier is the FUSED-MAX-MM (open, SETH-consistent, barrier-free; no known fused product touches it at the log-shave scale). Micro-idea (small-range block pre-filter) tried and FAILS worst-case. New experiment `circuit_complexity/e_j1_transfer.py` (VERIFIER high, ADVERSARY sound, params web-confirmed verbatim; two scratch experiments consolidated); LEARNINGS finding 27. No progress on the prize claimed. |
+| 2026-06-04 | TC0 spine: J1 BUILT, the fused-max-MM log-shave (multi-agent: 3 surveys, 4 builder constructions, adversary per candidate, verifier; all completed) | The fused-max-MM frontier (finding 27) is BUILT as FOUR natural subquadratic fusions of the $n^2$ inner products: (B1) tensor-power moments $m_p=\langle\sum_i a_i^{\otimes p}, \sum_j b_j^{\otimes p}angle$, (B2) spectral/low-rank $\ell_2$ toolbox in $O(n d^2)$, (B3) count-preserving AFKLM regularity, (B4) Pagh compressed-MM + count-sketch. All four hit ONE shared wall: every fast fusion is a BULK statistic ($\ell_2$/average/low-moment/spectral/Frobenius), the max is an $\ell_\infty$/extreme statistic, and integer-gap-1 resolution + argmax localization forces cost back to super-quadratic (B1, B3) or the $n^2$ baseline (B2, B4 collapse to enumeration on dense data). Two adversary corrections applied and re-verified (B2's $\Theta(n)$-window story, B4's one-sparse-recovery bound). Barrier-free reconfirmed (AHVWW STOC 2016, Abboud-Bringmann ICALP 2018 cover only sequence/alignment; Williams FOCS 2024 / ECCC TR24-142 makes the OV log-shave a WANTED route). Precise missing property named: a fast aggregation sensitive to a single extreme entry at unit resolution, worst-case, non-linear. New experiment `circuit_complexity/e_fused_max_mm.py` (exit 0, smoke 5/5); LEARNINGS finding 28; note subsection 4c. No progress on the prize. |
 | 2026-06-03 | TC0 spine: the leading-path descent to NP (multi-agent: 3 surveys [2 failed StructuredOutput], builder ledger, adversary, verifier) | The descent to NP is a MULTI-JOINT synthesis (four open joints), not one missing piece. J1 algorithmic (the log-shave, a grind); J2 descent (algorithm+diagonalization scale, downstream of J1; the NP easy-witness lemma is PROVED, Murray-Williams 2018, correcting the dossier A2 "circular" kill); J3 non-constructivity (the BINDING joint, blocked by the NAMED LOCALITY barrier, Golovnev et al ICALP 2019 / CHOPRS JACM 2022: MCSP capped at AC0[p], cannot reach TC0); J4 composition (no combining theorem, W2A core relativizes). New experiment `circuit_complexity/e_leading_path_descent.py` (descent ledger, VERIFIER high, claims web-confirmed verbatim); LEARNINGS finding 26; STATE most-leveraged-move refreshed. |
 | 2026-06-03 | TC0 spine: the natural-proofs binding-wall question (multi-agent: 3 surveys, builder, adversary, verifier; synth agent failed, recovered from journal + hand-authored) | CORRECTS the project's own framing. The TC0-PRF collision does NOT doom the Williams route: it binds the LARGE-and-constructive ALTERNATIVES (which is WHY a non-natural method is needed); the Williams spine is non-natural by dropping LARGENESS not constructivity (Williams 2013, confirmed verbatim). Verdict SUBTLE/EVADED: evaded at the NEXP-level bound, open at the NEXP-to-NP descent (escape flips to non-constructivity). Fixed a real bug in the core `barriers.py` williams_acc0 fixture (natural_constructivity False->True; smoke stays 5/5). New experiment `natural_proofs/e_tc0_prf_collision.py`; LEARNINGS finding 25; "binding constraint" corrected across atlas / STATE / note section 6 / finding 20. VERIFIER high, every claim web-confirmed verbatim. |
 | 2026-06-03 | TC0 spine: attack the Max-IP-at-$n^\varepsilon$ log-shave (multi-agent: 3 surveys, builder, adversary, verifier; Chen 2018 read pp.1-21) | Sharp HONEST negative coordinate (the intended outcome). The target is genuinely OPEN with NO finer barrier (the "hardness of shaving logs" theorems provably do not cover Max-IP), but every known log-shaver lands ZERO logs at $d=n^\varepsilon$. The polylog splits into the intrinsic Coppersmith $\log^2 n$ and the $\Theta(n^2)$ max-extraction; a shave must avoid enumerating the $n^2$ pairs. Threshold-sweep micro-idea tried and FAILS (cost-increasing). Target-widened to co-nondeterministic (Chen Remarks 2.7/4.2). Most-promising angle: transfer $n^3$-scale all-logs machinery down to the $n^2$-scale count-then-max product. New experiment `circuit_complexity/e_maxip_logshave.py` (VERIFIER-confirmed; two scratch experiments consolidated); LEARNINGS finding 24; note subsection 4b; two NEEDS-BODY-VERIFICATION flags cleared. No progress on the prize claimed. |

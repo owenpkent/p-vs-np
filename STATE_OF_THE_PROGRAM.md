@@ -126,7 +126,7 @@ say what a proof must look like, and the partial results (weak-class lower
 bounds, the satisfiability-algorithm / lower-bound connection, arithmetic proof
 complexity) are contributions in their own right.
 
-## Recent progress (leading-path anatomy, 2026-06-03 and 2026-06-04; findings 20-27)
+## Recent progress (leading-path anatomy, 2026-06-03 and 2026-06-04; findings 20-28)
 
 A connected sequence of grounded, adversarially-audited, verifier-checked multi-agent
 passes anatomized the leading path end to end. Each result is a precise coordinate, not a
@@ -143,7 +143,15 @@ project's own prior framing.
 - That target was attacked: open with no finer barrier, but every known log-shaver lands
   zero logs; the obstruction is the $\Theta(n^2)$ max-extraction (finding 24). A dedicated
   J1 pass then showed the $n^3$-machinery transfer fails for an OPERATION reason, relocating
-  the frontier to the FUSED-MAX-MM, which is open and barrier-free (finding 27).
+  the frontier to the FUSED-MAX-MM, which is open and barrier-free (finding 27). That
+  frontier was then BUILT as four natural subquadratic fusions of the $n^2$ inner products
+  (moments, spectral / low-rank, count-preserving regularity, sketch / heavy-hitter); all
+  four hit ONE shared, exactly-quantified wall (every fast fusion is a bulk $\ell_2$ /
+  average / low-moment / spectral / Frobenius statistic, while the max is an $\ell_\infty$ /
+  extreme statistic, and unit-resolution argmax localization forces the cost back to
+  super-quadratic or the $n^2$ baseline). Barrier-free reconfirmed; the precise missing
+  property is named (a fast aggregation sensitive to a single extreme entry at unit
+  resolution, worst-case, non-linear) (finding 28).
 - The natural-proofs "binding wall" framing was CORRECTED: the TC0-PRF collision binds the
   large-and-constructive alternatives, not the non-large Williams route (Williams 2013), so
   it is the reason a non-natural method is needed, not a doom. Fixed a real bug in the core
@@ -156,11 +164,12 @@ project's own prior framing.
   (count-forces-torsion and the Oliver/symmetry route; findings 21, 22), leaving only the
   free-$\mathbb{Z}/2$ Babson-Kozlov route.
 
-Net picture of the leading path: one clearly-attackable joint (J1, sharpened to the
-fused-max-MM, open and barrier-free) and one binding structural barrier (J3, the locality
+Net picture of the leading path: one clearly-attackable joint (J1, built as four candidate
+fused-max-MM constructions that share one quantified bulk-vs-extreme wall, open and
+barrier-free) and one binding structural barrier (J3, the locality
 barrier, a published no-go the dossier flags as an unbuilt object). The natural-proofs and
 algorithmic obstructions are now precisely located rather than vaguely feared. Detail per
-finding in [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) (20-27) and the grounded
+finding in [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) (20-28) and the grounded
 note [`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md).
 
 ## Recent progress (TC0 hinge grounding, 2026-06-03)

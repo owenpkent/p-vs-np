@@ -55,7 +55,9 @@ constructivity (Williams 2013: constructivity is unavoidable, the useful propert
 non-large), so a genuinely non-large Williams-style proof does NOT collide with the PRF.
 Natural proofs on the leading path: CONDITIONALLY EVADED via non-largeness at the
 NEXP-level bound. The genuine open obstructions are the ALGORITHMIC one (the dense
-THR-of-THR SAT / Max-IP log-shave, findings 20/23/24), the not-yet-assessable
+THR-of-THR SAT / Max-IP log-shave, findings 20/23/24, sharpened to the fused-max-MM and
+BUILT as four candidate fusions sharing one bulk-vs-extreme wall, findings 27/28), the
+not-yet-assessable
 algebrization flag, and the $\mathsf{NEXP}$-to-$\mathsf{NP}$ descent, where the escape
 mechanism must flip from non-largeness to NON-CONSTRUCTIVITY (the meta-complexity
 high-Kt device, which is large) and that non-constructivity against $\mathsf{TC}^0$ is
