@@ -540,3 +540,74 @@ the open TC0-PRF question. Source:
 [`circuit_complexity/e_threshold_geometry_gap.py`](circuit_complexity/e_threshold_geometry_gap.py)
 and the new "Fine-grained gap map" subsection 4a of
 [`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md).
+
+### 24. The Max-IP-at-$n^\varepsilon$ log-shave, attacked: no known technique shaves even one log at $d=n^\varepsilon$, the smallest gap is the intrinsic $\log^2 n$ of Coppersmith rectangular MM for the $(+,\times)$-max semiring, and the threshold-sweep micro-idea is correct but strictly cost-increasing. Open-and-attackable, no finer barrier.
+
+Finding 23 named Boolean Max-IP at $d = n^\varepsilon$ (Chen 2018 arXiv:1805.10698 Thm 1.5
+item 1) as the single most attackable THR-of-THR target and confirmed the bar is
+SETH-consistent, but stopped at "only the logs separate baseline from bar". A two-survey +
+builder + adversary + verifier pass (Chen-2018 abstract/body parameters re-confirmed
+verbatim; technique parameters web-confirmed against venues; VERIFIER overall high,
+ADVERSARY sound-with-fixes, all required_fixes applied) attacks that bar and lands a sharp,
+honest coordinate, with no progress on the prize claimed.
+
+THE DECOMPOSITION. The $n^2\,\mathrm{polylog}$ baseline (Chen verbatim: "we only need to
+shave logs on this naive algorithm") splits into (a) the Coppersmith-1982 rectangular-MM
+overhead $\log^2 n$, intrinsic to the bilinear / partial-matrix-multiplication recursion
+(dual-exponent improvements, $\alpha \ge 0.321334$ today via Williams-Xu-Xu-Zhou 2023/24,
+only RAISE the $\varepsilon$-ceiling, they do not shave this $\log^2 n$), and (b) the
+max-over-$n^2$ extraction, a flat $\Theta(n^2)$ scan with zero log-shave under enumeration,
+since the all-pairs inner-product MATRIX has $\Omega(n^2)$ natural output size (scoped to the
+matrix, NOT to Max-IP as a problem, per the adversary fix). PROJECT INFERENCE (flagged): a
+log-shave must compute the max WITHOUT materializing-and-scanning all $n^2$ inner products;
+the novelty must live in max-extraction-without-enumeration.
+
+THE TECHNIQUE MAP (every known log-shaver lands zero logs at $d=n^\varepsilon$). Polynomial
+method (AWY SODA 2015; Chan-Williams SODA 2016): only a CONSTANT factor $2^{O(1/\varepsilon)}$
+(the saved exponent $1/O(\varepsilon\log n)\to 0$; pinned numerically), and it solves
+OV/existence $\to$ the weaker SYM-of-THR (double-disqualified). Four-Russians / BMM, including
+Abboud-Fischer-Kelley-Lovett-Meka STOC 2024 (arXiv:2311.09095, $n^3/2^{\Omega((\log n)^{1/7})}$,
+a super-polylog shave): shaves the OR-AND semiring, does NOT transfer to the integer
+count-then-max $(+,\times)$ semiring (a discrepancy-guard; AFKLM must not be cited as Max-IP
+progress). Rectangular MM (Coppersmith 1982): IS the baseline, its $\log^2 n$ is the polylog
+to remove, zero progress. Jin-Xu large sieve (STOC 2024, arXiv:2403.20326): scope is sparse
+convolution + 1D Hamming, not applicable. Exact integer geometry (Matousek 1992; AESW 1991;
+Yao 1982; Williams SODA 2018): $n^{2-1/O(d)}$, at $d=n^\varepsilon$ a $1+o(1)$ saving, under
+one log. The SMALLEST GAP, two readings that disagree (the disagreement IS the finding): by
+literal-object closeness, rectangular MM is first (the baseline, one polylog away in form,
+shaves zero); by largest-actual-saving, the polynomial method is first (a real constant, wrong
+shape). No technique is both close in form AND making log-progress. Precisely: shave the
+intrinsic $\log^2 n$ off $n^{2+o(1)}$ rectangular MM at the Coppersmith $\alpha$-boundary for
+the $(+,\times)$-max product, without enumerating the $n^2$ pairs.
+
+THE MICRO-IDEA (reported as a precise FAILURE, the expected valuable negative). Threshold
+sweep: sweep $t$ from $d$ down and test existence of a pair with $\langle a,b\rangle \ge t$,
+the max being the largest YES; or binary-search $t$. Implemented and run
+(`threshold_sweep_micro_idea`, $n_A=n_B=40$, $d=12$): CORRECT (returns the true max, asserted)
+but does NOT shave. It breaks at the existence-query subroutine: each query at
+$d=n^\varepsilon$ is itself the open $n^\varepsilon$ wall (certifying a NO rules out all $n^2$
+pairs), so the LINEAR sweep multiplies the baseline by $O(n^\varepsilon)$ (a polynomial factor
+WORSE) and BINARY search ADDS a $\log$ factor rather than removing the polylog. Reducing Max to
+existence does not help because existence at $d=n^\varepsilon$ is the same open wall.
+
+THE BARRIER VERDICT: open-and-attackable, no finer unconditional barrier. The decisive check:
+the strongest "hardness of shaving logs" theorems (Abboud-Hansen-V.Williams-R.Williams STOC
+2016 arXiv:1511.06022; Abboud-Bringmann ICALP 2018 arXiv:1804.08978) are proved ONLY for
+SEQUENCE/alignment problems whose quadratic DP encodes a branching program; they provably do
+NOT cover OV or Max-IP, so the candidate finer barrier does not bind. The Chen implication runs
+shave-implies-lower-bound with no proven converse, so it is a WANTED route, not an obstruction.
+Two finer obstructions, neither a proved barrier: the matrix-output wall (scoped to $A B^\top$,
+pins where a new idea must act) and the inherited conditional natural-proofs collision (on the
+RESULTING lower bound, not the algorithm; finding 20 / note section 6). PROJECT-INFERENCE
+TARGET-WIDENING (carry as a hedge, VERIFIER tagged needs-citation): the connection needs only a
+co-nondeterministic THR-of-MAJ UNSAT (or Max-IP-decision) log-shave (Chen Remarks 2.7/4.2 as
+read by the survey; the verbatim remark text was not independently web-confirmed this pass),
+wider than the stated deterministic hypothesis. The single most promising angle is transferring
+the $n^3$-scale all-logs machinery (the STOC 2024 BMM regularity decomposition, or the STOC 2014
+Razborov-Smolensky min-plus method) DOWN to the $n^2$-scale thin $n \times n^\varepsilon$
+count-then-max product; this pass found no transfer and claims no progress.
+
+STATUS. As of June 2026 NEXP not in poly-size THR-of-THR remains OPEN; no algorithm meets the
+bar. Source: [`circuit_complexity/e_maxip_logshave.py`](circuit_complexity/e_maxip_logshave.py)
+(exit 0, smoke 5/5) and the new subsection 4b of
+[`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md).

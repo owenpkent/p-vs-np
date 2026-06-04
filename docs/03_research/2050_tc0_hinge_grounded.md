@@ -134,9 +134,8 @@ Two equivalent bars:
    subsection 4a): the DIMENSION regime, not Booleanity alone, decides the
    conclusion. The APPROXIMATE Bichromatic-Closest-Pair gives only the weaker
    SYM-of-THR (Thm 1.2). Boolean Max-IP at POLYLOG $d$ also gives only SYM-of-THR
-   (Thm 1.2; this routing is in the theorem body, not the abstract,
-   NEEDS-BODY-VERIFICATION), but Boolean Max-IP at $d = n^\varepsilon$ gives the full
-   THR-of-THR (Thm 1.5). The reduction runs through two threshold-circuit structure
+   (Thm 1.2 item 1, now CONFIRMED verbatim in the body, p.2), but Boolean Max-IP at
+   $d = n^\varepsilon$ gives the full THR-of-THR (Thm 1.5). The reduction runs through two threshold-circuit structure
    lemmas (Chen 2018 Lemmas 1.6-1.7: Lemma 1.6 is a deterministic poly-time
    normal form, every THR-of-THR is a Gap-OR of THR-of-MAJ; Lemma 1.7 is a randomized
    subexponential form, every $s$-size THR-of-THR with $s = 2^{o(n)}$ is a
@@ -222,9 +221,10 @@ lower-bounds only at the $n^{2-\Omega(1)}$ granularity.
 
 ### Two flagged items (carry as hedges)
 
-- NEEDS-BODY-VERIFICATION: "Boolean Max-IP at polylog $d \to$ SYM-of-THR (Thm 1.2)"
-  is in the theorem BODY; the Chen-2018 ABSTRACT names only approximate closest-pair
-  for Thm 1.2. The trap resolution does not depend on this routing claim.
+- RESOLVED (was NEEDS-BODY-VERIFICATION): "Boolean Max-IP at polylog $d \to$
+  SYM-of-THR (Thm 1.2)" is now confirmed verbatim in the theorem body (Thm 1.2 item 1,
+  p.2, read 2026-06-03 during the subsection-4b pass). The abstract names only
+  approximate closest-pair; the body is literally Boolean Max-IP$_{n,d}$ at polylog $d$.
 - NEEDS-CITATION: the $(1+\varepsilon)$-approx closest-pair exponent. Chen 2018
   restates ACW 2016 as $n^{2-\Omega(\varepsilon^{1/3})}$; the ACW primary
   (arXiv:1608.04355) is $n^{2-\Omega(\varepsilon^{1/3}/\log(1/\varepsilon))}$.
@@ -237,6 +237,113 @@ has not produced it. The only proved nontrivial THR-of-THR results are the
 $n^{2-o(1)}$-WIRE bound (Chen-Tamaki / ACW) and the one-bottom-layer ACC-of-THR SIZE
 bound (Murray-Williams 2018). arXiv:1805.10698 is an UNPUBLISHED preprint (DBLP: CoRR
 only); the companion SETH paper IS published.
+
+## 4b. The Max-IP-at-$n^\varepsilon$ log-shave, attacked
+
+Added 2026-06-03 (a two-survey + builder + adversary + verifier pass; the Chen-2018
+abstract/body parameters re-confirmed verbatim against arXiv:1805.10698, the technique
+parameters web-confirmed against their venues, with two items hedged below). Subsection
+4a names Boolean Max-IP at $d = n^\varepsilon$ (Thm 1.5 item 1) as the single most
+attackable target but stops at "only the logs separate baseline from bar". This
+subsection attacks that bar: it pins the decomposition of the polylog, maps every known
+log-shaver against it, reports a tried-and-failed micro-idea, and confirms no finer
+barrier. Runnable model:
+[`../../experiments/circuit_complexity/e_maxip_logshave.py`](../../experiments/circuit_complexity/e_maxip_logshave.py)
+(exit 0; smoke test stays 5/5), the executable companion to the problem-indexed
+[`e_threshold_geometry_gap.py`](../../experiments/circuit_complexity/e_threshold_geometry_gap.py).
+
+### The target and its baseline, decomposed
+
+TARGET (Thm 1.5 item 1, verbatim): a deterministic Max-IP$_{n, n^\varepsilon}$ algorithm
+in $n^2 / \log^{\omega(1)} n$ time, for some constant $\varepsilon > 0$, gives
+$\mathsf{NEXP} \not\subseteq$ poly-size THR-of-THR. BASELINE (verbatim, p.3): $n^2\,
+\mathrm{polylog}(n)$ via Coppersmith 1982 fast rectangular matrix multiplication, which
+computes $M = A B^\top$ (all $n^2$ inner products) since $d = n^\varepsilon$ is below the
+rectangular dual exponent $\alpha$ ($\alpha = 0.17227$ in 1982; current best $\alpha \ge
+0.321334$, Williams-Xu-Xu-Zhou 2023/24). Chen states the goal verbatim: "we only need to
+shave logs on this naive algorithm". The polylog has TWO sources:
+
+- (a) RECTANGULAR-MM OVERHEAD $\log^2 n$, intrinsic to Coppersmith's bilinear / partial-
+  matrix-multiplication recursion (the $C N^2 \log^2 N$ essential-multiplications bound).
+  Dual-exponent improvements (Le Gall 2012; Le Gall-Urrutia SODA 2018; WXXZ 2023) only
+  RAISE the $\varepsilon$-ceiling at which the $n^2$-polylog baseline holds; they do NOT
+  shave this $\log^2 n$ (project inference from the bilinear framework, verifier-endorsed).
+- (b) THE MAX-OVER-$n^2$ EXTRACTION, a flat $\Theta(n^2)$ scan with zero achievable
+  log-shave under enumeration, since the all-pairs inner-product MATRIX has $\Omega(n^2)$
+  natural output size (scoped to the matrix, NOT to Max-IP as a problem). PROJECT
+  INFERENCE (flagged): a log-shave must compute the max WITHOUT materializing-and-scanning
+  all $n^2$ inner products, so the structural novelty must live in max-extraction-without-
+  enumeration, not in the matrix product.
+
+### The technique map at $d = n^\varepsilon$ (every row falls short)
+
+| Technique | Saving at $d=n^\varepsilon$ | Log-shave? | Precise shortfall |
+| --- | --- | --- | --- |
+| Polynomial method (AWY SODA 2015; Chan-Williams SODA 2016) | $2^{O(1/\varepsilon)} = O(1)$ constant factor | NO | Saved exponent $1/O(\varepsilon\log n)\to 0$; batch collapses as poly. degree scales with $d$. Also OV/existence $\to$ SYM-of-THR (Thm 1.2). Double-disqualified. |
+| Four-Russians / BMM (Bansal-Williams 2009; Chan 2015; Abboud-Fischer-Kelley-Lovett-Meka STOC 2024, $n^3/2^{\Omega((\log n)^{1/7})}$) | zero transfer | NO | Shaves the OR-AND semiring. Max-IP needs the integer count $\langle a,b\rangle$ then a MAX (the $(+,\times)$ semiring); word-packing of OR does not compute it. AFKLM must NOT be cited as Max-IP progress. |
+| Rectangular MM (Coppersmith 1982; Le Gall; WXXZ) | this IS the baseline | NO | The $\log^2 n$ it carries is the polylog to remove and is intrinsic; dual-exponent gains move $\alpha$, not the polylog. Closest in FORM, zero progress on the shave. |
+| Large-sieve (Jin-Xu STOC 2024, arXiv:2403.20326) | not applicable | NO | Scope is sparse convolution + 1D text-to-pattern Hamming; no 1D structure in all-pairs Max-IP, the max couples across all $n^2$ pairs. |
+| Exact integer geometry (Matousek 1992; AESW 1991; Yao 1982; Williams SODA 2018) | $1+o(1)$, $< 1$ log | NO | $n^{2-1/O(d)}$; at $d=n^\varepsilon$ the saved exponent $1/O(n^\varepsilon)$ vanishes super-polynomially. |
+| Min-plus / Razborov-Smolensky (Williams APSP STOC 2014, $n^3/2^{\Omega(\sqrt{\log n})}$) | wrong scale | NO | Right max-operator but $n^3$ full-square regime; engine inherits the same degree-vs-dimension decay at inner dimension $n^\varepsilon$. |
+
+SMALLEST GAP (two readings disagree, and that IS the finding): by literal-object
+closeness, rectangular MM is first (it IS the baseline, one polylog away in form, shaves
+zero); by largest-actual-saving, the polynomial method is first (a real constant
+$2^{O(1/\varepsilon)} \approx 1024$ for $\varepsilon=0.1$, wrong shape). No technique is
+both close in form AND making log-progress. Precisely: shave the intrinsic $\log^2 n$ off
+$n^{2+o(1)}$ rectangular MM at the Coppersmith $\alpha$-boundary, for the $(+,\times)$
+product with a max-reduction, without enumerating the $n^2$ pairs. That sub-problem is
+itself open and is the precise frontier.
+
+### The micro-idea: threshold sweep (correct, but strictly cost-increasing)
+
+Since the answer is an integer in $\{0,\dots,d\}$, sweep a candidate threshold $t$ from
+$d$ downward and test existence of a pair with $\langle a,b\rangle \ge t$ (a $Z$-OV-like
+decision), the max being the largest $t$ with a YES; or binary-search $t$. In
+`e_maxip_logshave.py` (run on $n_A=n_B=40$, $d=12$) this is CORRECT (returns the true max
+$9$, asserted against brute force) but does NOT shave, and the failure step is named: the
+existence-query subroutine. Each query at $d=n^\varepsilon$ is itself at the open
+$n^\varepsilon$ wall (certifying a NO rules out all $n^2$ pairs, worst-case $n^2$). The
+LINEAR sweep makes $O(d)=O(n^\varepsilon)$ worst-case queries, MULTIPLYING the baseline by
+$n^\varepsilon$ (a polynomial factor WORSE); BINARY search makes $O(\log d)=O(\varepsilon
+\log n)$ queries, each still the $n^2$ wall, so it ADDS a log factor rather than removing
+the polylog. Reducing Max to existence does not help because existence at $d=n^\varepsilon$
+is the SAME open wall. The micro-idea FAILS. (Honest debugging note: the linear sweep
+early-stops at the first YES, so on the high-max test it made only $4$ queries, not $d+1$;
+the accounting was corrected to worst-case bounds, the load-bearing honest version.)
+
+### Finer-barrier verdict: open, with one structural wall and one inherited collision
+
+No finer UNCONDITIONAL barrier was found beyond the non-binding SETH-consistency (the bar
+is $n^{2-o(1)}$, SETH forbids only $n^{2-\Omega(1)}$). The decisive check: the strongest
+"hardness of shaving logs" theorems (Abboud-Hansen-V.Williams-R.Williams STOC 2016,
+arXiv:1511.06022; Abboud-Bringmann ICALP 2018, arXiv:1804.08978) are proved ONLY for
+SEQUENCE/alignment problems whose quadratic DP encodes a branching program; they provably
+do NOT cover OV or Max-IP. So the candidate finer barrier does not bind, and the Chen
+implication is a WANTED route, not an obstruction. Two finer obstructions, neither a proved
+barrier: (i) the matrix-output wall ($\Omega(n^2)$ natural output size of $A B^\top$,
+scoped to the matrix, not the problem), which pins WHERE a new idea must act
+(max-without-enumeration); (ii) the inherited, conditional natural-proofs collision (if
+poly-size THR-of-THR computes strong PRFs, the RESULTING lower bound, not the algorithm,
+collides with Razborov-Rudich), unchanged from section 6.
+
+### Target-widening (project inference, carry as a hedge)
+
+The final Williams-connection step needs only a CO-NONDETERMINISTIC THR-of-MAJ UNSAT (or
+Max-IP-decision) algorithm (Chen Remarks 2.7, 4.2, as read by the survey; the deterministic
+Thm 1.5 hypothesis is the clean statement because the structure-lemma reduction is randomized
+and is derandomized by nondeterministic guessing). The verbatim remark text was NOT
+independently web-confirmed this pass, so this is carried as project inference, not a
+separately-stated theorem; a two-sided randomized Max-IP solver is not obviously enough
+without derandomization. A builder targeting the cleanest path should aim at a deterministic-
+or-co-nondeterministic UNSAT log-shave, wider than the stated deterministic hypothesis.
+
+### Status stamp
+
+As of June 2026 the target is GENUINELY OPEN: no published algorithm shaves the polylog off
+Max-IP at $d = n^\varepsilon$; if one existed, $\mathsf{NEXP} \not\subseteq$ poly-size
+THR-of-THR would be proven, and it is not. arXiv:1805.10698 remains an unpublished preprint
+(DBLP: CoRR only).
 
 ## 5. Why a purely algebraic-polynomial approach is not obviously enough, stated carefully
 
