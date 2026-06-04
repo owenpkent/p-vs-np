@@ -224,13 +224,18 @@ entry is a dead branch that sharpens where the real proof lives.
   non-algebrization from elsewhere (the Williams spine), and use W2A only where
   its arithmetization is harmless.
 
-- **NP-scale easy-witness lemma** (Williams-scaled). Killed by circularity: a
-  $\mathrm{poly}(n)$-time verifier certifying "no size-$n^c$ circuit decides $L$"
-  from a poly-length string is an MCSP-style collapse as strong as the
-  conclusion. Coordinate: the $\mathsf{NEXP}$-to-$\mathsf{NP}$ descent is not a
-  quantitative strengthening of IKW 2002; the exponential-to-polynomial witness
-  gap IS the problem. The hard function legitimately stays in $\mathsf{NEXP}$
-  until a genuinely new descent theorem exists.
+- **NP-scale easy-witness lemma** (Williams-scaled). Originally recorded as killed
+  by circularity. CORRECTED 2026-06-03 (finding 26): this kill is OUTDATED. Murray-
+  Williams 2018 ("An Easy Witness Lemma for NP and NQP", STOC 2018) PROVED the NP
+  easy-witness lemma (if $\mathsf{NP} \subseteq \mathrm{SIZE}[n^k]$ then NP verifiers
+  have $n^{O(k^3)}$-size witness circuits), overcoming IKW 2002 (which held only at the
+  $\mathsf{NEXP}$ scale). So the NP witness lemma is NOT missing and the descent is NOT
+  a witness-circularity. Corrected coordinate: the connection delivers its lower bound
+  only at $\mathsf{NQP}$ because the only available speedup is a one-layer ACC-of-THR
+  SAT algorithm; the $\mathsf{NQP}$-to-$\mathsf{NP}$ block is the algorithm-plus-
+  diagonalization SCALE (largely downstream of the algorithmic joint), not a
+  circularity. The genuinely binding descent obstruction is elsewhere: the locality
+  barrier on the meta-complexity non-constructivity (see finding 26).
 
 - **The $\varepsilon = 0.001$ superpolynomial savings** (Williams-scaled). Killed
   numerically: $2^{m^{0.001}}$ does not beat $m^3$ below astronomically large

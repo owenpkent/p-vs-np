@@ -112,11 +112,19 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
    (the meta-complexity high-Kt device), which against TC0 is open. So the genuine open
    obstructions on the leading path are (a) the ALGORITHMIC one (the dense THR-of-THR
    SAT / Max-IP log-shave), (b) the not-yet-assessable algebrization flag, and (c) the
-   descent's non-constructivity. Next concrete sub-steps: the most-promising algorithmic
-   angle is transferring the $n^3$-scale all-logs machinery (STOC 2024 BMM regularity
-   decomposition, or STOC 2014 Razborov-Smolensky min-plus) DOWN to the $n^2$-scale
-   count-then-max product; the most-promising structural question is whether the descent's
-   high-Kt object is non-constructive against TC0 for the exact truth tables.
+   descent's non-constructivity. The descent is now MAPPED (finding 26,
+   `experiments/circuit_complexity/e_leading_path_descent.py`): reaching NP is a MULTI-JOINT
+   synthesis (four open joints), not one missing piece. J1 ALGORITHMIC (the log-shave, a
+   GRIND, attackable now); J2 DESCENT (the algorithm+diagonalization scale, downstream of
+   J1; the NP easy-witness lemma is already PROVED by Murray-Williams 2018, correcting the
+   dossier A2 "circular descent" kill); J3 NON-CONSTRUCTIVITY (the BINDING joint, blocked by
+   the NAMED LOCALITY BARRIER: deciding MCSP is capped at AC0[p] and cannot reach TC0
+   because MAJORITY and NC1 reduce to MCSP-oracle circuits, Golovnev et al ICALP 2019 /
+   CHOPRS JACM 2022); J4 COMPOSITION (no combining theorem; the W2A core relativizes). Next
+   concrete sub-steps: the most-attackable joint is still J1 (transfer the $n^3$-scale
+   all-logs machinery DOWN to the $n^2$-scale count-then-max product); the binding joint J3
+   is a published no-go (locality), so the strategic question is whether non-local hardness
+   magnification (the dossier's unbuilt 2044-2047 object) can be designed to defeat it.
 2. **Strand-3: TWO sharp no-go coordinates now; the topology search is nearly
    exhausted.** Two 2026-06-03 multi-agent passes (real homology + group computation,
    adversary-audited, verifier-confirmed) closed both candidate shapes. (a) Finding 21:
@@ -156,9 +164,9 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
   `e_resolution_width_php`, `e_plethysm_kronecker`, `e_nisan_wigderson_prg`,
   `algebrization_probe`, `strand3.e_ledger`, `strand3.e_bockstein_forcing`,
   `strand3.e_symmetry_route`, `circuit_complexity.e_threshold_geometry_gap`,
-  `circuit_complexity.e_maxip_logshave`, and `natural_proofs.e_tc0_prf_collision` (the
-  strand3 pair needs numpy + sympy; the Max-IP experiment needs numpy). Standard library
-  only elsewhere; plots optional.
+  `circuit_complexity.e_maxip_logshave`, `natural_proofs.e_tc0_prf_collision`, and
+  `circuit_complexity.e_leading_path_descent` (the strand3 pair needs numpy + sympy; the
+  Max-IP experiment needs numpy). Standard library only elsewhere; plots optional.
 - Strand-3 round 3 (2026-06-03): `strand3.e_bockstein_forcing` runs clean
   (VERIFIER-confirmed, real homology cross-validated by Smith normal form vs sympy);
   the algebrization probe gained two char-p RANK fixtures (`torsion_existence_count`,
@@ -192,6 +200,7 @@ core Lean. See [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md) "Recent prog
 | 2026-06-03 | Strand-3 Bockstein bridge (multi-agent: 3 surveys, builder, adversary, verifier) | Verdict NO-GO COORDINATE: a cheap count forces only the EXISTENCE of torsion (a rank fact that algebrizes), never a located $\beta(x)$; lens-space $L(p^2)$ vs $L(p)$ witness. New experiment `strand3/e_bockstein_forcing.py` (real homology, VERIFIER-confirmed); probe gained the third invariant category (char-p rank functionals algebrize too) + two fixtures; LEARNINGS finding 21; findings 9/14 and both strand-3 docs corrected; ledger gained two coordinates (LIVE still 0). Reframed live route: symmetry (Smith-theory fixed point), not count. |
 | 2026-06-03 | Strand-3 gap 2, the symmetry route (multi-agent: 3 surveys, builder, adversary, verifier) | Verdict NO-GO COORDINATE on both decisive questions. The symmetry provably EXISTS (AGL(1,q) Oliver structure verified $q \in \{4,5,8,9\}$) but Q1 fails (certificate is the rational $\chi(\mathrm{Fix})$, algebrizes by the Oliver-number trichotomy across the whole branch) and Q2 fails (query bound $\binom{n}{2}$, never circuit size). Structural root: KSS topology is downstream of the algorithm, so the complex is acyclic by construction. New experiment `strand3/e_symmetry_route.py` (group + homology computation, VERIFIER-confirmed; three scratch files consolidated to one); LEARNINGS finding 22; ledger ninth coordinate; gap-2 reframed. Only non-dead strand-3 remainder: the free-$\mathbb{Z}/2$ Babson-Kozlov route (clears Q1, fails Q2). |
 | 2026-06-03 | TC0 spine: Chen-2018 fine-grained gap map (multi-agent: 3 surveys, builder, adversary, verifier; primary sources read directly) | FAVORABLE coordinate. The THR-of-THR bottleneck is a polylog-dimension log-shave for the EXACT integer geometry ($Z$-Max-IP, Hopcroft, exact closest/furthest pair), best-known shaves ZERO logs; most attackable = Boolean Max-IP at $d=n^\varepsilon$ (Thm 1.5.1). The bar is SETH-CONSISTENT and OPEN (a log-shave does not refute SETH); exactly one route (Thm 1.5.2) is a SETH-refuting barrier to avoid; the Boolean-OV shave is a trap (only SYM-of-THR). New experiment `circuit_complexity/e_threshold_geometry_gap.py` (gap calculator, VERIFIER-confirmed, all params web-verified verbatim; one scratch file consolidated); LEARNINGS finding 23; note subsection 4a + section-8 upgrade (Chen 2018 verified, companion SETH paper added, unpublished-preprint status confirmed). |
+| 2026-06-03 | TC0 spine: the leading-path descent to NP (multi-agent: 3 surveys [2 failed StructuredOutput], builder ledger, adversary, verifier) | The descent to NP is a MULTI-JOINT synthesis (four open joints), not one missing piece. J1 algorithmic (the log-shave, a grind); J2 descent (algorithm+diagonalization scale, downstream of J1; the NP easy-witness lemma is PROVED, Murray-Williams 2018, correcting the dossier A2 "circular" kill); J3 non-constructivity (the BINDING joint, blocked by the NAMED LOCALITY barrier, Golovnev et al ICALP 2019 / CHOPRS JACM 2022: MCSP capped at AC0[p], cannot reach TC0); J4 composition (no combining theorem, W2A core relativizes). New experiment `circuit_complexity/e_leading_path_descent.py` (descent ledger, VERIFIER high, claims web-confirmed verbatim); LEARNINGS finding 26; STATE most-leveraged-move refreshed. |
 | 2026-06-03 | TC0 spine: the natural-proofs binding-wall question (multi-agent: 3 surveys, builder, adversary, verifier; synth agent failed, recovered from journal + hand-authored) | CORRECTS the project's own framing. The TC0-PRF collision does NOT doom the Williams route: it binds the LARGE-and-constructive ALTERNATIVES (which is WHY a non-natural method is needed); the Williams spine is non-natural by dropping LARGENESS not constructivity (Williams 2013, confirmed verbatim). Verdict SUBTLE/EVADED: evaded at the NEXP-level bound, open at the NEXP-to-NP descent (escape flips to non-constructivity). Fixed a real bug in the core `barriers.py` williams_acc0 fixture (natural_constructivity False->True; smoke stays 5/5). New experiment `natural_proofs/e_tc0_prf_collision.py`; LEARNINGS finding 25; "binding constraint" corrected across atlas / STATE / note section 6 / finding 20. VERIFIER high, every claim web-confirmed verbatim. |
 | 2026-06-03 | TC0 spine: attack the Max-IP-at-$n^\varepsilon$ log-shave (multi-agent: 3 surveys, builder, adversary, verifier; Chen 2018 read pp.1-21) | Sharp HONEST negative coordinate (the intended outcome). The target is genuinely OPEN with NO finer barrier (the "hardness of shaving logs" theorems provably do not cover Max-IP), but every known log-shaver lands ZERO logs at $d=n^\varepsilon$. The polylog splits into the intrinsic Coppersmith $\log^2 n$ and the $\Theta(n^2)$ max-extraction; a shave must avoid enumerating the $n^2$ pairs. Threshold-sweep micro-idea tried and FAILS (cost-increasing). Target-widened to co-nondeterministic (Chen Remarks 2.7/4.2). Most-promising angle: transfer $n^3$-scale all-logs machinery down to the $n^2$-scale count-then-max product. New experiment `circuit_complexity/e_maxip_logshave.py` (VERIFIER-confirmed; two scratch experiments consolidated); LEARNINGS finding 24; note subsection 4b; two NEEDS-BODY-VERIFICATION flags cleared. No progress on the prize claimed. |
 

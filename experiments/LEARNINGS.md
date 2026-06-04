@@ -689,3 +689,66 @@ NEXP-level bound. Source:
 [`natural_proofs/e_tc0_prf_collision.py`](natural_proofs/e_tc0_prf_collision.py) (exit 0,
 smoke 5/5), the corrected `barriers.py` williams_acc0 fixture, and the framing corrections
 in the atlas, STATE, note section 6, and finding 20.
+
+### 26. The leading path's descent to NP is a MULTI-JOINT synthesis (not one missing piece): four open joints, the binding one is the non-constructivity wall (deciding MCSP is capped at AC0[p], cannot reach TC0 = the locality barrier); and the NP easy-witness lemma is PROVED, so the descent block is the algorithm scale, not a circularity.
+
+A multi-agent pass (the meta-complexity survey survived; two surveys hit the recurring
+StructuredOutput failure; builder ledger + adversary + verifier completed; VERIFIER
+overall high, every load-bearing claim web-confirmed verbatim; ADVERSARY sound-with-fixes,
+the one substantive fix applied) mapped whether the leading path actually reaches NP, which
+is what a real P-vs-NP proof needs. Verdict: the descent to NP is a SYNTHESIS with FOUR
+open joints, not a one-missing-piece program; the path does not close, and the joints are
+coordinates. Modeled in
+[`circuit_complexity/e_leading_path_descent.py`](circuit_complexity/e_leading_path_descent.py)
+(a descent-ladder ledger; exit 0, smoke 5/5).
+
+THE LADDER. The Williams connection is PROVED at NEXP (Williams 2011) and NQP
+(Murray-Williams 2018, NQP not in $n^{\log^k n}$-size ACC-of-THR). It does NOT reach NP. It
+delivers its bound at NQP because the only available speedup is a one-bottom-layer
+ACC-of-THR SAT algorithm; the lower bound, not the witness lemma, is what stops at NQP.
+
+THE FOUR JOINTS (one grind, the rest structural):
+
+- **J1 ALGORITHMIC** (quantitative GRIND, attackable now): the dense depth-2 THR-of-THR /
+  Max-IP log-shave (findings 23/24). No finer unconditional barrier; SETH-consistent. The
+  clearest near-term handle.
+- **J2 DESCENT / SCALE** (structural, but largely DOWNSTREAM of J1). CORRECTION to the
+  dossier's A2 kill and the builder's first draft: the NQP-to-NP block is NOT a witness
+  circularity. Murray-Williams 2018 PROVED the NP easy-witness lemma (if NP in SIZE[$n^k$]
+  then NP verifiers have $n^{O(k^3)}$ witness circuits), overcoming IKW 2002 (NEXP-only,
+  confirmed verbatim against ECCC TR17-188). The connection stops at NQP because of the
+  ALGORITHM-plus-DIAGONALIZATION scale: an NP-scale dense-TC0 SAT algorithm would fire the
+  EXISTING NP easy-witness lemma. So J2 is entangled with J1, not an independent circularity.
+- **J3 NON-CONSTRUCTIVITY** (structural BARRIER, THE binding joint). The descent needs a
+  PROVED non-constructivity of high-Kt / MCSP / MKTP against TC0 for the exact total truth
+  tables (deterministic, unconditional). It is ASPIRATIONAL, blocked by a NAMED WALL: lower
+  bounds on DECIDING MCSP are capped at AC0[p] (Golovnev-Ilango-Impagliazzo-Kabanets-
+  Kolokolova-Tal, ICALP 2019 / ECCC TR19-018, verbatim: MCSP needs depth-$d$ AC0[p] of size
+  $\exp(N^{0.49/d})$) and CANNOT reach TC0, because MAJORITY $\in (\mathrm{AC}^0)^{\mathrm{MCSP}}$
+  and $\mathrm{NC}^1 \subseteq (\mathrm{AC}^0)^{\mathrm{MCSP}}$, so "MCSP hard for TC0" would
+  separate NC1 from AC0. This is the LOCALITY BARRIER (Chen-Hirahara-Oliveira-Pich-Rajgopal-
+  Santhanam, "Beyond Natural Proofs: Hardness Magnification and Locality", ITCS 2020 / JACM
+  2022, arXiv:1911.08297). All proved meta-complexity hardness is on FOUR separately-open
+  axes from the descent object: variant (MCSP*/MKTP*/MINKT*) not total; randomized not
+  deterministic (Hirahara 2022 calls deterministic NP-hardness "extremely difficult");
+  conditional not unconditional (Santhanam 2020 Universality Conjecture; Hirahara 2023 NP
+  not in io-P/poly); and about NP or P/poly, NEVER about TC0 as the deciding class. The
+  dossier's own critical path already lists defeating this as the unbuilt 2044-2047 object.
+- **J4 COMPOSITION** (structural, PARTIAL). Meta-complexity supplies non-naturalness ONLY;
+  its W2A core RELATIVIZES (Hirahara 2018, ECCC TR18-138 Section 1.7, "our proofs do
+  relativize"), so non-relativization + non-algebrization come from the spine (findings 12,
+  25). The division of labor is real (so "partial", not open-from-scratch), but there is NO
+  COMBINING THEOREM that fuses (spine carries relativization/algebrization) with
+  (meta-complexity carries non-naturalness via non-constructivity) into a single all-three-
+  evading NP proof. A further audit flag: the graft's algebrization is ASSUMED, not assessed
+  (dense-TC0 algebrization is NOT YET ASSESSABLE, finding 20), so "evades all three" for the
+  graft is contingent on FIVE items, not four.
+
+NET. The genuinely-independent hard structural barriers are J3 (its own named locality wall)
+and J4 (no combining theorem); J1 is a grind and J2 is largely downstream of it. The single
+most binding obstruction to a genuine NP lower bound is J3, the non-constructivity wall, a
+named published no-go (locality), NOT a quantitative grind. The honest read: the leading path
+is a coherent program with a clearly-attackable algorithmic joint and a binding structural
+barrier (locality) that the field has not breached and the dossier itself flags as unbuilt.
+Source: [`circuit_complexity/e_leading_path_descent.py`](circuit_complexity/e_leading_path_descent.py)
+and the descent-map corrections to the dossier A2 framing.

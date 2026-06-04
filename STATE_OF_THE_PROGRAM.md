@@ -103,6 +103,23 @@ encodes the corrected picture; the "Boolean-rank-collapse" placeholder is retire
 favor of its real referents (dense LTF-of-LTF SAT, open; sparse case
 Impagliazzo-Paturi-Schneider 2013; the Chen 2018 log-shaving geometry reduction).
 
+**The descent to NP is a multi-joint synthesis, not one missing piece** (finding 26,
+2026-06-03; [`experiments/circuit_complexity/e_leading_path_descent.py`](experiments/circuit_complexity/e_leading_path_descent.py)).
+The connection is PROVED at NEXP (Williams 2011) and NQP (Murray-Williams 2018); reaching
+NP requires FOUR joints at once. (J1) ALGORITHMIC: the dense THR-of-THR / Max-IP log-shave,
+a quantitative GRIND, attackable now (findings 23/24), the clearest handle. (J2) DESCENT:
+the algorithm-plus-diagonalization SCALE, largely DOWNSTREAM of J1 (the NP easy-witness
+lemma is already PROVED, Murray-Williams 2018, so the block is NOT a witness circularity,
+correcting the dossier A2 kill). (J3) NON-CONSTRUCTIVITY: a proved high-Kt-against-TC0 lower
+bound, the BINDING joint, blocked by a NAMED structural barrier, the LOCALITY barrier
+(deciding MCSP is capped at AC0[p] and cannot reach TC0 because MAJORITY and NC1 reduce to
+MCSP-oracle circuits; Golovnev et al ICALP 2019, Chen-Hirahara-Oliveira-Pich-Rajgopal-
+Santhanam JACM 2022). (J4) COMPOSITION: meta-complexity supplies non-naturalness only (its
+W2A core relativizes, Hirahara 2018), and there is no combining theorem yet. The single most
+binding obstruction is J3 (the locality wall), a published no-go the field has not breached;
+the most attackable joint is J1 (the log-shave). So the leading path is a coherent program
+with one clearly-attackable joint and one binding structural barrier.
+
 Honest odds: an unconditional resolution of P vs NP from any current program is
 very low. The value of the work is that the barriers are now precise enough to
 say what a proof must look like, and the partial results (weak-class lower
