@@ -126,6 +126,43 @@ say what a proof must look like, and the partial results (weak-class lower
 bounds, the satisfiability-algorithm / lower-bound connection, arithmetic proof
 complexity) are contributions in their own right.
 
+## Recent progress (leading-path anatomy, 2026-06-03 and 2026-06-04; findings 20-27)
+
+A connected sequence of grounded, adversarially-audited, verifier-checked multi-agent
+passes anatomized the leading path end to end. Each result is a precise coordinate, not a
+breakthrough; no progress on the prize is claimed, and several passes CORRECTED the
+project's own prior framing.
+
+- The TC0 hinge is grounded and corrected: the polynomial method does NOT die at threshold
+  gates (probabilistic vs approximate degree); the first threshold rung is climbed; the
+  open object is a dense depth-2 THR-of-THR SAT log-shave (findings 20, plus the
+  residual-citation and natural-proofs-propagation passes).
+- The Chen 2018 geometry reduction is gap-mapped: the THR-of-THR bar is SETH-CONSISTENT and
+  genuinely open; the most attackable target is Boolean Max-IP at $d = n^\varepsilon$
+  (finding 23).
+- That target was attacked: open with no finer barrier, but every known log-shaver lands
+  zero logs; the obstruction is the $\Theta(n^2)$ max-extraction (finding 24). A dedicated
+  J1 pass then showed the $n^3$-machinery transfer fails for an OPERATION reason, relocating
+  the frontier to the FUSED-MAX-MM, which is open and barrier-free (finding 27).
+- The natural-proofs "binding wall" framing was CORRECTED: the TC0-PRF collision binds the
+  large-and-constructive alternatives, not the non-large Williams route (Williams 2013), so
+  it is the reason a non-natural method is needed, not a doom. Fixed a real bug in the core
+  `barriers.py` williams_acc0 fixture along the way (finding 25).
+- The descent to NP was mapped as a four-joint synthesis (not one missing piece): an
+  algorithmic grind (J1), a descent scale (J2, downstream of J1, since the NP easy-witness
+  lemma is already PROVED), the binding non-constructivity wall (J3, the locality barrier),
+  and composition (J4, no combining theorem) (finding 26).
+- Strand-3 (the non-algebrizing-invariant search) was resolved to two sharp no-gos
+  (count-forces-torsion and the Oliver/symmetry route; findings 21, 22), leaving only the
+  free-$\mathbb{Z}/2$ Babson-Kozlov route.
+
+Net picture of the leading path: one clearly-attackable joint (J1, sharpened to the
+fused-max-MM, open and barrier-free) and one binding structural barrier (J3, the locality
+barrier, a published no-go the dossier flags as an unbuilt object). The natural-proofs and
+algorithmic obstructions are now precisely located rather than vaguely feared. Detail per
+finding in [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) (20-27) and the grounded
+note [`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md).
+
 ## Recent progress (TC0 hinge grounding, 2026-06-03)
 
 A multi-agent run (4 surveyors over the threshold-circuit-SAT literature, paired
