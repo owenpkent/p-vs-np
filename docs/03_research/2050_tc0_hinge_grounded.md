@@ -441,6 +441,103 @@ with a worst-case (not constant-relative-gap) guarantee, and NON-LINEAR in the p
 entries. No candidate and no surveyed positive technique provides all three. The open
 object is now precisely framed, not merely "untouched."
 
+## 4d. The bulk-vs-extreme wall, HARDENED to a single-round lower bound and the escape RELOCATED to adaptive / metric (finding 29)
+
+Added 2026-06-04 (a first-principles pass: 3 surveys reading the Chen-2018 reduction
+internals plus the closest-pair and sketching literature directly, four attack prongs each
+with a runnable model, four adversary audits, a verifier). Subsection 4c stated the
+bulk-vs-extreme wall as a HEURISTIC verified on four oblivious fusions. This subsection
+attacks it from its four weak points (information vs computation, the 1-sparse loose thread,
+top-of-spectrum-is-closest-pair, single-round vs adaptive). The wall BOTH hardens and
+cracks. Consolidated model:
+[`../../experiments/circuit_complexity/e_fused_max_mm_attack.py`](../../experiments/circuit_complexity/e_fused_max_mm_attack.py)
+(exit 0; self-check OK; smoke 5/5).
+
+### The hard instance is near-top, gap-1, planted (and a citation fix)
+
+The Chen-2018 reduction forces Max-IP to be decided ONLY at the very top, at a single
+planted ceiling $M$, with integer gap exactly $1$. The gadget (Corollary 5.5, Lemma 5.1 of
+arXiv:1805.10698) is built on $P(x,y) = (x\cdot y - m)^2$ with $d_x(x)\cdot d_y(y) = P(x,y)
++ 2dm - m^2$ and ceiling $M_{d,m} = 2dm - m^2$, so $\mathrm{Max}(A,B) = M$ iff a circuit
+sub-instance is satisfiable and $\le M-1$ otherwise. The decision is exact-at-the-top, not
+an arbitrary interior threshold, and Chen Theorem 1.1 lists Bichromatic-Closest-Pair in the
+SAME equivalence class, so the metric reframe targets the genuine hard instance. CITATION
+FIX: arXiv:1805.10698 is "Toward Super-Polynomial Size Lower Bounds for Depth-Two Threshold
+Circuits"; the Max-IP-hardness / SETH paper is the SEPARATE arXiv:1802.02325 (ToC v016a004,
+CCC 2018). Theorem 1.5 genuinely lives in 1805.10698 (target statement correct); only the
+docstring title was wrong.
+
+### The hardened wall: a single-round Cheap-Measurement-Model lower bound
+
+Define the CMM: fix, before seeing the input, $K$ measurements of $M = A B^\top$, each
+either (a) a separable / low-rank linear functional $\langle W_k, M\rangle$, $W_k =
+\sum_{l\le r} u_{k,l} v_{k,l}^\top$ (rank-$1$ pushes through as $(u^\top A)(B^\top v)$ at
+$O(nd)$; subquadratic forces total rank $R = o(n^2/d)$), or (b) a degree-$\le D$
+entry-symmetric statistic $\sum_{ij} g(M_{ij}) = \sum_p c_p m_p$ (cheap iff $D < 1/
+\varepsilon$), or (c) a rotation-invariant spectral statistic from the $d\times d$ core at
+$O(nd^2)$ (the CONTAINMENT PATCH the adversary required: $\sigma_{\max}$ and the full
+spectrum are cheap, non-separable, non-entry-symmetric, so they need their own family).
+
+| Branch | Cheap family | Why it is blind to $\mathrm{max}=d$ vs $\le d-1$ |
+| --- | --- | --- |
+| (i) separable-linear | rank-$\le r$ $\langle W_k, M\rangle$, total $R = o(n^2/d)$ | argmax is $\ell_2$-LIGHT, $\mathrm{argmax}^2/\|M\|_F^2 = \Theta(1/n^2)$ (measured ratio$\cdot n^2 \in [3.0,8.4]$); localization floor $\Theta(n^2)$, Price-Woodruff estimation floor $\Theta(n^2 d^2)$ |
+| (ii) symmetric | degree-$D < 1/\varepsilon$ in the entry value | top-bucket indicator $[v=d] = \binom{v}{d}$ has degree exactly $d$; Vandermonde nullspace, witness $\{3,1,1,1\}$ vs $\{2,2,2,0\}$ |
+| (iii) spectral | $f(\sigma_1,\dots,\sigma_d)$ from the core | equal-spectrum collision at the gap-1 top: $(2,0,0)$ shared by max $=d$ and max $=d-1$ |
+
+THEOREM (CMM blindness): no single-round CMM of subquadratic budget resolves $\mathrm{max} =
+d$ vs $\mathrm{max} \le d-1$ over rank-$\le d$ Boolean products. The model demonstrably
+CONTAINS B1-B4 (moment $=$ (b); spectral/Frobenius and regularity and sketch $=$ (a) or
+(c)), so this is a real upgrade from a four-method heuristic. The two floors in branch (i)
+are distinct objects (the adversary's prose patch): a LOCALIZATION floor $1/\mathrm{heaviness}
+= \Theta(n^2)$ and the Price-Woodruff $\ell_\infty$-from-$\ell_2$ ESTIMATION floor $\dim \ge
+\|M\|_F^2/\mathrm{gap}^2 = \Theta(n^2 d^2)$ (Price-Woodruff, ICALP 2012, arXiv:1206.5725).
+Separable $W$ are a subset of all linear sketches so the floor transfers a fortiori, and
+turnstile $=$ linear-sketch (Li-Nguyen-Woodruff, STOC 2014) makes it a genuine streaming
+SPACE lower bound. The heaviness wall SURVIVES on the actual Chen gadget after removing the
+rank-$1$ offset (residual ratio$\cdot n^2 = 1.25$).
+
+### The 1-sparse loose thread (W2), resolved honestly
+
+Deterministic for-all $1$-sparse recovery is $O(\log N)$, but the bit-encoding sketch is NOT
+excluded by non-separability (its rows ARE rank-$1$ for power-of-two $n$). It is excluded
+because it is a $1$-sparse DECODE returning the row-SUM ($255$), not the max ($3$), on dense
+$M$, and because you hold one instance, not a difference. The correct mechanism is
+cheap-from-factored $\Rightarrow$ BULK (low-degree-symmetric / rotation-invariant), NOT
+cheap $\Rightarrow$ separable: the $d\times d$ cores give cheap NON-separable functionals
+such as $\|M\|_F^2 = \mathrm{tr}(A^\top A\, B^\top B)$.
+
+### The escape locus and the most promising crack
+
+The CMM is single-round and oblivious; the bound does NOT cover ADAPTIVE / MULTI-ROUND
+measurement. Two prongs probed the escape, both negative-but-instructive. W4 ADAPTIVE
+BRANCH-AND-BOUND: on the true worst case (every row popcount $d/2$) every cheap separable
+certificate is additively $\Theta(d)$ loose (gaps $0.5 \to 27.9$ as $d: 8 \to 128$), the
+pruned fraction is EXACTLY $0$ even with an omniscient incumbent, and $T(n) = 4T(n/2) +
+\text{cheap} = \Theta(n^2)$, zero shave; the only additive-$1$ certificate is the exact
+block max (circular). This LOCATES the wall as worst-case GAPLESSNESS, not the single-round
+restriction. W3 CLOSEST-PAIR (the most promising crack): the exact reframe $\mathrm{Ham} =
+|a| + |b| - 2\langle a,b\rangle$ makes thresholded Max-IP literally bichromatic Hamming
+near-neighbor, falsifying the slogan, and targeting the genuine near-top gap-$1$ instance.
+But the closest-pair engine (Alman-Williams FOCS 2015, arXiv:1507.05106; Alman-Chan-Williams
+FOCS 2016, arXiv:1608.04355) is the SAME probabilistic-polynomial-$+$-MM engine as the OV
+shave: saved time $n^{2 - 1/O(\sqrt c\,\mathrm{polylog}\,c)}$ at $d = c\log n$ decays to
+$1+o(1)$ at $d = n^\varepsilon$, STRICTLY worse than OV's constant $2^{1/\varepsilon}$. Every
+technique reaching $d = n^\varepsilon$ (LSH, May-Ozerov, Alman-Chan offline ANN SODA 2020)
+is $(1+\varepsilon)$-APPROXIMATE and cannot resolve gap-$1$; exactness is SETH-hard at $d =
+2^{O(\log^\star n)}$ (Chen ToC 2020, arXiv:1802.02325; Williams SODA 2018). Chen's hardness
+is itself a Set-Disjointness communication theorem ($\Omega(n)$ randomized,
+Kalyanasundaram-Schnitger 1992, Razborov 1992), and adaptive turnstile $=$ a sequence of
+linear sketches (Ai-Hu-Li-Woodruff CCC 2016), so single-round bounds compose only up to a
+$\#$rounds factor: the prize-relevant escape must be adaptive.
+
+### The precise missing property, sharpened
+
+An ADAPTIVE / multi-round, NON-LINEAR, EXACT-gap-$1$, worst-case-GAPLESS extreme-extractor
+on the low-rank factored form, ideally exploiting the bichromatic-near-neighbor metric
+structure. Single-round is provably insufficient; the binding obstruction is worst-case
+gaplessness, not bulkness; the metric reframe is on-target but every published engine
+decays or is approximate at $d = n^\varepsilon$. No such object exists yet.
+
 ## 5. Why a purely algebraic-polynomial approach is not obviously enough, stated carefully
 
 The audit caught a real error in the earlier framing, and the corrected statement is

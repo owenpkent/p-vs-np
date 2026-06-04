@@ -134,7 +134,7 @@ A connected sequence of grounded multi-agent passes then anatomized the **leadin
 gap map, the Max-IP log-shave attack, the J1 transfer analysis, the fused-max-MM build
 (four candidate constructions sharing one bulk-vs-extreme wall), the TC0-PRF
 natural-proofs collision, and the four-joint descent-to-NP map. See
-[`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) findings 20-28 and the grounded
+[`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) findings 20-29 and the grounded
 note [`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md).
 
 ## Cross-cutting findings
@@ -156,7 +156,7 @@ once. This is the project's most useful piece of map.
 | Experiments, Phase 0 infrastructure (barrier checker + smoke test) | Complete (5/5) |
 | Experiments, Phase 0 demos (relativization, parity restriction, natural proofs, SAT phase transition) | Run to completion |
 | Experiments, architecture suite (Razborov-Smolensky, pigeonhole resolution width, Kronecker coefficients, Nisan-Wigderson, monotone clique, TC0-SAT hinge) | Run to completion, self-checks pass |
-| Leading-path spine, findings 20-28 (geometry gap map, Max-IP log-shave attack, J1 transfer, fused-max-MM build, TC0-PRF natural-proofs collision, four-joint descent-to-NP map) | Run to completion, verifier-checked; precise coordinates, no progress on the prize |
+| Leading-path spine, findings 20-29 (geometry gap map, Max-IP log-shave attack, J1 transfer, fused-max-MM build, first-principles wall-hardening, TC0-PRF natural-proofs collision, four-joint descent-to-NP map) | Run to completion, verifier-checked; precise coordinates, no progress on the prize |
 | Strand-3 coordinate ledger + algebrization probe + two no-go computations (Bockstein bridge, Oliver/symmetry route) | Run to completion |
 | 2050 backward-induction dossier + reading notes (31 sources) + research-direction syntheses | Complete |
 | Lean 4 formalization | Skeleton compiles against core Lean; documented `sorry` targets remain |
