@@ -76,7 +76,7 @@ These replace the Riemann repo's four RH architectures.
 | Hardness vs randomness (NW PRG) | [`hardness_randomness/e_nisan_wigderson_prg.py`](hardness_randomness/e_nisan_wigderson_prg.py) | Runs to completion | builds the polynomial $(l,k)$-design (size $q$, intersection $\le k$, stretch $q^2 \to q^{k+1}$) and shows NW with an easy $f$ (parity) is distinguishable while a nonlinear $f$ (majority) resists, so the PRG property needs hardness |
 | Circuit complexity (monotone) | [`circuit_complexity/e_monotone_clique.py`](circuit_complexity/e_monotone_clique.py) | Runs to completion | constructive Erdos-Rado sunflower extraction (the engine of Razborov's method of approximations), verified on families above the $s!(p-1)^s$ bound; the barrier checker confirms the method is natural, hence monotone-only and blocked against $\mathsf{P/poly}$ |
 
-### The leading-path spine (TC0 / Williams), 2026-06-03/04 (findings 20-32)
+### The leading-path spine (TC0 / Williams), 2026-06-03/04 (findings 20-34)
 
 A connected sequence of multi-agent passes anatomized the leading path (the Williams
 algorithm-to-lower-bound spine toward $\mathsf{NEXP} / \mathsf{NP} \not\subseteq$ dense

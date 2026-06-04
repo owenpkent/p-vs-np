@@ -126,7 +126,7 @@ say what a proof must look like, and the partial results (weak-class lower
 bounds, the satisfiability-algorithm / lower-bound connection, arithmetic proof
 complexity) are contributions in their own right.
 
-## Recent progress (leading-path anatomy, 2026-06-03 and 2026-06-04; findings 20-32)
+## Recent progress (leading-path anatomy, 2026-06-03 and 2026-06-04; findings 20-34)
 
 A connected sequence of grounded, adversarially-audited, verifier-checked multi-agent
 passes anatomized the leading path end to end. Each result is a precise coordinate, not a
@@ -187,7 +187,7 @@ adaptive bulk and metric methods, the lone residual frontier a co-nondeterminist
 and barrier-free) and one binding structural barrier (J3, the locality
 barrier, a published no-go the dossier flags as an unbuilt object). The natural-proofs and
 algorithmic obstructions are now precisely located rather than vaguely feared. Detail per
-finding in [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) (20-32) and the grounded
+finding in [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md) (20-34) and the grounded
 note [`docs/03_research/2050_tc0_hinge_grounded.md`](docs/03_research/2050_tc0_hinge_grounded.md).
 
 ## Recent progress (TC0 hinge grounding, 2026-06-03)
