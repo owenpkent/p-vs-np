@@ -39,10 +39,16 @@ multiplicity obstructions).
   enough. Arithmetization is non-relativizing yet still algebrizes.
 - **Naturalness is the default** (LEARNINGS #2). Most combinatorial lower-bound
   techniques are natural; non-naturalness is the rare, expensive ingredient a
-  P/poly separation needs. At dense poly-size $\mathsf{TC}^0$ specifically, the
-  natural-proofs barrier is plausibly the BINDING constraint, since that class likely
-  computes pseudorandom functions: a now double-sourced concern (ACW 2016, and
-  independently Chen-Tell 2019 via a Miles-Viola candidate PRF). See LEARNINGS #20.
+  P/poly separation needs. At dense poly-size $\mathsf{TC}^0$ specifically, if that
+  class computes PRFs (likely: ACW 2016, Naor-Reingold, Miles-Viola, Chen-Tell 2019),
+  the PRF collision binds the LARGE-and-constructive (combinatorial) ALTERNATIVES,
+  which is precisely WHY a non-natural method is required, not an obstruction to the
+  leading path. The Williams spine is non-natural by dropping LARGENESS, not
+  constructivity (Williams 2013), so the collision is silent on it. Natural proofs is
+  CONDITIONALLY EVADED on the leading path via non-largeness, open only at the
+  $\mathsf{NEXP}$-to-$\mathsf{NP}$ descent (where the escape flips to
+  non-constructivity). See LEARNINGS #25 (which corrects an earlier
+  "binding constraint" over-pessimism).
 - **The constructivity crux is MCSP** (LEARNINGS #3). For the property a real
   lower bound wants ("circuit size $> s$"), naturalness reduces to the open
   complexity of the Minimum Circuit Size Problem.
@@ -85,11 +91,12 @@ degree $\Theta(n)$" was a conflation: the SAT algorithm spends PROBABILISTIC deg
 ($\Theta(\sqrt{n})$ for MAJORITY), not approximate degree, and that is exactly why it
 already crosses one threshold layer. The barrier profile of the open target is
 honest-but-weaker than "evades all three": relativization is genuinely evaded,
-natural-proofs evasion is CONDITIONAL on whether dense poly-size $\mathsf{TC}^0$
-supports PRFs (now double-sourced: ACW 2016 say so explicitly, and Chen-Tell 2019
-flag the same collision via a Miles-Viola candidate PRF, making it arguably the
-BINDING constraint here rather than a clean pass), and algebrization is NOT YET
-ASSESSABLE (a property of a nonexistent algorithm). This
+natural-proofs evasion is CONDITIONALLY EVADED via non-largeness (corrected, finding
+25: the PRF collision binds the LARGE-and-constructive alternatives, not the non-large
+Williams route, so it is the reason a non-natural method is needed; it re-enters only
+at the NEXP-to-NP descent, where the escape flips to non-constructivity, which against
+$\mathsf{TC}^0$ is open), and algebrization is NOT YET ASSESSABLE (a property of a
+nonexistent algorithm). This
 rung is compute-light and attackable now. The runnable model in
 [`experiments/circuit_complexity/e_tc0_sat_savings.py`](experiments/circuit_complexity/e_tc0_sat_savings.py)
 encodes the corrected picture; the "Boolean-rank-collapse" placeholder is retired in

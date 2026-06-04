@@ -187,13 +187,23 @@ BARRIERS = {
     "williams_acc0": ProofTechnique(
         name="Williams 2011: NEXP not in ACC0",
         relativizes=False,
+        # Non-natural by dropping LARGENESS, not constructivity. Williams 2013
+        # ("Natural Proofs versus Derandomization", STOC 2013 / SICOMP 2016, Thm 1.1)
+        # proves CONSTRUCTIVITY IS UNAVOIDABLE for NEXP lower bounds: NEXP not in C iff
+        # a poly-time (constructive) property distinguishes SOME function from all
+        # C-circuits. The "some function" / at-least-one reading is the non-large
+        # escape. So the correct profile is constructive=True, large=False. (Corrected
+        # 2026-06-03; see LEARNINGS finding 25. is_natural stays False since largeness
+        # clears it, so the smoke test is unchanged.)
         natural_largeness=False,
-        natural_constructivity=False,
+        natural_constructivity=True,
         algebrizes=False,
         notes=(
             "The canonical technique that threads all three barriers. It combines a "
-            "non-trivial ACC0 satisfiability algorithm with a non-constructive, "
-            "non-relativizing, non-algebrizing diagonalization against NEXP. The current "
+            "non-trivial ACC0 satisfiability algorithm with a non-LARGE (function-specific, "
+            "but constructive: constructivity is unavoidable, Williams 2013), "
+            "non-relativizing, non-algebrizing diagonalization against NEXP. It evades the "
+            "natural-proofs barrier by dropping largeness, NOT constructivity. The current "
             "frontier of unconditional lower bounds."
         ),
     ),

@@ -323,9 +323,10 @@ do NOT cover OV or Max-IP. So the candidate finer barrier does not bind, and the
 implication is a WANTED route, not an obstruction. Two finer obstructions, neither a proved
 barrier: (i) the matrix-output wall ($\Omega(n^2)$ natural output size of $A B^\top$,
 scoped to the matrix, not the problem), which pins WHERE a new idea must act
-(max-without-enumeration); (ii) the inherited, conditional natural-proofs collision (if
-poly-size THR-of-THR computes strong PRFs, the RESULTING lower bound, not the algorithm,
-collides with Razborov-Rudich), unchanged from section 6.
+(max-without-enumeration); (ii) the inherited natural-proofs question (corrected in
+section 6 / finding 25): the PRF collision binds the LARGE-and-constructive alternatives,
+NOT the non-large Williams route, so it is evaded at the NEXP-level bound and re-enters
+only at the NEXP-to-NP descent, where the escape flips to non-constructivity.
 
 ### Target-widening (project inference, carry as a hedge)
 
@@ -393,21 +394,29 @@ proof object cleared the barriers.
   the gate structure (the BGS engine in LEARNINGS finding 4 leaves a free string for
   a black-box machine). This is the one defensible flag, true by construction for
   SAT.
-- **Natural proofs: CONDITIONALLY evaded, and this is arguably the binding
-  constraint.** The probabilistic-polynomial method is non-natural the Williams 2013
-  way, dropping largeness not constructivity (LEARNINGS finding 13). BUT ACW 2016
-  warn that their richest threshold class "seems likely" to support pseudorandom
-  function candidates (located 2026-06-03: arXiv:1608.04355, Section 1, page 5, the
-  paragraph after Theorem 1.9, "It would not be surprising ... it seems likely that
-  ..."; the underlying concern that poly-size $\mathsf{TC}^0$ computes PRFs is well
-  established, e.g. Naor-Reingold PRFs in $\mathsf{TC}^0$, JACM 2004). Chen-Tell 2019
-  independently flag the same collision: proving $n^{1+O(1/d)}$-wire TC0 bounds may
-  require non-natural proofs, since Miles-Viola 2015 give a candidate PRF in depth-$d$
-  $\mathsf{TC}^0$ with $n^{1+O(1/d)}$ wires. If dense poly-size $\mathsf{TC}^0$ supports strong
-  PRFs, no natural property separates against it, and any constructive lower-bound
-  method there collides with Razborov-Rudich. This is not yet evaded. It sits exactly
-  where the target wants to reach, so natural-proofs evasion is a co-equal open
-  obstruction, not a clean pass.
+- **Natural proofs: CONDITIONALLY evaded via non-largeness at the NEXP-level bound
+  (corrected 2026-06-03, finding 25; an earlier phrasing said "arguably the binding
+  constraint", which inverted the direction).** Razborov-Rudich needs a property that
+  is LARGE AND constructive. If dense poly-size $\mathsf{TC}^0$ supports strong PRFs
+  (ACW 2016 "seems likely", arXiv:1608.04355 Section 1 after Thm 1.9; Naor-Reingold
+  PRFs in $\mathsf{TC}^0$, JACM 2004; Miles-Viola candidate, JACM 2015; Chen-Tell 2019),
+  then no LARGE-and-constructive (combinatorial / correlation / approximate-degree)
+  property separates against it. That binds the natural ALTERNATIVES, and it is exactly
+  WHY a non-natural method is required, not an obstruction to the leading path (ACW /
+  Chen-Tell say precisely this: TC0 bounds "may require non-natural proofs"). The
+  Williams spine is non-natural by dropping LARGENESS, NOT constructivity (Williams
+  2013, STOC 2013 / SICOMP 2016: constructivity is unavoidable, the useful property is
+  non-large, "distinguishes SOME function"). A genuinely non-large Williams-style proof
+  carries no distinguishing bias, so the PRF collision is SILENT on it. The residual
+  subtlety (why not cleanly evaded): at the $\mathsf{NEXP}$-to-$\mathsf{NP}$ DESCENT the
+  bespoke non-large property is gone, and the candidate replacement is the
+  meta-complexity high-Kt device, which is LARGE (Shannon counting), so it must escape
+  by NON-CONSTRUCTIVITY (deciding high-Kt is MCSP/MKTP-hard). That non-constructivity
+  against $\mathsf{TC}^0$ for the exact descent truth tables is OPEN (restricted MCSP
+  variants are NP-hard non-relativizingly, Hirahara 2022; the exact object is not). So
+  natural proofs is evaded at the base and open at the descent, where the escape lever
+  flips from largeness to constructivity. Modeled in
+  [`../../experiments/natural_proofs/e_tc0_prf_collision.py`](../../experiments/natural_proofs/e_tc0_prf_collision.py).
 - **Algebrization: NOT YET ASSESSABLE, not "evaded".** The flag $\mathsf{algebrizes}
   = \mathsf{False}$ is a property of a HYPOTHETICAL algorithm whose mechanism does
   not yet exist. No cited source establishes it; arXiv:1608.04355 does not contain

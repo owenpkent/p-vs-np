@@ -43,14 +43,24 @@ The threshold frontier is now located precisely (see
 [`../03_research/2050_tc0_hinge_grounded.md`](../03_research/2050_tc0_hinge_grounded.md)):
 the first threshold rung is already climbed ($\mathsf{NQP} \not\subseteq$ ACC-of-THR,
 Murray-Williams 2018), and the open object is a satisfiability speedup for DENSE
-depth-2 THR-of-THR, not "$\mathsf{TC}^0$" in the abstract. A caution that sharpened in
-June 2026: at dense poly-size $\mathsf{TC}^0$ the natural-proofs barrier is plausibly
-the BINDING constraint, because that class likely computes pseudorandom functions.
-This is now double-sourced: ACW 2016 say so explicitly (arXiv:1608.04355 Section 1,
-after Theorem 1.9), and Chen-Tell 2019 flag the same collision via a Miles-Viola 2015
-candidate PRF in depth-$d$ $\mathsf{TC}^0$ with $n^{1+O(1/d)}$ wires. Pushing on to
-$\mathsf{NC}^1$ / $\mathsf{P/poly}$ and from $\mathsf{NEXP}$ to $\mathsf{NP}$ remains
-the longer-range frontier.
+depth-2 THR-of-THR, not "$\mathsf{TC}^0$" in the abstract. A caution, corrected in
+June 2026 (LEARNINGS finding 25, after an over-pessimistic earlier phrasing): at dense
+poly-size $\mathsf{TC}^0$ the PRF collision (likely PRFs in $\mathsf{TC}^0$: ACW 2016;
+Naor-Reingold JACM 2004; Miles-Viola candidate JACM 2015; Chen-Tell 2019) rules out any
+LARGE-and-constructive (combinatorial / correlation / approximate-degree) lower-bound
+property. That binds the natural ALTERNATIVES, and it is precisely WHY a non-natural
+method is required, not an obstruction to the Williams route: Razborov-Rudich needs
+large AND constructive, and the Williams spine is non-natural by dropping LARGENESS, not
+constructivity (Williams 2013: constructivity is unavoidable, the useful property is
+non-large), so a genuinely non-large Williams-style proof does NOT collide with the PRF.
+Natural proofs on the leading path: CONDITIONALLY EVADED via non-largeness at the
+NEXP-level bound. The genuine open obstructions are the ALGORITHMIC one (the dense
+THR-of-THR SAT / Max-IP log-shave, findings 20/23/24), the not-yet-assessable
+algebrization flag, and the $\mathsf{NEXP}$-to-$\mathsf{NP}$ descent, where the escape
+mechanism must flip from non-largeness to NON-CONSTRUCTIVITY (the meta-complexity
+high-Kt device, which is large) and that non-constructivity against $\mathsf{TC}^0$ is
+open. Pushing on to $\mathsf{NC}^1$ / $\mathsf{P/poly}$ and to $\mathsf{NP}$ remains the
+longer-range frontier.
 
 ## Architecture 2: diagonalization and hierarchy theorems
 

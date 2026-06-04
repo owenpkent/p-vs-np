@@ -347,13 +347,18 @@ $2^{n-n^\varepsilon}$ for dense depth-2 LTF-of-LTF (equivalently, per Chen 2018
 arXiv:1805.10698, shaving all polylog factors off a polylog-dimension
 closest/furthest-pair problem; medium confidence). Third, the barrier profile is more
 honest than "evades all three." Relativization is genuinely evaded (a real SAT
-algorithm opens the gate structure). Natural proofs is CONDITIONALLY evaded, and this
-is arguably the BINDING constraint at dense poly-size TC0: that class likely computes
-pseudorandom functions, which would make any constructive lower-bound method there
-natural. This is now double-sourced: ACW 2016 say so explicitly (arXiv:1608.04355
-Section 1, located after Theorem 1.9), and Chen-Tell 2019 independently flag the same
-collision via a Miles-Viola 2015 candidate PRF in depth-d TC0 with $n^{1+O(1/d)}$
-wires. So it is a co-equal open obstruction, not a clean pass. Algebrization is NOT YET ASSESSABLE, not "evaded": $\mathsf{algebrizes} =
+algorithm opens the gate structure). Natural proofs is CONDITIONALLY evaded.
+[CORRECTED by finding 25: the next two sentences were over-pessimistic. The PRF
+collision binds the LARGE-and-constructive ALTERNATIVES, not "any constructive method"
+(Razborov-Rudich needs large AND constructive); the Williams route is non-large, so it
+is NOT bound. The collision is the REASON a non-natural method is needed, not the
+binding constraint on the leading path; it re-enters only at the NEXP-to-NP descent.]
+This was stated as "arguably the BINDING constraint at dense poly-size TC0: that class
+likely computes pseudorandom functions, which would make any constructive lower-bound
+method there natural." It is double-sourced (ACW 2016, arXiv:1608.04355 Section 1 after
+Theorem 1.9; Chen-Tell 2019 via a Miles-Viola 2015 candidate PRF in depth-d TC0 with
+$n^{1+O(1/d)}$ wires) that TC0 likely has PRFs, but that binds only the natural
+alternatives. See finding 25. Algebrization is NOT YET ASSESSABLE, not "evaded": $\mathsf{algebrizes} =
 \mathsf{False}$ is a property of a nonexistent algorithm, in the same epistemic state
 as the retired "Boolean-rank collapse" placeholder. The "combinatorial =
 non-algebrizing, algebraic = algebrizing" dichotomy is false within our own solved
@@ -611,3 +616,76 @@ STATUS. As of June 2026 NEXP not in poly-size THR-of-THR remains OPEN; no algori
 bar. Source: [`circuit_complexity/e_maxip_logshave.py`](circuit_complexity/e_maxip_logshave.py)
 (exit 0, smoke 5/5) and the new subsection 4b of
 [`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md).
+
+### 25. The TC0-PRF natural-proofs collision does NOT doom the Williams route: it binds the LARGE-and-constructive alternatives (which is why a non-natural method is needed), the spine is non-natural by non-largeness, and the open locus flips to non-constructivity at the NEXP-to-NP descent.
+
+The project had propagated (findings 20, atlas, STATE, note section 6) that "natural
+proofs is plausibly the BINDING constraint at dense TC0, because that class likely
+computes PRFs." A three-survey + builder + adversary + verifier pass (VERIFIER overall
+high, every load-bearing claim web-confirmed verbatim; ADVERSARY sound-with-fixes; the
+synthesizer agent failed to emit structured output and the deliverable was recovered
+from the run journal and authored by hand) confronts the deepest strategic question and
+CORRECTS that framing as too pessimistic, while guarding against the opposite overclaim.
+
+THE CORRECTION. Razborov-Rudich requires a property that is LARGE AND constructive (the
+checker encodes this: is_natural = largeness AND constructivity). The earlier phrasing
+"any constructive lower-bound method collides" was the error: a NON-LARGE constructive
+method does NOT collide. Williams 2013 ("Natural Proofs versus Derandomization", STOC
+2013 / SICOMP 2016, Thm 1.1) proves CONSTRUCTIVITY IS UNAVOIDABLE for NEXP lower bounds
+(verbatim: "Constructivity is unavoidable, even for NEXP lower bounds"; NEXP not in C
+iff a poly-time property distinguishes SOME function from all C-circuits, the
+"some function" = at-least-one = non-large reading). So the Williams algorithm-to-lower-
+bound method evades natural proofs by DROPPING LARGENESS, not constructivity. A
+non-large property carries no distinguishing bias against a PRF, so the PRF collision is
+SILENT on the Williams route. The collision DOOMS the LARGE-and-constructive
+(combinatorial / correlation / approximate-degree) ALTERNATIVES, which is exactly WHY a
+non-natural method is required (ACW 2016, Chen-Tell 2019: TC0 bounds "may require
+non-natural proofs"). The "binding constraint" framing inverted the direction: the wall
+selects the non-natural route, it is not an obstruction to it.
+
+THE RESIDUAL SUBTLETY (why the verdict is SUBTLE, not cleanly EVADED). At the
+NEXP-to-NP DESCENT the bespoke non-large Williams property ("is this THE hard function")
+is unavailable for a generic NP target. The candidate replacement is the meta-complexity
+high-Kt device, but high-Kt-ness IS LARGE (Shannon counting: most truth tables are
+incompressible). A large property can stay non-natural only by being NON-CONSTRUCTIVE
+(deciding high Kt is MCSP/MKTP-hard). So at the descent the escape lever FLIPS from
+largeness (Williams) to non-constructivity (meta-complexity), and that non-constructivity
+against TC0 for the EXACT descent truth tables is OPEN: restricted/partial MCSP variants
+are NP-hard non-relativizingly (Hirahara 2022), but the exact object is not. The smallest
+breaking case: if a builder needing an efficiently-checkable descent certificate reaches
+for a constructive hardness statistic (average sensitivity, approximate degree, spectral
+norm), that is large+constructive = natural, and the PRF collision bites it. So "evaded"
+is robust at the NEXP-level bound and one unproved non-constructivity claim away from
+"doomed at the descent."
+
+THE DIVISION OF LABOR (finding 12, reconfirmed). Meta-complexity supplies
+NON-NATURALNESS only (via the non-constructive high-Kt object); it does NOT supply
+non-relativization. Hirahara's 2018 non-black-box worst-case-to-average-case reduction
+still RELATIVIZES (ECCC TR18-138 Section 1.7, verbatim: "our proofs do relativize"), so
+the non-relativizing and non-algebrizing content must come from the Williams spine. The
+experiment's metacomplexity_w2a_core_alone fixture HITS relativization, encoding this.
+"Meta-complexity threads natural proofs at TC0" is PARTIAL: justified as the candidate
+non-naturalness engine for the descent (escaping via non-constructivity), but the
+non-constructivity is partially proved (restricted variants) and open for the exact
+object, not a discharged repair.
+
+FIXTURE CORRECTION. The shared `barriers.py` williams_acc0 fixture had
+natural_constructivity=False and notes calling the diagonalization "non-constructive",
+both wrong per Williams 2013. Corrected to natural_constructivity=True with notes
+"non-natural by dropping largeness, not constructivity"; is_natural stays False (largeness
+clears it), smoke test stays 5/5.
+
+OVERCLAIM GUARDS (carried). "Non-natural by construction" should read "non-natural by the
+ACC0 template, contingent on the dense-TC0 SAT algorithm existing" (the SAT algorithm
+findings 20/23/24 do not yet exist). The PRFs-in-TC0 premise is itself CONDITIONAL
+(Naor-Reingold under factoring/DDH; Miles-Viola candidates), which is a further reason the
+collision does not unconditionally doom anything. The relativizes/algebrizes=False flags on
+the combined route are assumptions (algebrization remains NOT YET ASSESSABLE, note section
+6). And the correction must NOT be read as "the natural-proofs wall is gone": it still binds
+every combinatorial/natural method, and the descent may still need it. Net: the genuine open
+obstruction on the leading path is the ALGORITHMIC one (the dense THR-of-THR SAT / Max-IP
+log-shave) plus the descent's non-constructivity question, NOT natural proofs at the
+NEXP-level bound. Source:
+[`natural_proofs/e_tc0_prf_collision.py`](natural_proofs/e_tc0_prf_collision.py) (exit 0,
+smoke 5/5), the corrected `barriers.py` williams_acc0 fixture, and the framing corrections
+in the atlas, STATE, note section 6, and finding 20.
