@@ -57,8 +57,9 @@ Natural proofs on the leading path: CONDITIONALLY EVADED via non-largeness at th
 NEXP-level bound. The genuine open obstructions are the ALGORITHMIC one (the dense
 THR-of-THR SAT / Max-IP log-shave, findings 20/23/24, sharpened to the fused-max-MM,
 BUILT as four candidate fusions sharing one bulk-vs-extreme wall, then that wall HARDENED into a
-single-round cheap-measurement lower bound with the escape relocated to adaptive / metric methods,
-findings 27/28/29), the
+single-round cheap-measurement lower bound, then CLOSED against deterministic + adaptive bulk and
+metric methods, leaving a co-nondeterministic certificate (n^2 pinned to nonnegative rank = Set-
+Disjointness rectangle-cover = Omega(n)) as the last opening, findings 27/28/29/30), the
 not-yet-assessable
 algebrization flag, and the $\mathsf{NEXP}$-to-$\mathsf{NP}$ descent, where the escape
 mechanism must flip from non-largeness to NON-CONSTRUCTIVITY (the meta-complexity
