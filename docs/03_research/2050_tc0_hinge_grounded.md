@@ -280,11 +280,11 @@ shave logs on this naive algorithm". The polylog has TWO sources:
 | Technique | Saving at $d=n^\varepsilon$ | Log-shave? | Precise shortfall |
 | --- | --- | --- | --- |
 | Polynomial method (AWY SODA 2015; Chan-Williams SODA 2016) | $2^{O(1/\varepsilon)} = O(1)$ constant factor | NO | Saved exponent $1/O(\varepsilon\log n)\to 0$; batch collapses as poly. degree scales with $d$. Also OV/existence $\to$ SYM-of-THR (Thm 1.2). Double-disqualified. |
-| Four-Russians / BMM (Bansal-Williams 2009; Chan 2015; Abboud-Fischer-Kelley-Lovett-Meka STOC 2024, $n^3/2^{\Omega((\log n)^{1/7})}$) | zero transfer | NO | Shaves the OR-AND semiring. Max-IP needs the integer count $\langle a,b\rangle$ then a MAX (the $(+,\times)$ semiring); word-packing of OR does not compute it. AFKLM must NOT be cited as Max-IP progress. |
+| Four-Russians / BMM (Bansal-Williams 2009; Chan 2015; Abboud-Fischer-Kelley-Lovett-Meka STOC 2024, $n^3/2^{\Omega((\log n)^{1/7})}$) | zero transfer | NO | WRONG OPERATION + semiring (sharpened, finding 27). AFKLM's shave solves triangle DETECTION: a dense uniform piece certifies "some entry is nonzero" with NO computation (an OR-idempotent collapse, one witness suffices). That discards exactly the integer counts $\langle a,b\rangle$ a MAX needs; the authors leave the non-Boolean / $(\min,+)$ generalization explicitly open ("min has no inverse"). AFKLM must NOT be cited as Max-IP progress. |
 | Rectangular MM (Coppersmith 1982; Le Gall; WXXZ) | this IS the baseline | NO | The $\log^2 n$ it carries is the polylog to remove and is intrinsic; dual-exponent gains move $\alpha$, not the polylog. Closest in FORM, zero progress on the shave. |
 | Large-sieve (Jin-Xu STOC 2024, arXiv:2403.20326) | not applicable | NO | Scope is sparse convolution + 1D text-to-pattern Hamming; no 1D structure in all-pairs Max-IP, the max couples across all $n^2$ pairs. |
 | Exact integer geometry (Matousek 1992; AESW 1991; Yao 1982; Williams SODA 2018) | $1+o(1)$, $< 1$ log | NO | $n^{2-1/O(d)}$; at $d=n^\varepsilon$ the saved exponent $1/O(n^\varepsilon)$ vanishes super-polynomially. |
-| Min-plus / Razborov-Smolensky (Williams APSP STOC 2014, $n^3/2^{\Omega(\sqrt{\log n})}$) | wrong scale | NO | Right max-operator but $n^3$ full-square regime; engine inherits the same degree-vs-dimension decay at inner dimension $n^\varepsilon$. |
+| Min-plus / Razborov-Smolensky (Williams APSP STOC 2014, $n^3/2^{\Omega(\sqrt{\log n})}$) | wrong operation | NO | WRONG OPERATION, not just scale (sharpened, finding 27). Williams computes a $(\min,+)$ PRODUCT, a per-entry reduction over the contraction index $k$ FUSED into each of the $n^2$ outputs. Max-IP is a standard $(+,\times)$ product with NO per-entry reduction, then ONE global MAX over the OUTPUT indices $(i,j)$. Different reductions on different axes; the fusion hook the engine exploits is ABSENT, so it is a wrong-target wall (operation primary; the $n^\varepsilon$ scale decay to $2^{O(1/\varepsilon)}$ is secondary). |
 
 SMALLEST GAP (two readings disagree, and that IS the finding): by literal-object
 closeness, rectangular MM is first (it IS the baseline, one polylog away in form, shaves
@@ -294,6 +294,30 @@ both close in form AND making log-progress. Precisely: shave the intrinsic $\log
 $n^{2+o(1)}$ rectangular MM at the Coppersmith $\alpha$-boundary, for the $(+,\times)$
 product with a max-reduction, without enumerating the $n^2$ pairs. That sub-problem is
 itself open and is the precise frontier.
+
+### The J1 transfer attempt: the n^3 machinery does not port, for an OPERATION reason (finding 27)
+
+The named most-promising angle was to transfer the $n^3$-scale all-logs machinery DOWN
+to the $n^2$-scale count-then-max product. A dedicated pass (modeled in
+[`../../experiments/circuit_complexity/e_j1_transfer.py`](../../experiments/circuit_complexity/e_j1_transfer.py))
+shows this does NOT port, and the obstruction is OPERATION, not scale. AFKLM 2024 shaves
+triangle DETECTION via an OR-idempotent collapse (a dense uniform piece certifies "some
+entry is nonzero" with no computation), which discards the integer counts a MAX needs;
+Williams 2014 shaves a $(\min,+)$ PRODUCT (a per-entry reduction fused into each output),
+but Max-IP has no per-entry reduction, only ONE global max over the output indices. Both
+wins come from operations Max-IP does not have. This is FUNDAMENTAL as a transfer of the
+existing engines, BUT it is not a barrier on the target: the real frontier is the
+FUSED-MAX-MM problem (compute $\max_{ij}(A B^\top)_{ij}$ for small-range entries, fused
+into the rectangular MM, without materializing the $n^2$ entries), which is OPEN at the
+log-shave scale, SETH-consistent, and barrier-free among published results. No known fused
+product touches it: dominance ($n^{2.69}$), $(\max,\min)$/bottleneck (Vassilevska-Williams-
+Yuster), and bounded-range $(\min,+)$ (ESA 2024) are polynomial speedups at $n^3$
+full-square, per-entry, not a log-shave at thin $n^\varepsilon$. Bichromatic Max-IP is
+truly-subquadratic EQUIVALENT to OV (Chen, SODA 2019, arXiv:1811.12017), but at the
+polynomial $n^{2-\Omega(1)}$ granularity, so it neither delivers a log-shave nor lets
+OV/SETH rule one out. So J1's frontier is sharpened: not "transfer the machinery" (a
+fundamental operation mismatch) but "build a fused-max-MM log-shave" (open, no machinery
+known to touch it, the structural novelty must be max-extraction-without-enumeration).
 
 ### The micro-idea: threshold sweep (correct, but strictly cost-increasing)
 

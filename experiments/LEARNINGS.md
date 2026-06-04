@@ -752,3 +752,70 @@ is a coherent program with a clearly-attackable algorithmic joint and a binding 
 barrier (locality) that the field has not breached and the dossier itself flags as unbuilt.
 Source: [`circuit_complexity/e_leading_path_descent.py`](circuit_complexity/e_leading_path_descent.py)
 and the descent-map corrections to the dossier A2 framing.
+
+### 27. Attacking J1: the n^3-scale all-logs machinery does NOT transfer to the Max-IP log-shave, for an OPERATION reason (not scale); the real frontier is the fused-max-MM, which is open and barrier-free. Sharpens finding 24.
+
+Finding 26 named J1 (the dense THR-of-THR / Max-IP log-shave) as the leading path's one
+attackable joint, and finding 24's most-promising angle was to transfer the $n^3$-scale
+all-logs machinery DOWN to the $n^2$-scale count-then-max product. A dedicated pass (3
+surveys, builder ledger, adversary, verifier; all completed, VERIFIER overall high,
+ADVERSARY verdict SOUND, every machinery parameter web-confirmed verbatim 2026-06-04)
+attacked that transfer and lands a sharp, honest coordinate, with no progress on the prize.
+
+THE TRANSFER FAILS, FOR AN OPERATION REASON (not scale). Max-IP is a standard $(+,\times)$
+product $M = A B^\top$ (entries the integer counts $\langle a,b\rangle \in \{0,\dots,d\}$)
+followed by ONE global MAX over all $n^2$ OUTPUT entries. That is neither machinery's
+operation. (i) AFKLM STOC 2024 ($n^3/2^{\Omega((\log n)^{1/7})}$, arXiv:2311.09095) shaves
+TRIANGLE DETECTION via an OR-idempotent collapse: a dense uniform regular piece certifies
+"some entry is nonzero" hence a triangle "without the need to compute anything further"
+(Sec 3, verbatim). That one-bit existence collapse discards exactly the per-entry integer
+counts a MAX needs (a max distinguishes count 5 from 6; the collapse cannot). The authors
+themselves leave the non-Boolean / $(\min,+)$ generalization explicitly open ("min does not
+have an inverse"). (ii) Williams STOC 2014 ($n^3/2^{\Omega(\sqrt{\log n})}$, arXiv:1312.6680)
+shaves a $(\min,+)$ PRODUCT: a per-entry reduction over the contraction index $k$ FUSED
+into each of the $n^2$ outputs. Max-IP's product step is a plain $(+,\times)$ sum with NO
+per-entry reduction to fuse a threshold polynomial into; its lone reduction is the single
+global max over the OUTPUT indices, applied AFTER the product (different reductions on
+different axes; verified numerically, the $(\min,+)$ matrix's global max is generically not
+the Max-IP answer, 5/5 trials disagree). (iii) The ACW polynomial method has the right ring
+but dies on SCALE (degree-vs-dimension decay to the constant $2^{O(1/\varepsilon)}$ at
+$d = n^\varepsilon$, finding 24).
+
+SHARPEN FINDING 24. The "wrong scale" label on the Williams min-plus row was too weak and
+mislocated the primary block; it is "wrong OPERATION (+ scale), operation primary". The
+AFKLM / four-Russians row sharpens from "shaves the OR-AND semiring" to "the detection-OR
+collapse discards the integer counts the MAX needs (operation + semiring + scale)". Both
+are FUNDAMENTAL as transfers of the existing engines (the win-buying mechanism, OR-collapse
+or per-entry-fusion, is exactly what is absent for count-then-max), not a tunable parameter.
+
+THE TWO READINGS MUST STAY DISTINCT (the audit's load-bearing nuance). "Fundamental" means
+fundamental to transferring THESE engines, NOT a barrier on the target problem. The real
+frontier, the FUSED-MAX-MM (compute $\max_{ij}(A B^\top)_{ij}$ for small-range entries at
+thin $d = n^\varepsilon$, fused into the rectangular MM, without materializing the $n^2$
+entries), is OPEN at the log-shave scale, SETH-consistent ($n^{2-o(1)}$), and barrier-free
+(the strongest log-shaving-hardness theorems, Abboud-Hansen-VW-RW 2016 / Abboud-Bringmann
+2018, provably cover only sequence/alignment, not OV/Max-IP). No known fused product touches
+it: dominance ($n^{2.69}$, Matousek), $(\max,\min)$/bottleneck (Vassilevska-Williams-Yuster
+ToC 2009; Duan-Pettie), and bounded-range $(\min,+)$ (ESA 2024) are POLYNOMIAL speedups at
+$n^3$ full-square, per-entry, not a log-shave at thin dimension. Bichromatic Max-IP IS
+truly-subquadratic EQUIVALENT to OV (Chen, SODA 2019, arXiv:1811.12017), but at the
+polynomial $n^{2-\Omega(1)}$ granularity, so it neither delivers a log-shave nor lets OV/SETH
+rule one out.
+
+THE MICRO-IDEA (a precise FAILURE, the expected negative). A small-range block pre-filter:
+partition $A, B$ into blocks; per block-pair compute a cheap column-overlap upper bound on
+its max inner product (count columns active in both blocks); skip the full block product if
+the bound $\le$ best-so-far. Implemented and CORRECT, but it does NOT shave worst-case: the
+block CONTAINING the global max can never be pruned, and on dense data the overlap bound is
+loose ($\sim d$), so it computes all $n^2$ inner products (measured: 0 of 36 block-pairs
+pruned). Sparse-instance pruning is instance-LUCK, not a worst-case bound. Like the
+threshold-sweep (finding 24), it fails because the global argmax can sit at any pair.
+
+NET. J1's frontier is sharpened from "transfer the $n^3$ machinery" (a fundamental operation
+mismatch) to "build a fused-max-MM log-shave" (open, no machinery known to touch it, the
+structural novelty must be max-extraction-without-enumeration: a succinct certificate of a
+standard product's global max). Source:
+[`circuit_complexity/e_j1_transfer.py`](circuit_complexity/e_j1_transfer.py) (exit 0, smoke
+5/5; two sibling scratch experiments consolidated into it) and the sharpened technique map
+in subsection 4b of
+[`2050_tc0_hinge_grounded.md`](../docs/03_research/2050_tc0_hinge_grounded.md).
